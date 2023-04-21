@@ -3,7 +3,7 @@ import authReducer from './reducers/authSlice';
 import { createWrapper } from 'next-redux-wrapper';
 
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
     authReducer,
   },

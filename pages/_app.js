@@ -1,5 +1,5 @@
 import '@/styles/globals.css'
-import { wrapper, store } from '../src/store'
+import { wrapper, store } from '../src/store.js'
 import { Provider } from 'react-redux'
 
 function App({ Component, pageProps }) {
