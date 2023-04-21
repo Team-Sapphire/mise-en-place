@@ -5,8 +5,8 @@ const initialState = {
   inventory: {},
 };
 
-const authSlice = createSlice({
-  name: 'recipes',
+const inventorySlice = createSlice({
+  name: 'inveotry',
   initialState,
   reducers: {
   },
@@ -21,4 +21,4 @@ const authSlice = createSlice({
 });
 
 
-export default authSlice.reducer;
+export default inventorySlice.reducer;

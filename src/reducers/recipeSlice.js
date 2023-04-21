@@ -6,7 +6,7 @@ const initialState = {
   userPreferences: {}
 };
 
-const authSlice = createSlice({
+const recipeSlice = createSlice({
   name: 'recipes',
   initialState,
   reducers: {
@@ -22,4 +22,4 @@ const authSlice = createSlice({
 });
 
 
-export default authSlice.reducer;
+export default recipeSlice.reducer;
