@@ -6,7 +6,7 @@ const initialState = {
 };
 
 const inventorySlice = createSlice({
-  name: 'inveotry',
+  name: 'inventory',
   initialState,
   reducers: {
   },
