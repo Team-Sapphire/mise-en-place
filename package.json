@@ -9,12 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "^2.5.0",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/material": "^5.12.1",
-    "@reduxjs/toolkit": "^1.9.5",
-
-    "@auth0/nextjs-auth0": "^2.5.0",
     "@reduxjs/toolkit": "^1.9.5",
     "autoprefixer": "10.4.14",
     "eslint": "8.38.0",
