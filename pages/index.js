@@ -1,17 +1,23 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import Image from 'next/image'
 import Link from 'next/link';
 import { Inter } from 'next/font/google'
 import MainPage from './main.jsx';
 import Link from 'next/link'
 =======
+=======
+>>>>>>> 44b89ab17cb277a8e967d0d4ad9282e9b79a89a9
 import Image from "next/image";
 import Link from "next/link";
 import { Inter } from "next/font/google";
 import MainPage from "./main.jsx";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import Link from "next/link";
 >>>>>>> 36ff6192d5d29671533222889ef616aa5e0a28df
+=======
+>>>>>>> 44b89ab17cb277a8e967d0d4ad9282e9b79a89a9
 =======
 >>>>>>> 44b89ab17cb277a8e967d0d4ad9282e9b79a89a9
 
@@ -19,6 +25,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
+<<<<<<< HEAD
 <<<<<<< HEAD
     <main className="flex flex-col items-center justify-between min-h-screen p-24">
       <Link href="/recipe">Go here!</Link>
@@ -138,11 +145,16 @@ export default function Home() {
         </a>
       </div>
 =======
+=======
+>>>>>>> 44b89ab17cb277a8e967d0d4ad9282e9b79a89a9
     <main
       style={{ gridTemplate: "10% 90% / 20% 50% 30%" }}
       className="relative grid block w-full h-full"
     >
       <div className="">Header/logo</div>
+<<<<<<< HEAD
+>>>>>>> 44b89ab17cb277a8e967d0d4ad9282e9b79a89a9
+=======
 >>>>>>> 44b89ab17cb277a8e967d0d4ad9282e9b79a89a9
     </main>
   );

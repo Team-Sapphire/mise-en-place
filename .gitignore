@@ -35,6 +35,10 @@ yarn-error.log*
 next-env.d.ts
 
 #...
+<<<<<<< HEAD
 keysAndCerts/
 
 .env
+=======
+keysAndCerts/
+>>>>>>> 44b89ab17cb277a8e967d0d4ad9282e9b79a89a9
