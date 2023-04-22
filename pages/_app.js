@@ -1,23 +1,22 @@
-<<<<<<< HEAD
-import '../styles/globals.css'
-import React from 'react';
-import { UserProvider } from '@auth0/nextjs-auth0/client';
-import { wrapper, store } from '../src/store.js'
-import { Provider } from 'react-redux'
-=======
 import "/styles/globals.css";
 import React from "react";
+import {ThemeProvider} from '@mui/material/styles'
+import {theme} from '../src/theme'
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { wrapper, store } from "../src/store.js";
 import { Provider } from "react-redux";
->>>>>>> 36ff6192d5d29671533222889ef616aa5e0a28df
+import Typography from '@mui/material/Typography';
 
 function App({ Component, pageProps }) {
   return (
     <>
       <Provider store={store}>
         <UserProvider>
-          <Component {...pageProps} />
+          <ThemeProvider theme={theme}>
+            <Typography>
+              <Component {...pageProps} />
+            </Typography>
+          </ThemeProvider>
         </UserProvider>
       </Provider>
     </>

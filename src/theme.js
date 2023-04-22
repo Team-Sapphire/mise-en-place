@@ -1,13 +1,16 @@
 import {createTheme} from '@mui/material/styles'
 import { orange } from '@mui/material/colors';
-import { red } from '@mui/material/colors';
+import { green } from '@mui/material/colors';
 import { yellow } from '@mui/material/colors';
 
 export const theme = createTheme({
-  colors: {
-    primary: orange[500],
-    secondary: red[500],
-    tertiary: yellow[500],
+  palette: {
+    primary: {
+      main: orange[500],
+    },
+    secondary: {
+      main: green[500],
+    },
   },
   typography: {
     allVariants: {
