@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@types/node": "18.15.13",
-    "next-https": "^1.1.9"
+    "next-https": "^1.1.9",
+    "tailwindcss-animate": "^1.0.5"
   }
 }
