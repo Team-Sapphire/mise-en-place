@@ -1,12 +1,11 @@
 import Link from 'next/link'
 
-let MainPage = () => {
+let Cart = () => {
   return (
     <div>
-      <Link >Home page</Link>
       <p>Hello World</p>
     </div>
   )
 }
 
-export default MainPage;
+export default Cart;
