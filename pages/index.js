@@ -1,5 +1,7 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
+import MainPage from './MainPage.jsx';
+import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -11,7 +13,9 @@ export default function Home() {
           Get started by editing&nbsp;
           <code className="font-mono font-bold">pages/index.js</code>
         </p>
-        <div className="fixed bottom-0 left-0 flex items-end justify-center w-full h-48 bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
+        <Link href="/MainPage">Click Here!</Link>
+        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
+
           <a
             className="flex gap-2 p-8 pointer-events-none place-items-center lg:pointer-events-auto lg:p-0"
             href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
@@ -55,6 +59,7 @@ export default function Home() {
               -&gt;
             </span>
           </h2>
+          <link href="./ "></link>
           <p
             className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
           >
