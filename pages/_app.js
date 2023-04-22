@@ -1,4 +1,4 @@
-import '@/styles/globals.css'
+import '../styles/globals.css'
 import React from 'react';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import { wrapper, store } from '../src/store.js'
