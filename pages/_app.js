@@ -6,13 +6,13 @@ import { Provider } from "react-redux";
 
 function App({ Component, pageProps }) {
   return (
-    <>
+    <div data-theme="cupcake">
       <Provider store={store}>
         <UserProvider>
           <Component {...pageProps} />
         </UserProvider>
       </Provider>
-    </>
+    </div>
   );
 }
 

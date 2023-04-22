@@ -1,12 +1,54 @@
 import React from "react";
 import Image from "next/image";
+const axios = require("axios");
 
 const RecipePage = () => {
+  let thisRecipe = recipeExample.hits[0].recipe;
+  const [prompt, setPrompt] = React.useState("");
+
+  React.useEffect(() => {
+    axios
+      .get("/api/recipe")
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <div>
-      <h1>Recipe</h1>
-      <div className="flex gap-5">
-        <img src={recipeExample.hits[0].recipe.image} alt="recipe picture" />
+      <h1>{thisRecipe.label}</h1>
+      <div className="grid grid-cols-8 gap-5">
+        <img
+          className="col-span-3"
+          src={thisRecipe.image}
+          alt="recipe picture"
+        />
+        <div className="col-span-2">
+          <h4 className="text-lg font-bold">Ingredients</h4>
+          {thisRecipe.ingredientLines.map((ingredient) => {
+            return <p>{ingredient}</p>;
+          })}
+        </div>
+        <div>
+          <h4 className="text-m">Labels</h4>
+          {thisRecipe.healthLabels.map((label) => {
+            return (
+              <p className="text-xs" key={thisRecipe.uri}>
+                {label}
+              </p>
+            );
+          })}
+        </div>
+        <div className="col-span-2 flex flex-col gap-4 mr-5">
+          <button className="btn">Customize</button>
+          <button className="btn">Buy the ingredients</button>
+        </div>
+      </div>
+      <div>
+        <p>INSTRUCTIONS FROM AI</p>
       </div>
     </div>
   );
