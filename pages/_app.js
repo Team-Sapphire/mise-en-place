@@ -13,9 +13,7 @@ function App({ Component, pageProps }) {
       <Provider store={store}>
         <UserProvider>
           <ThemeProvider theme={theme}>
-            <Typography>
               <Component {...pageProps} />
-            </Typography>
           </ThemeProvider>
         </UserProvider>
       </Provider>
