@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link';
 import { Inter } from 'next/font/google'
 import MainPage from './main.jsx';
 import Link from 'next/link'
