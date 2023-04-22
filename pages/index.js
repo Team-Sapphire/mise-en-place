@@ -13,12 +13,9 @@ export default function Home() {
           Get started by editing&nbsp;
           <code className="font-mono font-bold">pages/index.js</code>
         </p>
-<<<<<<< HEAD
         <Link href="/MainPage">Click Here!</Link>
         <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-=======
-        <div className="fixed bottom-0 left-0 flex items-end justify-center w-full h-48 bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
->>>>>>> fc93f873130f019ce2fc99ba22298876cbcdf84e
+
           <a
             className="flex gap-2 p-8 pointer-events-none place-items-center lg:pointer-events-auto lg:p-0"
             href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
