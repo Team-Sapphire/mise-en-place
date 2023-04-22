@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link';
 import { Inter } from 'next/font/google'
-import MainPage from './MainPage.jsx';
+import MainPage from './main.jsx';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -13,7 +13,7 @@ export default function Home() {
           Get started by editing&nbsp;
           <code className="font-mono font-bold">pages/index.js</code>
         </p>
-        <Link href="/MainPage">Click Here!</Link>
+        <Link href="/main">Click Here!</Link>
         <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
 
           <a
