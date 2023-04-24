@@ -830,15 +830,15 @@ let Cart = () => {
   return (
     <div className='m-20' style={{display: 'grid', gridTemplateRows: '33% 33% 33%', gridTemplateColumns: '75% 25%'}}>
       <div>
-        {console.log(recipeExample.hits)}
+        {console.log(recipeExample.hits[0].recipe.ingredients)}
         Logo
         <div>
           <div className='mt-20'>
           Additonal Ingredients Required
           </div>
-          {ingredients.map((ingredient, index) => {
+          {recipeExample.hits[0].recipe.ingredients.map((ingredient, index) => {
             return (
-              <Ingredient key={index + ingredient.name} ingredient={ingredient} />
+              <Ingredient key={index + ingredient.food} ingredient={ingredient} />
             );
           })}
         </div>
