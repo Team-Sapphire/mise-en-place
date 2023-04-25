@@ -1,3 +1,5 @@
+import React from 'react'
+import {useState, useEffect} from 'react'
 import Link from 'next/link'
 import Ingredient from './components/cart/ingredient.js'
 import AddToCart from './components/cart/addToCart.js'
@@ -828,10 +830,11 @@ let recipeExample = {
 };
 
 let Cart = () => {
+  const [cart, setCart] = useState([]);
+
   return (
     <div className='m-20' style={{display: 'grid', gridTemplateRows: '33% 33% 33%', gridTemplateColumns: '75% 25%'}}>
       <div>
-        {console.log(recipeExample.hits[0].recipe.ingredients)}
         Logo
         <div>
           <div className='mt-20'>
@@ -840,11 +843,11 @@ let Cart = () => {
           <KrogerLogo />
           {recipeExample.hits[0].recipe.ingredients.map((ingredient, index) => {
             return (
-              <Ingredient key={index + ingredient.food} ingredient={ingredient} />
+              <Ingredient key={index + ingredient.food} ingredient={ingredient} setCart={setCart} cart={cart}/>
             );
           })}
         </div>
-        <div><AddToCart /></div>
+        <div><AddToCart cart={cart} /></div>
       </div>
       <div>User Profile</div>
     </div>
