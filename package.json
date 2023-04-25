@@ -17,6 +17,7 @@
     "autoprefixer": "10.4.14",
     "eslint": "8.38.0",
     "eslint-config-next": "13.3.0",
+    "framer-motion": "^10.12.4",
     "next": "13.3.0",
     "next-redux-wrapper": "^8.1.0",
     "postcss": "8.4.23",
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "@types/node": "18.15.13",
-    "next-https": "^1.1.9"
+    "next-https": "^1.1.9",
+    "tailwindcss-animate": "^1.0.5"
   }
 }
