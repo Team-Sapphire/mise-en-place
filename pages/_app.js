@@ -1,6 +1,6 @@
 import "/styles/globals.css";
 import React from "react";
-// import { ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "../src/theme";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { wrapper, store } from "../src/store.js";
@@ -12,9 +12,9 @@ function App({ Component, pageProps }) {
     <div data-theme="cupcake">
       <Provider store={store}>
         <UserProvider>
-          {/* <ThemeProvider theme={theme}> */}
-          <Component {...pageProps} />
-          {/* </ThemeProvider> */}
+          <ThemeProvider theme={theme}>
+            <Component {...pageProps} />
+          </ThemeProvider>
         </UserProvider>
       </Provider>
     </div>
