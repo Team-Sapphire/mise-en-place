@@ -1,9 +1,13 @@
 import React from 'react'
 
-const addToCart = () => {
+const AddToCart = () => {
   return (
-    <div>addToCart</div>
+    <>
+      <div className='flex justify-center'>
+        <button className='border h-12 w-40 border-black rounded-lg hover:scale-125 ease-in-out duration-300 bg-yellow-500'>Send to Kroger</button>
+      </div>
+    </>
   );
 };
 
-export default addToCart;
+export default AddToCart;
