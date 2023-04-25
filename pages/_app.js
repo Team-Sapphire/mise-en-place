@@ -5,11 +5,11 @@ import { theme } from "../src/theme";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { wrapper, store } from "../src/store.js";
 import { Provider } from "react-redux";
-import Typography from "@mui/material/Typography";
+// import Typography from "@mui/material/Typography";
 
 function App({ Component, pageProps }) {
   return (
-    <>
+    <div data-theme="cupcake">
       <Provider store={store}>
         <UserProvider>
           <ThemeProvider theme={theme}>
@@ -17,7 +17,7 @@ function App({ Component, pageProps }) {
           </ThemeProvider>
         </UserProvider>
       </Provider>
-    </>
+    </div>
   );
 }
 
