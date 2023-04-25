@@ -29,4 +29,6 @@ body {
 html, body, div#__next {
   height: 100%;
   width: 100%;
+  z-index: -1;
+  position: fixed;
 }
