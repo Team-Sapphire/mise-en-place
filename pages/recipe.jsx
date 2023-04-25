@@ -3,52 +3,146 @@ import Image from "next/image";
 const axios = require("axios");
 
 const RecipePage = () => {
-  let thisRecipe = recipeExample.hits[0].recipe;
-  const [prompt, setPrompt] = React.useState("");
+  const [thisRecipe, setThisRecipe] = React.useState(
+    recipeExample.hits[0].recipe
+  );
+  const [customize, setCustomize] = React.useState(false);
+
+  // TODO divide recipe amounts by yield and then multiple by amount of servings the user wants
+
+  // TODO save with the ingredients, originally saves the ai generated instructions but upon editing, update with the newly edited instructions
+  const [instructions, setInstructions] = React.useState([]);
 
   React.useEffect(() => {
+    setInstructions([
+      "0",
+      "1: Heat 1/4 cup of the olive oil in a large skillet over medium heat.",
+      "2: Add the chicken and brown, about 7 minutes. Set aside.",
+      "3: In a separate large skillet, heat the remaining 1/4 cup olive oil over medium heat. Add the garlic and sauté for about 2 minutes.",
+
+      "4: Add the potatoes and cook for about 8 minutes, until tender and golden.",
+
+      "5: Add the chicken, wine, chicken stock and oregano and season with salt and pepper to taste. Bring to a boil and reduce the heat to low. Cover and simmer for 15 minutes.",
+
+      "6: Add the peas, cover and cook for an additional 5 minutes.",
+
+      "7: Sprinkle with the chopped parsley and serve.",
+    ]);
+    // getRecipeInstructions();
+    getRecipe();
+  }, []);
+
+  // TODO currently using temp data but with database, we can start using calls and queries again
+
+  // let getRecipeInstructions = () => {
+  //   axios
+  //     .post("/api/recipePage/instructions", {
+  //       prompt: `Give me a recipe for ${thisRecipe.label} with these ingredients ${thisRecipe.ingredientLines} with only instructions written in steps with first step starting with Step 1 and so on`,
+  //     })
+  //     .then((res) => {
+  //       console.log(res.data.text);
+  //       let temp = res.data.text.split("Step");
+  //       setInstructions(temp);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
+  let getRecipe = () => {
+    // ! the id from Kyle Main page, using a placeholder here
+    let id = "d2fe0d280de91cd9cd5f3781fc5441a3";
     axios
-      .get("/api/recipe")
+      .get("/api/recipePage/recipe", { params: { id: id } })
       .then((res) => {
-        console.log(res);
+        // console.log(res.data.recipe);
+        setThisRecipe(res.data.recipe.recipe);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  };
+
+  let stepList = instructions.slice(1).map((step) => {
+    return <p>{step}</p>;
+  });
+
+  const handleCustomizeClick = (e) => {
+    setCustomize(true);
+  };
+
+  const handleSaveClick = (e) => {
+    setCustomize(false);
+  };
 
   return (
     <div>
-      <h1>{thisRecipe.label}</h1>
-      <div className="grid grid-cols-8 gap-5">
-        <img
-          className="col-span-3"
-          src={thisRecipe.image}
-          alt="recipe picture"
-        />
-        <div className="col-span-2">
-          <h4 className="text-lg font-bold">Ingredients</h4>
-          {thisRecipe.ingredientLines.map((ingredient) => {
-            return <p>{ingredient}</p>;
-          })}
+      <h1 className="bg-black h-[50px] text-white">header</h1>
+      <div className="ml-5">
+        <h1 className="text-5xl flex items-center gap-10">
+          {thisRecipe.label}{" "}
+          {customize ? (
+            <button
+              className="btn btn-sm bg-green-600 text-black"
+              onClick={handleSaveClick}
+            >
+              Save
+            </button>
+          ) : (
+            <button className="btn btn-sm" onClick={handleCustomizeClick}>
+              Customize
+            </button>
+          )}
+        </h1>
+        <div className="grid grid-cols-8 gap-5 mt-5 mb-5">
+          <img
+            className="col-span-3  h-[300px] w-[500px] object-contain"
+            src={thisRecipe.image}
+            alt="recipe picture"
+          />
+          <div className="col-span-3">
+            <h4 className="text-lg font-bold flex justify-between">
+              Ingredients:
+              <button className="btn btn-xs">Buy the ingredients</button>
+            </h4>
+            {customize ? (
+              <div contenteditable="true">
+                {thisRecipe.ingredientLines.map((ingredient) => {
+                  return <p>{ingredient}</p>;
+                })}
+              </div>
+            ) : (
+              <div>
+                {thisRecipe.ingredientLines.map((ingredient) => {
+                  return <p>{ingredient}</p>;
+                })}
+              </div>
+            )}
+          </div>
+          <div className="col-span-2">
+            <h4 className="text-m font-bold">Labels:</h4>
+            <p className="text-xs" key={thisRecipe.uri}>
+              {thisRecipe.healthLabels.map((label) => {
+                return <>{label}, </>;
+              })}
+            </p>
+          </div>
         </div>
         <div>
-          <h4 className="text-m">Labels</h4>
-          {thisRecipe.healthLabels.map((label) => {
-            return (
-              <p className="text-xs" key={thisRecipe.uri}>
-                {label}
-              </p>
-            );
-          })}
+          <h2>
+            <p className="font-bold text-lg">Instructions: </p>
+          </h2>
+          {customize ? (
+            <div
+              contenteditable="true"
+              // onInput={(e) => editTask(item.id, e.currentTarget.textContent)}
+            >
+              {instructions && stepList}
+            </div>
+          ) : (
+            <div>{instructions && stepList}</div>
+          )}
         </div>
-        <div className="col-span-2 flex flex-col gap-4 mr-5">
-          <button className="btn">Customize</button>
-          <button className="btn">Buy the ingredients</button>
-        </div>
-      </div>
-      <div>
-        <p>INSTRUCTIONS FROM AI</p>
       </div>
     </div>
   );
@@ -72,7 +166,7 @@ let recipeExample = {
         uri: "http://www.edamam.com/ontologies/edamam.owl#recipe_b79327d05b8e5b838ad6cfd9576b30b6",
         label: "Chicken Vesuvio",
         image:
-          "https://edamam-product-images.s3.amazonaws.com/web-img/e42/e42f9119813e890af34c259785ae1cfb.jpg?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMn%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIHES4nAJTZuyxyapSGQMCDyc77XD82PQviQVEkCiE2j2AiEA84Pp%2Fi28XuGmNcyLiO62sUwbWoUgXENrUOuQF3sErSUqwgUIwf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgwxODcwMTcxNTA5ODYiDBtX8%2BnwSsmsIA1mviqWBc%2B5gT%2Bnx%2F63jLnjAP5FDCjbOElLP2TtcjGiZl2JQGw4ghs5DeKDx57rJTzMY708Ic8E9qbOpjxPqDXZmLDVD%2FsenLskrwQaolGwMxuaVgoDtaAgTKMfEP407NczjildTuWHLJNZed99s6PZKIQVpPI07MXpvTqHF1nEVwrTRi2TewRHuPkAhtabfAG7xhdTSH3aoqlBTRq%2BYrJYG9RIsS3hSdB4cc0muYg5XJKUF%2FiApbXFtrR3DsS49%2FYXrGzux29GUHnkhLLYVV7pg3VrjtyfscGgWIJGatvXvRlQzXyC%2Bt4MQhp1M1RUmrJjARQnX7TUSyj3s1r4ixgKYgBR58lqydn9v7e6a1hla41pSnA2kZbhCGzagowOGqgb2A07CaQmrUR%2FiqHOrlMHJX8SZ2dHQn%2FkHHcwQM%2BvN3GjUYsfb2BGVET99eUU8Jzf4XY7g0BimH8xCGPvDT6ZVFAY3uc%2FuSZO4WblLjXqdwtGjGyME%2FujubNF0Q5w27X%2FEjpnsYkI%2F8ShwHF5DzDDEd6gDBtNBWyBkoAY4zawzQ87IgwCrpx2l0Z44AHRQDwQN%2FyseGGmqB8d8cWaGaKE9n9pTLu7H55uD1eS5KojjLMqgEdFXVF5NmU9Y2orTuzfN6AT5Yyj9FuL3cddGG8cZSaEgdsMRQNKz4pGGF8oWXlFQ2Mykh%2BC2Xzc6hI6QQXVFLfzlFrLFW%2FO95gmB5RhMh8csLyV%2FxEfvU%2BVL%2BkYwxttEDDVoQYfnhio%2F8bi0IxZZGiUu%2FJ93JnSQBPuXXlihjZfCVjDUpx0Kl8A0xBRTtocI3lhfTXQnNg5vfWh%2B5Gv5uTa6p4%2FPCQe6IjqauoSBKwHH8besz27cWFnOIvILaeQvuxc%2FcDcHJDmMO6RkKIGOrEBvyWWErdBzjfR6yDjsrsXK82tTHY1I8ZAYQDQLzI2meb6P7xXcm1Rm4d4kCKXiVdvSuZTzBdW%2FO0K0tucVF%2BRFyxPFRSo2A7CpDp%2FEB5BVd%2BquX3IxILp796kGWY2kxAfYb%2BzMXlNUjAb550k82Q72EqoLKTTI16kZMA5j593i6vrM6sMcmDPRTK41gnvOXrVDX7BTxIfHtHH7jH2eGbuJHJoPiEJEVy39HWsoeoeN07M&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230422T172420Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=ASIASXCYXIIFDUNCOV44%2F20230422%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=5992bfae13b3f0cc865d8ac1ccae8c572e9297c8214e60f7d7a6f818d3a36a90",
+          "https://plus.unsplash.com/premium_photo-1670006163348-b8eb307a80a3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80",
         images: {
           THUMBNAIL: {
             url: "https://edamam-product-images.s3.amazonaws.com/web-img/e42/e42f9119813e890af34c259785ae1cfb-s.jpg?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMn%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIHES4nAJTZuyxyapSGQMCDyc77XD82PQviQVEkCiE2j2AiEA84Pp%2Fi28XuGmNcyLiO62sUwbWoUgXENrUOuQF3sErSUqwgUIwf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgwxODcwMTcxNTA5ODYiDBtX8%2BnwSsmsIA1mviqWBc%2B5gT%2Bnx%2F63jLnjAP5FDCjbOElLP2TtcjGiZl2JQGw4ghs5DeKDx57rJTzMY708Ic8E9qbOpjxPqDXZmLDVD%2FsenLskrwQaolGwMxuaVgoDtaAgTKMfEP407NczjildTuWHLJNZed99s6PZKIQVpPI07MXpvTqHF1nEVwrTRi2TewRHuPkAhtabfAG7xhdTSH3aoqlBTRq%2BYrJYG9RIsS3hSdB4cc0muYg5XJKUF%2FiApbXFtrR3DsS49%2FYXrGzux29GUHnkhLLYVV7pg3VrjtyfscGgWIJGatvXvRlQzXyC%2Bt4MQhp1M1RUmrJjARQnX7TUSyj3s1r4ixgKYgBR58lqydn9v7e6a1hla41pSnA2kZbhCGzagowOGqgb2A07CaQmrUR%2FiqHOrlMHJX8SZ2dHQn%2FkHHcwQM%2BvN3GjUYsfb2BGVET99eUU8Jzf4XY7g0BimH8xCGPvDT6ZVFAY3uc%2FuSZO4WblLjXqdwtGjGyME%2FujubNF0Q5w27X%2FEjpnsYkI%2F8ShwHF5DzDDEd6gDBtNBWyBkoAY4zawzQ87IgwCrpx2l0Z44AHRQDwQN%2FyseGGmqB8d8cWaGaKE9n9pTLu7H55uD1eS5KojjLMqgEdFXVF5NmU9Y2orTuzfN6AT5Yyj9FuL3cddGG8cZSaEgdsMRQNKz4pGGF8oWXlFQ2Mykh%2BC2Xzc6hI6QQXVFLfzlFrLFW%2FO95gmB5RhMh8csLyV%2FxEfvU%2BVL%2BkYwxttEDDVoQYfnhio%2F8bi0IxZZGiUu%2FJ93JnSQBPuXXlihjZfCVjDUpx0Kl8A0xBRTtocI3lhfTXQnNg5vfWh%2B5Gv5uTa6p4%2FPCQe6IjqauoSBKwHH8besz27cWFnOIvILaeQvuxc%2FcDcHJDmMO6RkKIGOrEBvyWWErdBzjfR6yDjsrsXK82tTHY1I8ZAYQDQLzI2meb6P7xXcm1Rm4d4kCKXiVdvSuZTzBdW%2FO0K0tucVF%2BRFyxPFRSo2A7CpDp%2FEB5BVd%2BquX3IxILp796kGWY2kxAfYb%2BzMXlNUjAb550k82Q72EqoLKTTI16kZMA5j593i6vrM6sMcmDPRTK41gnvOXrVDX7BTxIfHtHH7jH2eGbuJHJoPiEJEVy39HWsoeoeN07M&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20230422T172420Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=ASIASXCYXIIFDUNCOV44%2F20230422%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=fb759aa4032f92c62a70f42cadee695814e6040bb8d72b09284aa9da013205cc",
