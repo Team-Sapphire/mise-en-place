@@ -5,19 +5,29 @@ import { motion } from "framer-motion";
 
 const testimonials = [
   [
-    "Mise en place ruined my life. I want my wife back.",
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-    "Jeff",
+    "Mise helped us make wiser choices with our money like not eating out every night!",
+    "https://images.unsplash.com/photo-1529424601215-d2a3daf193ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+    "Jess and Kelsey",
   ],
   [
-    "karate oalvn jfiehl",
+    "Sometimes, I walk down a dark road to remember the times before Mise.",
+    "https://images.unsplash.com/photo-1494959764136-6be9eb3c261e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+    "Mémer",
+  ],
+  [
+    "Who needs food when I can swing into a waterfall?",
+    "https://images.unsplash.com/photo-1534083264897-aeabfc7daf8a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+    "Olivia",
+  ],
+  [
+    "Jeff changed our lives.",
     "https://images.unsplash.com/photo-1594333806830-27e001adb081?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=766&q=80",
     "Person #1 & Person #2",
   ],
   [
-    "Lorem ipsum olasz",
-    "https://images.unsplash.com/photo-1529424601215-d2a3daf193ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    "Jess and Kelsey",
+    "Changed my life.",
+    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+    "Jeff",
   ],
 ];
 
@@ -34,14 +44,14 @@ function Testimonials({ addCb, handleClick }) {
 
   return (
     <div
-      className="relative flex flex-col items-center self-end col-start-3 row-start-3 mr-2 bg-white rounded-lg h-fit"
+      className="relative flex flex-col items-center self-end col-start-5 row-start-3 mr-2 bg-white rounded-lg h-fit"
       onClick={handleClick}
     >
       <AnimatePresence>
         <motion.img
           height={200}
           width={220}
-          className="absolute top-[-180px] h-[200px] w-3/4 object-cover rounded-lg"
+          className="absolute top-[-180px] h-[200px] w-3/4 object-cover rounded-lg shadow-xl shadow-black border-[1px] border-solid border-transparent"
           src={testimonials[idx][1]}
           alt="A real user of Mise en Place."
           animate={{ opacity: 1, scale: 1 }}
