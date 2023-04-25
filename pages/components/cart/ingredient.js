@@ -18,7 +18,7 @@ const Ingredient = ({ingredient, setCart, cart, krogerCart}) => {
 
   return (
     <div>
-      <div className='flex container border w-[1000px] h-[40px] rounded-lg border-black m-5 justify-around'>
+      <div className='flex container border w-[1000px] h-[40px] rounded-lg border-black m-5'>
         <div className='ml-5'>{ingredient.food}</div>
         <div className='ml-5'>Quantity: {ingredient.quantity}</div>
         <div>

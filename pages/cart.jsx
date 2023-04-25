@@ -834,23 +834,27 @@ let Cart = () => {
   var krogerCart = [];
 
   return (
-    <div className='m-20' style={{display: 'grid', gridTemplateRows: '33% 33% 33%', gridTemplateColumns: '75% 25%'}}>
-      <div>
+    <div className='m-20' >
+      <div className='flex'>
         <Link href='/main'>Logo</Link>
+        <div>
+          <Link href='/userprofile'>User Profile</Link>
+        </div>
         <div>
           <div className='mt-20'>
           Purchase Ingredients
           </div>
-          <KrogerLogo />
           {recipeExample.hits[0].recipe.ingredients.map((ingredient, index) => {
             return (
               <Ingredient key={index + ingredient.food} ingredient={ingredient} setCart={setCart} cart={cart} krogerCart={krogerCart}/>
             );
           })}
         </div>
+        <div className='flex flex-col justify-center'>
+          <KrogerLogo cart={cart}/>
+        </div>
         <div><AddToCart cart={cart} /></div>
       </div>
-      <div><Link href='/userprofile'>User Profile</Link></div>
     </div>
   );
 }
