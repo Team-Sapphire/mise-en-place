@@ -47,13 +47,13 @@ CREATE TABLE recipes (
 );
 
 
-DROP TABLE userRecipesBridge CASCADE;
+DROP TABLE userrecipes CASCADE;
 
-CREATE TABLE userRecipesBridge (
+CREATE TABLE userrecipes (
   id BIGSERIAL NOT NULL PRIMARY KEY,
   user_id bigint NOT NULL,
   recipe_id bigint NOT NULL,
-  favorite boolean
+  favorite boolean,
 
   FOREIGN KEY (user_id) REFERENCES users,
   FOREIGN KEY (recipe_id) REFERENCES recipes

@@ -1,7 +1,6 @@
 const client = require('./connection.js').client
 
 
-
 module.exports = {
   get: (req, res) => {
     let user_id = req.body.user_id
@@ -41,19 +40,8 @@ module.exports = {
 
   post: function (req, res) {
 
-
-    if (req.body.product_id === undefined) {
-      res.status(404).send('Must provide a "product_id" parameter')
-    }
-
-    let body = req.body.body
-    body = body.replace("'", "''")
-
-    let instant = instantToString(Date.now())
-
-
-    let queryStr = `INSERT INTO questions (product_id, question_body, instant, asker_name, asker_email, reported, helpful)
-      VALUES (${req.body.product_id},'${body}','${instant}','${req.body.name}','${req.body.email}',false,0);
+    let queryStr = `INSERT INTO users (username, first_name, last_name, email, allergies, preferences)
+      VALUES ('${req.body.username}','${req.body.first_name}','${req.body.last_name}','${req.body.email}','${req.body.allergies}','${req.body.preferences}');
     `
     client.query(queryStr)
       .then((data) => {
