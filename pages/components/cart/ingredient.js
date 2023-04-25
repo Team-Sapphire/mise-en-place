@@ -2,8 +2,7 @@ import React from 'react'
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 
-var krogerCart = [];
-const Ingredient = ({ingredient, setCart, cart}) => {
+const Ingredient = ({ingredient, setCart, cart, krogerCart}) => {
 
   useEffect(() => {
     var handleKroger = async () => {

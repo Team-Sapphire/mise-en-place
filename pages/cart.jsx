@@ -831,11 +831,12 @@ let recipeExample = {
 
 let Cart = () => {
   const [cart, setCart] = useState([]);
+  var krogerCart = [];
 
   return (
     <div className='m-20' style={{display: 'grid', gridTemplateRows: '33% 33% 33%', gridTemplateColumns: '75% 25%'}}>
       <div>
-        Logo
+        <Link href='/main'>Logo</Link>
         <div>
           <div className='mt-20'>
           Purchase Ingredients
@@ -843,13 +844,13 @@ let Cart = () => {
           <KrogerLogo />
           {recipeExample.hits[0].recipe.ingredients.map((ingredient, index) => {
             return (
-              <Ingredient key={index + ingredient.food} ingredient={ingredient} setCart={setCart} cart={cart}/>
+              <Ingredient key={index + ingredient.food} ingredient={ingredient} setCart={setCart} cart={cart} krogerCart={krogerCart}/>
             );
           })}
         </div>
         <div><AddToCart cart={cart} /></div>
       </div>
-      <div>User Profile</div>
+      <div><Link href='/userprofile'>User Profile</Link></div>
     </div>
   );
 }
