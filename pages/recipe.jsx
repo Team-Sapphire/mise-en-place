@@ -5,19 +5,20 @@ import HealthLabels from "./components/recipe/healthLabels.jsx";
 const axios = require("axios");
 
 const RecipePage = () => {
-  const [thisRecipe, setThisRecipe] = React.useState(
-    recipeExample.hits[0].recipe
-  );
+  const [thisRecipe, setThisRecipe] = React.useState({});
   const [ingredientsByYield, setIngredientsByYield] = React.useState([]);
 
   const [customize, setCustomize] = React.useState(false);
 
-  // TODO divide recipe amounts by yield and then multiple by amount of servings the user wants
+  //divided recipe amounts by yield and then multiplied by amount of servings the user wants
 
   // TODO save with the ingredients, originally saves the ai generated instructions but upon editing, update with the newly edited instructions
   const [instructions, setInstructions] = React.useState([]);
 
   React.useEffect(() => {
+    // getRecipe();
+    setThisRecipe(recipeExample.hits[0].recipe);
+    dbTest();
     setInstructions([
       "0",
       "1: Heat 1/4 cup of the olive oil in a large skillet over medium heat.",
@@ -32,21 +33,35 @@ const RecipePage = () => {
 
       "7: Sprinkle with the chopped parsley and serve.",
     ]);
-    // getRecipeInstructions();
-    // getRecipe();
   }, []);
 
   // TODO currently using temp data but with database, we can start using calls and queries again
 
-  let getRecipeInstructions = () => {
+  let getRecipeInstructions = (recipe) => {
+    console.log(recipe);
+    if (recipe.label !== undefined) {
+      axios
+        .post("/api/recipePage/instructions", {
+          prompt: `Give me a recipe for ${recipe.label} with these ingredients ${recipe.ingredientLines} with only instructions written in steps with first step starting with Step 1 and so on`,
+        })
+        .then((res) => {
+          console.log(res.data.text);
+          let temp = res.data.text.split("Step");
+          setInstructions(temp);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  let dbTest = () => {
     axios
-      .post("/api/recipePage/instructions", {
-        prompt: `Give me a recipe for ${thisRecipe.label} with these ingredients ${thisRecipe.ingredientLines} with only instructions written in steps with first step starting with Step 1 and so on`,
+      .get("/api/recipePage/dbInstructions", {
+        something: "something",
       })
       .then((res) => {
-        console.log(res.data.text);
-        let temp = res.data.text.split("Step");
-        setInstructions(temp);
+        console.log(res);
       })
       .catch((err) => {
         console.log(err);
@@ -67,7 +82,7 @@ const RecipePage = () => {
   // ],
   let getRecipe = () => {
     // ! the id from Kyle Main page, using a placeholder here
-    let id = "d2fe0d280de91cd9cd5f3781fc5441a3";
+    let id = "e4456795dfe1409f69629df1670a6494";
     axios
       .get("/api/recipePage/recipe", { params: { id: id } })
       .then((res) => {
@@ -87,6 +102,10 @@ const RecipePage = () => {
           ingredientsAfter.push(temp.join(" "));
         });
         setIngredientsByYield(ingredientsAfter);
+        return res.data.recipe.recipe;
+      })
+      .then((recipe) => {
+        getRecipeInstructions(recipe);
       })
       .catch((err) => {
         console.log(err);

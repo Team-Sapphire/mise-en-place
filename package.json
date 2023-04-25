@@ -24,6 +24,7 @@
     "next-redux-wrapper": "^8.1.0",
     "openai": "^3.2.1",
     "postcss": "8.4.23",
+    "postgres": "^3.3.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-redux": "^8.0.5",
