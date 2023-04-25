@@ -9,7 +9,7 @@ function AboutUs2({ prev, next }) {
   const aboutUsContext = useAboutUsContext();
   return (
     <AboutUsCardWrapper>
-      <h4 className="text-xl">We've got you covered!</h4>
+      <h4 className="text-xl">We&apos;ve got you covered!</h4>
       <img
         className="h-[200px] object-contain"
         src="https://images.unsplash.com/photo-1609776453672-bb7d86d07a04?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
