@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Ingredient from './components/cart/ingredient.js'
 import AddToCart from './components/cart/addToCart.js'
+import KrogerLogo from './components/cart/krogerLogo.js'
 
 let recipeExample = {
   from: 1,
@@ -834,8 +835,9 @@ let Cart = () => {
         Logo
         <div>
           <div className='mt-20'>
-          Additonal Ingredients Required
+          Purchase Ingredients
           </div>
+          <KrogerLogo />
           {recipeExample.hits[0].recipe.ingredients.map((ingredient, index) => {
             return (
               <Ingredient key={index + ingredient.food} ingredient={ingredient} />
