@@ -6,6 +6,8 @@ const RecipePage = () => {
   const [thisRecipe, setThisRecipe] = React.useState(
     recipeExample.hits[0].recipe
   );
+  const [ingredientsByYield, setIngredientsByYield] = React.useState([]);
+
   const [customize, setCustomize] = React.useState(false);
 
   // TODO divide recipe amounts by yield and then multiple by amount of servings the user wants
@@ -34,21 +36,33 @@ const RecipePage = () => {
 
   // TODO currently using temp data but with database, we can start using calls and queries again
 
-  // let getRecipeInstructions = () => {
-  //   axios
-  //     .post("/api/recipePage/instructions", {
-  //       prompt: `Give me a recipe for ${thisRecipe.label} with these ingredients ${thisRecipe.ingredientLines} with only instructions written in steps with first step starting with Step 1 and so on`,
-  //     })
-  //     .then((res) => {
-  //       console.log(res.data.text);
-  //       let temp = res.data.text.split("Step");
-  //       setInstructions(temp);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
+  let getRecipeInstructions = () => {
+    axios
+      .post("/api/recipePage/instructions", {
+        prompt: `Give me a recipe for ${thisRecipe.label} with these ingredients ${thisRecipe.ingredientLines} with only instructions written in steps with first step starting with Step 1 and so on`,
+      })
+      .then((res) => {
+        console.log(res.data.text);
+        let temp = res.data.text.split("Step");
+        setInstructions(temp);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
+  // ingredientLines: [
+  //   "1/2 cup olive oil",
+  //   "5 cloves garlic, peeled",
+  //   "2 large russet potatoes, peeled and cut into chunks",
+  //   "1 3-4 pound chicken, cut into 8 pieces (or 3 pound chicken legs)",
+  //   "3/4 cup white wine",
+  //   "3/4 cup chicken stock",
+  //   "3 tablespoons chopped parsley",
+  //   "1 tablespoon dried oregano",
+  //   "Salt and pepper",
+  //   "1 cup frozen peas, thawed",
+  // ],
   let getRecipe = () => {
     // ! the id from Kyle Main page, using a placeholder here
     let id = "d2fe0d280de91cd9cd5f3781fc5441a3";
@@ -56,7 +70,21 @@ const RecipePage = () => {
       .get("/api/recipePage/recipe", { params: { id: id } })
       .then((res) => {
         // console.log(res.data.recipe);
+        let recipe = res.data.recipe.recipe;
         setThisRecipe(res.data.recipe.recipe);
+        let ingredientsAfter = [];
+        let servings = res.data.recipe.recipe.yield;
+        recipe.ingredientLines.forEach((ingredient) => {
+          let temp = ingredient.split(" ");
+          for (let i = 0; i < temp.length; i++) {
+            if (Number(temp[i])) {
+              temp[i] = Number(temp[i]) / servings;
+              // multiply by the number of servings they want from user profile
+            }
+          }
+          ingredientsAfter.push(temp.join(" "));
+        });
+        setIngredientsByYield(ingredientsAfter);
       })
       .catch((err) => {
         console.log(err);
@@ -107,13 +135,13 @@ const RecipePage = () => {
             </h4>
             {customize ? (
               <div contenteditable="true">
-                {thisRecipe.ingredientLines.map((ingredient) => {
+                {ingredientsByYield.map((ingredient) => {
                   return <p>{ingredient}</p>;
                 })}
               </div>
             ) : (
               <div>
-                {thisRecipe.ingredientLines.map((ingredient) => {
+                {ingredientsByYield.map((ingredient) => {
                   return <p>{ingredient}</p>;
                 })}
               </div>
