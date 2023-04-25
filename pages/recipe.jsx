@@ -1,5 +1,7 @@
 import React from "react";
 import Image from "next/image";
+import IngredientList from "./components/recipe/ingredientList.jsx";
+import HealthLabels from "./components/recipe/healthLabels.jsx";
 const axios = require("axios");
 
 const RecipePage = () => {
@@ -31,7 +33,7 @@ const RecipePage = () => {
       "7: Sprinkle with the chopped parsley and serve.",
     ]);
     // getRecipeInstructions();
-    getRecipe();
+    // getRecipe();
   }, []);
 
   // TODO currently using temp data but with database, we can start using calls and queries again
@@ -133,27 +135,14 @@ const RecipePage = () => {
               Ingredients:
               <button className="btn btn-xs">Buy the ingredients</button>
             </h4>
-            {customize ? (
-              <div contenteditable="true">
-                {ingredientsByYield.map((ingredient) => {
-                  return <p>{ingredient}</p>;
-                })}
-              </div>
-            ) : (
-              <div>
-                {ingredientsByYield.map((ingredient) => {
-                  return <p>{ingredient}</p>;
-                })}
-              </div>
-            )}
+            <IngredientList
+              customize={customize}
+              ingredientsByYield={ingredientsByYield}
+            />
           </div>
           <div className="col-span-2">
             <h4 className="text-m font-bold">Labels:</h4>
-            <p className="text-xs" key={thisRecipe.uri}>
-              {thisRecipe.healthLabels.map((label) => {
-                return <>{label}, </>;
-              })}
-            </p>
+            <HealthLabels thisRecipe={thisRecipe} />
           </div>
         </div>
         <div>
