@@ -6,12 +6,15 @@ import profilePhoto from '/public/favicon_io/favicon.ico'
 function ProfileMenu ({quickLinks}) {
 
   return (
-    <div className="dropdown dropdown-end">
+    <div className="mr-6 dropdown dropdown-end">
 
-      <label tabIndex={0} className="bg-orange-500 btn btn-lg btn-circle avatar hover:border-yellow-500">
-      {(true) && <span className="indicator-item indicator-bottom badge badge-secondary right-[20%] bg-green-800 border-green-800">{1}</span>}
+      <label tabIndex={0} className="bg-orange-500 btn btn-lg btn-circle avatar indicator hover:border-yellow-500">
+      {(true) && <span className="indicator-item indicator-bottom badge badge-secondary right-[20%] bg-yellow-500 border-transparent">{1}</span>}
         <div className="w-10 rounded-full">
-          <img src="/public/favicon_ico/favicon.ico" alt="profile" layout="fill" />
+          {/* <img src="/public/favicon_ico/favicon.ico" alt="profile" layout="fill" /> */}
+          {/* <link rel="icon" type="image/png" sizes="16x16" href='/public/favicon_io/favicon-16x16.png'></link> */}
+          {/* <img src='/public/favicon_io/favicon-16x16.png'></img> */}
+          <Image src={profilePhoto} alt="Icon" width={64} height={64} />
 
         </div>
       </label>
