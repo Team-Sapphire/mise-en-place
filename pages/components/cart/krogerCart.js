@@ -10,7 +10,7 @@ const KrogerCart = ({cart}) => {
   }, 10000)
   return (
     <>
-      {refresh ? <div className=''>
+      {refresh ? <div>
         {newCart.map((ingredient, index) => {
           return (
             <div className='flex container border h-[50px] rounded-lg border-black m-5' key={index + ingredient}>
@@ -19,7 +19,7 @@ const KrogerCart = ({cart}) => {
           );
         })}
       </div> :
-      <img src='https://media.tenor.com/n6U0GVtYi0sAAAAC/boil-water.gif' alt='pot cooking' />}
+      <img className='m-40' src='https://media.tenor.com/59vhTnVECsYAAAAC/cooking-pot.gif' alt='pot cooking' />}
     </>
   );
 };
