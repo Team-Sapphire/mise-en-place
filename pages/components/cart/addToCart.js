@@ -1,10 +1,19 @@
 import React from 'react'
+import axios from 'axios'
 
-const AddToCart = ({cart}) => {
+const AddToCart = ({cart, user}) => {
+
+  var usersCart = {};
+  usersCart.user = user['mise/token'];
+  usersCart.cart = cart;
+
 
   var handleAddToCart = () => {
     console.log('Adding to cart');
     console.log(cart);
+    axios.post('https://localhost:9000/api/kroger/addToKrogerCart', usersCart).then(response => {
+      console.log(response);
+    });
   };
 
   return (
