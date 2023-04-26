@@ -74,7 +74,8 @@ const RecipePage = () => {
                       .replaceAll("]", "}"),
                     restrictions: JSON.stringify(recipe.healthLabels)
                       .replaceAll("[", "{")
-                      .replaceAll("]", "}"),
+                      .replaceAll("]", "}")
+                      .replaceAll("\\n\\n", ""),
                     photos: JSON.stringify({ 0: recipe.image }),
                     calorie_count: Math.floor(recipe.calories),
                     nutrition: JSON.stringify(recipe.totalNutrients),
@@ -245,7 +246,7 @@ const RecipePage = () => {
     );
   } else {
     return (
-      <div className="flex flex-col justify-center">
+      <div className="flex flex-col justify-center h-[100vh] w-[100vw]">
         <img src="/assets/preparatio.gif"></img>
       </div>
     );
