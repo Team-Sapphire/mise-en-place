@@ -1,12 +1,17 @@
-import { getInstructions } from "./controllers.js";
+import { getInstructions, insertInstructions } from "./controllers.js";
 
 const dbInstructions = (req, res) => {
   if (req.method === "POST") {
-    res.status(201).end();
+    return insertInstructions(req.body)
+      .then((data) => {
+        res.status(201).end();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   } else if (req.method === "GET") {
     return getInstructions()
       .then((data) => {
-        console.log(data);
         res.status(200).json({ data: data });
       })
       .catch((err) => {

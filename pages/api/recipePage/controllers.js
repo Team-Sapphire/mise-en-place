@@ -7,12 +7,13 @@ const getInstructions = (id) => {
   // where recipe_id = ${id};
 };
 
-// const insertInstructions = () => {
-//   return sql`
-//     insert into recipes
-//    (username, first_name, last_name, email, allergies, preferences)
-//     values
-//     (marylamb, Mary, Lamb, marylamb@lambchop.com, ${{}}, ${{}})`;
-// };
+const insertInstructions = (recipe) => {
+  console.log(recipe);
+  return sql`
+    insert into recipes
+   (name, recipe_id, ingredients, instructions, restrictions, photos, calorie_count, nutrition, cook_time)
+    values
+    (${recipe.name}, ${recipe.recipe_id}, ${recipe.ingredients}, ${recipe.instructions}, ${recipe.restrictions}, ${recipe.photos}, ${recipe.calorie_count}, ${recipe.nutrition}, ${recipe.cook_time})`;
+};
 
-export { getInstructions };
+export { getInstructions, insertInstructions };
