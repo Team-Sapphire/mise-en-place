@@ -11,7 +11,7 @@ const AddToCart = ({cart, user}) => {
   var handleAddToCart = () => {
     console.log('Adding to cart');
     console.log(cart);
-    axios.post('https://localhost:9000/api/kroger/addToKrogerCart', usersCart).then(response => {
+    axios.post('/api/kroger/addToKrogerCart', usersCart).then(response => {
       console.log(response);
     });
   };
