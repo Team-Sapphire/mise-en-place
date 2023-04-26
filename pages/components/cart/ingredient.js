@@ -6,7 +6,7 @@ const Ingredient = ({ingredient, setCart, cart, krogerCart}) => {
 
   useEffect(() => {
     var handleKroger = async () => {
-      await axios.post('https://localhost:9000/api/kroger/getKrogerProducts', {ingredient: ingredient.food}).then(response => {
+      await axios.post('/api/kroger/getKrogerProducts', {ingredient: ingredient.food}).then(response => {
         let products = response.data.data;
         krogerCart.push(products[0]);
         console.log(krogerCart);
