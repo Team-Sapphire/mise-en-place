@@ -9,6 +9,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import Carousel from "./components/index/Carousel";
 import Testimonials from "./components/index/Testimonials";
 import AboutUs from "./components/index/AboutUs";
+import Header from "./components/header/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 const shared =
@@ -58,13 +59,13 @@ export default function Home() {
   return (
     <main
       style={{ gridTemplate: "10% 75% 15% / 12.5% 0% 50% 12.5% 25%" }}
-      className="grid w-full h-full overflow-hidden bg-transparent z-[-1] fixed"
+      className="grid w-full h-full overflow-x-scroll bg-transparent z-[-1] fixed min-w-[650px]"
     >
       <img
         className="fixed top-0 bottom-0 left-0 right-0 w-full h-full z-[-10]"
         src="https://x.yummlystatic.com/web/banner-marble-bkg.jpg"
       />
-      <div className="z-10 row-span-1 row-start-1">Header/logo</div>
+      <Header className="col-span-5 col-start-1 " />
       <div className="relative flex flex-col items-center col-start-3 row-start-2">
         <Carousel handleClick={goToNext} addCb={addCb} />
       </div>
@@ -72,14 +73,23 @@ export default function Home() {
       <AboutUs />
 
       <div className="fixed flex self-end justify-center w-[75%] left-0 bottom-10">
-        <Link className="mainLink" href={!user ? "/api/auth/login" : "/main"}>
+        {isLoading ? (
           <Button
             sx={{ fontSize: "24pt" }}
-            className="normal-case rounded-md border-[1px] border-solid border-black hover:bg-slate-100"
+            classname="normal-case rounded-md border-[1px] border-solid border-black hover:bg-slate-100"
           >
-            {!user ? "Connect with Kroger" : "Let's Get Cookin'"}
+            Loading...
           </Button>
-        </Link>
+        ) : (
+          <Link className="mainLink" href={!user ? "/api/auth/login" : "/main"}>
+            <Button
+              sx={{ fontSize: "24pt" }}
+              className="normal-case rounded-md border-[1px] border-solid border-black hover:bg-slate-100"
+            >
+              {!user ? "Connect with Kroger" : "Let's Get Cookin'"}
+            </Button>
+          </Link>
+        )}
       </div>
     </main>
   );

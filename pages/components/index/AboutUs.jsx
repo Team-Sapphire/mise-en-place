@@ -2,6 +2,7 @@ import React, { useState, createContext, useContext } from "react";
 import AboutUs1 from "./AboutUs1";
 import { AnimatePresence } from "framer-motion";
 import AboutUs2 from "./AboutUs2";
+import AboutUs3 from "./AboutUs3";
 
 export function useAboutUsContext() {
   return useContext(AboutUsContext);
@@ -11,12 +12,14 @@ const AboutUsContext = createContext();
 
 function AboutUs() {
   const [cardIdx, setCardIdx] = useState(0);
-  const cards = [<AboutUs1 key={"0th aboutUs"} />, <AboutUs2 key={"1stnd aboutUs caRD"} />];
-  console.log("card index:", cardIdx);
+  const cards = [
+    <AboutUs1 key={"0th aboutUs"} />,
+    <AboutUs2 key={"1stnd aboutUs caRD"} />,
+    <AboutUs3 key={"3"} />,
+  ];
   function goToNext() {
     setCardIdx((i) => {
       const ret = (i + 1) % cards.length;
-      console.log("setting to ", ret);
       return ret;
     });
   }
