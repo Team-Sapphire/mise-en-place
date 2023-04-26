@@ -1,11 +1,8 @@
-import Link from 'next/link'
+import Link from 'next/link';
+import AddPreferences from './components/profile/AddPreferences.jsx';
 
-let UserProfile = () => {
-  return (
-    <div>
-      <p>Hello World</p>
-    </div>
-  )
-}
+let UserProfile = () => (
+  <AddPreferences />
+);
 
 export default UserProfile;
