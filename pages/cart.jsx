@@ -3,7 +3,7 @@ import {useState, useEffect} from 'react'
 import Link from 'next/link'
 import Ingredient from './components/cart/ingredient.js'
 import AddToCart from './components/cart/addToCart.js'
-import KrogerLogo from './components/cart/krogerLogo.js'
+import KrogerCart from './components/cart/krogerCart.js'
 
 let recipeExample = {
   from: 1,
@@ -838,9 +838,6 @@ let Cart = () => {
       <div className='flex'>
         <Link href='/main'>Logo</Link>
         <div>
-          <Link href='/userprofile'>User Profile</Link>
-        </div>
-        <div>
           <div className='mt-20'>
           Purchase Ingredients
           </div>
@@ -850,10 +847,13 @@ let Cart = () => {
             );
           })}
         </div>
-        <div className='flex flex-col justify-center'>
-          <KrogerLogo cart={cart}/>
-        </div>
         <div><AddToCart cart={cart} /></div>
+        <div className='flex flex-col justify-end'>
+          <KrogerCart cart={cart}/>
+        </div>
+        <div className='ml-20'>
+          <Link href='/userprofile'>User Profile</Link>
+        </div>
       </div>
     </div>
   );

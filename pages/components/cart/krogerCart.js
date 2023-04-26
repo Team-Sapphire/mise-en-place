@@ -2,7 +2,7 @@ import React from 'react'
 import {useEffect, useState} from 'react'
 import Image from 'next/image'
 
-const KrogerLogo = ({cart}) => {
+const KrogerCart = ({cart}) => {
   const [refresh, setRefresh] = useState(false);
   var newCart = cart.slice(0,11);
   setTimeout(() => {
@@ -11,9 +11,11 @@ const KrogerLogo = ({cart}) => {
   return (
     <>
       {refresh ? <div className=''>
-        {cart.map((ingredient, index) => {
+        {newCart.map((ingredient, index) => {
           return (
-            <div className='mb-5' key={index + ingredient}>{ingredient.description}</div>
+            <div className='flex container border h-[50px] rounded-lg border-black m-5' key={index + ingredient}>
+              <div className='ml-5'>{ingredient.description}</div>
+            </div>
           );
         })}
       </div> :
@@ -26,4 +28,4 @@ const KrogerLogo = ({cart}) => {
         <img src='https://cdn.cookielaw.org/logos/f95f67ef-e8ad-4274-9c69-04fd38042f86/1971b324-a03e-48b4-be98-805acc3e826f/6a1aacee-4a86-427f-ab8d-9a26426daa57/FreshCart_Kroger_Lockup_Color_sm.png' alt='Krogers Logo' width='500' height='500'/>
       </div> */}
 
-export default KrogerLogo;
+export default KrogerCart;

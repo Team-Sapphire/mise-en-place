@@ -9,7 +9,7 @@ const AddToCart = ({cart}) => {
 
   return (
     <>
-      <div className='flex justify-center'>
+      <div className='flex flex-col h-full justify-center'>
         <button className='border h-12 w-40 border-black rounded-lg hover:scale-125 ease-in-out duration-300 bg-yellow-500' onClick={handleAddToCart}>Send to Kroger</button>
       </div>
     </>
