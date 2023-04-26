@@ -17,6 +17,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      {
+        protocol: "https",
+        hostname: "edamam-product-images.s3.amazonaws.com"
+      }
     ],
   },
 };

@@ -24,79 +24,78 @@ const RecipePage = () => {
   }, [instructions]);
 
   React.useEffect(() => {
-    // getRecipe();
-    dbTest();
-    setThisRecipe(recipeExample.hits[0].recipe);
-    setInstructions([
-      "0",
-      "1: Heat 1/4 cup of the olive oil in a large skillet over medium heat.",
-      "2: Add the chicken and brown, about 7 minutes. Set aside.",
-      "3: In a separate large skillet, heat the remaining 1/4 cup olive oil over medium heat. Add the garlic and sauté for about 2 minutes.",
-      "4: Add the potatoes and cook for about 8 minutes, until tender and golden.",
-      "5: Add the chicken, wine, chicken stock and oregano and season with salt and pepper to taste. Bring to a boil and reduce the heat to low. Cover and simmer for 15 minutes.",
-      "6: Add the peas, cover and cook for an additional 5 minutes.",
-      "7: Sprinkle with the chopped parsley and serve.",
-    ]);
+    getRecipe();
+    // setThisRecipe(recipeExample.hits[0].recipe);
+    // setInstructions([
+    //   "0",
+    //   "1: Heat 1/4 cup of the olive oil in a large skillet over medium heat.",
+    //   "2: Add the chicken and brown, about 7 minutes. Set aside.",
+    //   "3: In a separate large skillet, heat the remaining 1/4 cup olive oil over medium heat. Add the garlic and sauté for about 2 minutes.",
+    //   "4: Add the potatoes and cook for about 8 minutes, until tender and golden.",
+    //   "5: Add the chicken, wine, chicken stock and oregano and season with salt and pepper to taste. Bring to a boil and reduce the heat to low. Cover and simmer for 15 minutes.",
+    //   "6: Add the peas, cover and cook for an additional 5 minutes.",
+    //   "7: Sprinkle with the chopped parsley and serve.",
+    // ]);
   }, []);
 
   // TODO currently using temp data but with database, we can start using calls and queries again
 
   let getRecipeInstructions = (recipe) => {
     if (recipe.label !== undefined) {
-      // axios
-      //   .post("/api/recipePage/instructions", {
-      //     prompt: `Give me a recipe for ${recipe.label} with these ingredients ${recipe.ingredientLines} with only instructions written in steps with first step starting with Step 1 and so on`,
-      //   })
-      //   .then((res) => {
-      //     console.log(res.data.text);
-      //     let temp = res.data.text.split("Step");
-      //     setInstructions(temp);
-      //     return temp;
-      //   })
-      //   .then((instructions) => {
-      //     console.log(recipe);
-      //     axios
-      //       .post("/api/recipePage/dbInstructions", {
-      //         name: recipe.label,
-      //         recipe_id: recipe.uri.split("_")[1],
-      //         ingredients: JSON.stringify(recipe.ingredientLines)
-      //           .replaceAll("[", "{")
-      //           .replaceAll("]", "}"),
-      //         instructions: JSON.stringify(instructions)
-      //           .replaceAll("[", "{")
-      //           .replaceAll("]", "}"),
-      //         restrictions: JSON.stringify(recipe.healthLabels)
-      //           .replaceAll("[", "{")
-      //           .replaceAll("]", "}"),
-      //         photos: JSON.stringify({ 0: recipe.image }),
-      //         calorie_count: Math.floor(recipe.calories),
-      //         nutrition: JSON.stringify(recipe.totalNutrients),
-      //         cook_time: recipe.totalTime,
-      //       })
-      //       .then((res) => {
-      //         console.log("successful post");
-      //       })
-      //       .catch((err) => {
-      //         console.log("not successful post", err);
-      //       });
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
+      let id = "e4456795dfe1409f69629df1670a6494";
+      axios
+        .get("api/recipePage/dbInstructions", { params: { id: id } })
+        .then((res) => {
+          console.log(res);
+          if (res.data.data.length !== 0) {
+            setInstructions(res.data.data[0].instructions);
+          } else {
+            axios
+              .post("/api/recipePage/instructions", {
+                prompt: `Give me a recipe for ${recipe.label} with these ingredients ${recipe.ingredientLines} with only instructions written in steps with first step starting with Step 1 and so on`,
+              })
+              .then((res) => {
+                console.log(res.data.text);
+                let temp = res.data.text.split("Step");
+                setInstructions(temp);
+                return temp;
+              })
+              .then((instructions) => {
+                console.log(recipe);
+                axios
+                  .post("/api/recipePage/dbInstructions", {
+                    name: recipe.label,
+                    recipe_id: recipe.uri.split("_")[1],
+                    ingredients: JSON.stringify(recipe.ingredientLines)
+                      .replaceAll("[", "{")
+                      .replaceAll("]", "}"),
+                    instructions: JSON.stringify(instructions)
+                      .replaceAll("[", "{")
+                      .replaceAll("]", "}"),
+                    restrictions: JSON.stringify(recipe.healthLabels)
+                      .replaceAll("[", "{")
+                      .replaceAll("]", "}"),
+                    photos: JSON.stringify({ 0: recipe.image }),
+                    calorie_count: Math.floor(recipe.calories),
+                    nutrition: JSON.stringify(recipe.totalNutrients),
+                    cook_time: recipe.totalTime,
+                  })
+                  .then((res) => {
+                    console.log("successful post");
+                  })
+                  .catch((err) => {
+                    console.log("not successful post", err);
+                  });
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-  };
-
-  let dbTest = () => {
-    axios
-      .get("/api/recipePage/dbInstructions", {
-        something: "something",
-      })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   };
 
   // ingredientLines: [
