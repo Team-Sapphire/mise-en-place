@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react';
 import Link from 'next/link'
+import Header from './components/header/Header.jsx';
 import TodaysRecipe from './components/main/todaysrecipe.jsx';
 import FutureRecipes from './components/main/futurerecipes.jsx';
 import RedirectButtons from './components/main/redirectbuttons.jsx';
@@ -25,28 +26,27 @@ let Main = () => {
       setRecipes(parseCached)
       setClickedRecipe(parseCached[0])
       setTodaysRecipe(parseCached[0].recipe.uri.match(/recipe_([\w-]+)/)[1])
+      setLoading(false);
     } else {
       axios.get('http://localhost:3000/api/edamam/search')
       .then(res => {
-        let array = res.data
         localStorage.setItem('cached', JSON.stringify(array))
-        setRecipes(array);
-        setClickedRecipe(array[0])
-        todaysRecipe(array[0].recipe.uri.match(/recipe_([\w-]+)/)[1])
+        setRecipes(res.data);
+        setClickedRecipe(res.data[0])
+        setTodaysRecipe(res.data[0].recipe.uri.match(/recipe_([\w-]+)/)[1])
+        setLoading(false);
       })
       .catch(err => console.log('error getting recipes'))
     }
-    setLoading(false);
   }, [])
 
   if (isLoading) {
-    return (
-    <p>Loading</p>
-    )
-  };
-  return (
-    <div>
+    return null
+  }
 
+    return (
+      <div>
+      <Header />
     <div className="grid lg:grid-cols-6 grid-rows-6 gap-5 h-[100%] w-[100%]">
 
     <div className="col-span-6 row-span-2 p-4 shadow-lg rounded-md pt-[10%]">
@@ -64,6 +64,7 @@ let Main = () => {
   <RecipeModal modalVisable={modalVisable} setModal={setModal} clickedRecipe={clickedRecipe}/>
   </div>
   )
+
 }
 
 export default Main;
