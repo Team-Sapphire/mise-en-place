@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 // import profilePhoto from '/public/favicon_io/favicon-16x16.png'
-import profilePhoto from '/public/favicon_io/favicon.ico'
+import profilePhoto from '/public/chef-profile.ico'
 
 function ProfileMenu ({quickLinks}) {
 
@@ -11,9 +11,6 @@ function ProfileMenu ({quickLinks}) {
       <label tabIndex={0} className="bg-orange-500 btn btn-lg btn-circle avatar indicator hover:border-orange-500 hover:border-4 hover:bg-slate-800" >
       {(true) && <span className="indicator-item indicator-bottom badge badge-secondary right-[20%] bg-yellow-500 border-transparent">{1}</span>}
         <div className="w-10 rounded-full">
-          {/* <img src="/public/favicon_ico/favicon.ico" alt="profile" layout="fill" /> */}
-          {/* <link rel="icon" type="image/png" sizes="16x16" href='/public/favicon_io/favicon-16x16.png'></link> */}
-          {/* <img src='/public/favicon_io/favicon-16x16.png'></img> */}
           <Image src={profilePhoto} alt="Icon" width={64} height={64} />
 
         </div>
