@@ -1,11 +1,15 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
+import Link from "next/link";
 import RecipePage from "./recipe.jsx";
 import MainPage from "./main.jsx";
 import { Button } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
+import { useUser } from "@auth0/nextjs-auth0/client";
 import Carousel from "./components/index/Carousel";
 import Testimonials from "./components/index/Testimonials";
+import AboutUs from "./components/index/AboutUs";
+import Header from "./components/header/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 const shared =
@@ -16,6 +20,7 @@ const shared =
 //  "[&>*]:animate-out [&>*]:animate-in [&>*:nth-child(3)]:slide-in-from-right-40 [&>*:nth-child(1)]:slide-out-to-right-40 [&>*:nth-child(3)]:animate-in [&>*:nth-child(3)]:slide-in-from-bottom-10 [&>*:nth-child(3)]:slide-in-from-right-10 ";
 
 export default function Home() {
+  const { user, error, isLoading } = useUser();
   const timeBetween = 5000;
   const [cbs, setCbs] = useState([]);
   const timerRef = useRef(null);
@@ -33,17 +38,15 @@ export default function Home() {
   };
 
   function goToNext() {
-    clearTimeout(timerRef.current);
     timerCallback();
   }
 
   useEffect(() => {
     timerRef.current = setTimeout(timerCallback, timeBetween);
-
     return () => {
       clearTimeout(timerRef.current);
     };
-  }, []);
+  }, [cbs]);
 
   function addCb(cb) {
     setCbs((prevCbs) => {
@@ -53,45 +56,41 @@ export default function Home() {
     });
   }
 
-  const [cards, setCards] = useState([
-    <Image
-      className={"border-green-900 " + shared}
-      alt="bowl of fruit"
-      width={1280}
-      key={1}
-      height={720}
-      src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-    />,
-
-    <Image
-      className={shared + " border-black "}
-      alt="bowl of fruit"
-      width={1280}
-      key={2}
-      height={720}
-      src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-    />,
-
-    <Image
-      className={shared + " border-red-900 "}
-      alt="bowl of fruit"
-      width={1280}
-      key={3}
-      height={720}
-      src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-    />,
-  ]);
-
   return (
     <main
-      style={{ gridTemplate: "10% 55% 35% / 25% 50% 25%" }}
-      className="grid w-full h-full overflow-hidden bg-gray-400"
+      style={{ gridTemplate: "10% 75% 15% / 12.5% 0% 50% 12.5% 25%" }}
+      className="grid w-full h-full overflow-x-scroll bg-transparent z-[-1] fixed min-w-[650px]"
     >
-      <div className="row-span-1 row-start-1">Header/logo</div>
-      <div className="relative flex flex-col items-center col-start-2 row-start-2">
+      <img
+        className="fixed top-0 bottom-0 left-0 right-0 w-full h-full z-[-10]"
+        src="https://x.yummlystatic.com/web/banner-marble-bkg.jpg"
+      />
+      <Header className="col-span-5 col-start-1 " />
+      <div className="relative flex flex-col items-center col-start-3 row-start-2">
         <Carousel handleClick={goToNext} addCb={addCb} />
       </div>
       <Testimonials handleClick={goToNext} addCb={addCb} />
+      <AboutUs />
+
+      <div className="fixed flex self-end justify-center w-[75%] left-0 bottom-10">
+        {isLoading ? (
+          <Button
+            sx={{ fontSize: "24pt" }}
+            classname="normal-case rounded-md border-[1px] border-solid border-black hover:bg-slate-100"
+          >
+            Loading...
+          </Button>
+        ) : (
+          <Link className="mainLink" href={!user ? "/api/auth/login" : "/main"}>
+            <Button
+              sx={{ fontSize: "24pt" }}
+              className="normal-case rounded-md border-[1px] border-solid border-black hover:bg-slate-100"
+            >
+              {!user ? "Connect with Kroger" : "Let's Get Cookin'"}
+            </Button>
+          </Link>
+        )}
+      </div>
     </main>
   );
 }
