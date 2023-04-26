@@ -44,7 +44,7 @@ function Testimonials({ addCb, handleClick }) {
 
   return (
     <div
-      className="relative flex flex-col items-center self-end col-start-5 row-start-3 mr-2 bg-white rounded-lg h-fit"
+      className="relative flex flex-col items-center self-end col-span-2 col-start-4 row-start-3 mr-2 bg-white rounded-lg h-fit"
       onClick={handleClick}
     >
       <AnimatePresence>
