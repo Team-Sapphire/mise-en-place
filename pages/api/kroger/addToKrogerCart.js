@@ -1,21 +1,27 @@
 
-export default function handler(req, res) {
-  if (req.method === 'PUT') {
-    // var settings = {
-    //   "async": true,
-    //   "crossDomain": true,
-    //   "url": "https://api.kroger.com/v1/cart/add",
-    //   "method": "PUT",
-    //   "headers": {
-    //     "Accept": "application/json",
-    //     "Authorization": "Bearer {{TOKEN}}",
-    //   },
-    //   "processData": false,
-    //   "data": "{\n  \"items\": [\n     {\n       \"upc\": \"0001200016268\",\n       \"quantity\": \2,\n       \"modality\": \"PICKUP\"\\n      }\n    ]\n }"
-    // }
-  }
+export default async function handler(req, res) {
+  if (req.method === 'POST' ) {
+    var token = req.body['mise/token'];
+    var cart = req.body.cart;
 
-  if (req.method === 'GET') {
+    for (var i = 0; i < cart.length; i++) {
+      cart[i].quantity = 1;
+    }
 
+    let cartUrl = `https://api.kroger.com/v1/cart/add`;
+    let cartResponse = await fetch(productsUrl, {
+      method: "PUT",
+      cache: "no-cache",
+      headers: {
+        Authorization: `bearer ${token}`,
+        "Content-Type": "application/json; charset=utf-8"
+      },
+      body: JSON.stringify(cart)
+    });
+
+    // Return json object
+    cartResponse.json().then((response) => {
+      res.json(response);
+    });
   }
 }

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Ingredient from './components/cart/ingredient.js'
 import AddToCart from './components/cart/addToCart.js'
 import KrogerCart from './components/cart/krogerCart.js'
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 let recipeExample = {
   from: 1,
@@ -830,6 +831,7 @@ let recipeExample = {
 };
 
 let Cart = () => {
+  const { user, error, isLoading } = useUser();
   const [cart, setCart] = useState([]);
   var krogerCart = [];
 
@@ -847,7 +849,7 @@ let Cart = () => {
             );
           })}
         </div>
-        <div><AddToCart cart={cart} /></div>
+        <div><AddToCart cart={cart} user={user} /></div>
         <div className='flex flex-col justify-end'>
           <KrogerCart cart={cart}/>
         </div>
