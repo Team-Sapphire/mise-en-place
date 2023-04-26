@@ -8,7 +8,6 @@ const getInstructions = (id) => {
 };
 
 const insertInstructions = (recipe) => {
-  console.log(recipe);
   return sql`
     insert into recipes
    (name, recipe_id, ingredients, instructions, restrictions, photos, calorie_count, nutrition, cook_time)
