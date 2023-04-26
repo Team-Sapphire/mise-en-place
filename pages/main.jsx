@@ -7,6 +7,9 @@ import RecipeModal from './components/main/recipemodal.jsx';
 let Main = () => {
   let [modalVisable, setModal] = useState(false);
   let [clickedRecipe, setClickedRecipe] = useState('');
+  let [recipes, setRecipes] = useState(['upcoming', 'recipe', 'suggestions', ':)'])
+  let [todaysRecipe, setTodaysRecipe] = useState(recipes[0])
+
   return (
     <div>
 
@@ -17,7 +20,7 @@ let Main = () => {
     </div>
 
     <div className="col-span-4 row-span-4 p-4 shadow-lg rounded-md">
-      <FutureRecipes setModal={setModal} setClickedRecipe={setClickedRecipe}/>
+      <FutureRecipes setModal={setModal} setClickedRecipe={setClickedRecipe} recipes={recipes}/>
     </div>
 
     <div className="col-span-2 row-span-4 p-4 shadow-lg rounded-md pt-12">

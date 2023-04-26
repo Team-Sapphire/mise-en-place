@@ -1,8 +1,7 @@
 import {useState} from 'react';
 import Recipe from './recipe.jsx';
 
-let FutureRecipes = ({setClickedRecipe, setModal}) => {
-  let [recipes, setRecipes] = useState(['upcoming', 'recipe', 'suggestions', ':)'])
+let FutureRecipes = ({setClickedRecipe, setModal, recipes}) => {
   return (
     <>
     <p className="flex justify-center">Future Recipes</p>

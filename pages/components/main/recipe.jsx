@@ -8,7 +8,7 @@ let Recipe = ({recipe, setClickedRecipe, setModal}) => {
 
 
   return (
-    <div className="flex flex-row justify-between border-2 border-black rounded-lg mt-2 h-[100px]">
+    <div className="flex flex-row justify-between border-2 border-black rounded-lg mt-2 h-[100px] hover:scale-105 ease-in-out duration-300">
 
       <p className="pt-10 pl-4">{recipe}</p>
 
