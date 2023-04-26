@@ -3,9 +3,9 @@ import axios from 'axios'
 
 const AddToCart = ({cart, user}) => {
 
-  // var usersCart = {};
-  // usersCart.user = user['mise/token'];
-  // usersCart.cart = cart;
+  var usersCart = {};
+  usersCart.user = user['mise/token'];
+  usersCart.cart = cart;
 
 
   var handleAddToCart = () => {
