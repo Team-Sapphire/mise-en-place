@@ -1,7 +1,9 @@
+import React from 'react'
+import {useState, useEffect} from 'react'
 import Link from 'next/link'
 import Ingredient from './components/cart/ingredient.js'
 import AddToCart from './components/cart/addToCart.js'
-import KrogerLogo from './components/cart/krogerLogo.js'
+import KrogerCart from './components/cart/krogerCart.js'
 
 let recipeExample = {
   from: 1,
@@ -828,25 +830,31 @@ let recipeExample = {
 };
 
 let Cart = () => {
+  const [cart, setCart] = useState([]);
+  var krogerCart = [];
+
   return (
-    <div className='m-20' style={{display: 'grid', gridTemplateRows: '33% 33% 33%', gridTemplateColumns: '75% 25%'}}>
-      <div>
-        {console.log(recipeExample.hits[0].recipe.ingredients)}
-        Logo
+    <div className='m-20' >
+      <div className='flex'>
+        <Link href='/main'>Logo</Link>
         <div>
           <div className='mt-20'>
           Purchase Ingredients
           </div>
-          <KrogerLogo />
           {recipeExample.hits[0].recipe.ingredients.map((ingredient, index) => {
             return (
-              <Ingredient key={index + ingredient.food} ingredient={ingredient} />
+              <Ingredient key={index + ingredient.food} ingredient={ingredient} setCart={setCart} cart={cart} krogerCart={krogerCart}/>
             );
           })}
         </div>
-        <div><AddToCart /></div>
+        <div><AddToCart cart={cart} /></div>
+        <div className='flex flex-col justify-end'>
+          <KrogerCart cart={cart}/>
+        </div>
+        <div className='ml-20'>
+          <Link href='/userprofile'>User Profile</Link>
+        </div>
       </div>
-      <div>User Profile</div>
     </div>
   );
 }
