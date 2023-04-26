@@ -6,9 +6,9 @@ import profilePhoto from '/public/favicon_io/favicon.ico'
 function ProfileMenu ({quickLinks}) {
 
   return (
-    <div className="mr-6 dropdown dropdown-end">
+    <div className="mr-6 dropdown dropdown-end dropdown-hover">
 
-      <label tabIndex={0} className="bg-orange-500 btn btn-lg btn-circle avatar indicator hover:border-yellow-500">
+      <label tabIndex={0} className="bg-orange-500 btn btn-lg btn-circle avatar indicator hover:border-orange-500 hover:border-4 hover:bg-slate-800" >
       {(true) && <span className="indicator-item indicator-bottom badge badge-secondary right-[20%] bg-yellow-500 border-transparent">{1}</span>}
         <div className="w-10 rounded-full">
           {/* <img src="/public/favicon_ico/favicon.ico" alt="profile" layout="fill" /> */}
