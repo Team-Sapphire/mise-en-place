@@ -37,7 +37,7 @@ DROP TABLE recipes CASCADE;
 
 CREATE TABLE recipes (
   id BIGSERIAL NOT NULL PRIMARY KEY,
-  "name" bigint NOT NULL,
+  "name" varchar(100) NOT NULL,
   recipe_id bigint NOT NULL,
   ingredients jsonb[],
   instructions jsonb[],
