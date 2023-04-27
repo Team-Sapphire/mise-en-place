@@ -3,15 +3,20 @@ import axios from 'axios'
 import Logo from './Logo.jsx'
 import HeaderNavButton from './HeaderNavButton.jsx'
 import ProfileMenu from './ProfileMenu.jsx'
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 
 
 function Header ({className=''}) {
 
+  const { user, error, isLoading } = useUser();
+
   const quickLinks = {
     'About': '/about/',
     'Home': '/main/',
     'Profile': '/userprofile/',
+    'Log In': '/api/auth/login',
+    'Log Out': '/api/auth/logout',
     'Cart': '/cart/'
   }
 
@@ -20,11 +25,12 @@ function Header ({className=''}) {
      <div className='ml-6'>
       <HeaderNavButton title={'Home'} quickLinks={quickLinks}></HeaderNavButton>
       <HeaderNavButton title={'About'} quickLinks={quickLinks}></HeaderNavButton>
+      {!user && <HeaderNavButton title={'Log In'} quickLinks={quickLinks}></HeaderNavButton>}
      </div>
 
      <Logo />
 
-     <ProfileMenu quickLinks={quickLinks}/>
+     <ProfileMenu quickLinks={quickLinks} user={user}/>
 
     </div>
   )
