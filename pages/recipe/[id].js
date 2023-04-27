@@ -12,8 +12,8 @@ import { setRecipe } from "../../src/reducers/recipeSlice.js";
 
 const RecipePage = () => {
   const dispatch = useDispatch();
-  const router = useRouter();
-  let recipeId = router.query.id;
+  // const router = useRouter();
+  const [recipeId, setRecipeId] = React.useState(useRouter().query.id);
   const [thisRecipe, setThisRecipe] = React.useState({});
   const [ingredientsByYield, setIngredientsByYield] = React.useState([]);
 
@@ -32,7 +32,7 @@ const RecipePage = () => {
   }, [instructions]);
 
   React.useEffect(() => {
-    getRecipe(recipeId);
+    getRecipe();
     // setThisRecipe(recipeExample.hits[0].recipe);
     // setInstructions([
     //   "0",
@@ -118,11 +118,11 @@ const RecipePage = () => {
   //   "Salt and pepper",
   //   "1 cup frozen peas, thawed",
   // ],
-  let getRecipe = (id) => {
+  let getRecipe = () => {
     // ! the id from Kyle Main page, using a placeholder here
-    console.log(id);
+    console.log(recipeId);
     axios
-      .get("/api/recipePage/recipe", { params: { id: id } })
+      .get("/api/recipePage/recipe", { params: { id: recipeId } })
       .then((res) => {
         console.log(res);
         let recipe = res.data.recipe.recipe;
@@ -150,8 +150,10 @@ const RecipePage = () => {
       });
   };
 
+  let index = 0;
   let stepList = instructions.slice(1).map((step) => {
-    return <p>{step}</p>;
+    index++;
+    return <p key={index}>{step}</p>;
   });
 
   const handleSetToCartClick = (e) => {

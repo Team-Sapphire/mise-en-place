@@ -1,13 +1,15 @@
 import React from "react";
 
 const HealthLabels = ({ thisRecipe }) => {
+  let index = 0;
   return (
-    <p className="text-xs" key={thisRecipe.uri}>
+    <div className="text-xs" key={thisRecipe.uri}>
       {thisRecipe.healthLabels &&
         thisRecipe.healthLabels.map((label) => {
-          return <>{label}, </>;
+          index++;
+          return <p key={index}>{label}, </p>;
         })}
-    </p>
+    </div>
   );
 };
 
