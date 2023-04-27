@@ -135,7 +135,7 @@ const AddPreferences = () => {
       <QuantitiesForm handle13={handle13} />
       <button className='btn btn-outline btn-warning hover:scale-105 ease-in-out duration-300' onClick={getRecipes}></button>
     </>
-  )
+  );
 };
 
 export default AddPreferences;

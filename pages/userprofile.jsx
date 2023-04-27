@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import Header from './components/header/Header';
-import User from './components/profile/User'
-import AddPreferences from './components/profile/AddPreferences';
+import Header from '../src/components/header/Header';
+import User from '../src/components/profile/User'
+import AddPreferences from '../src/components/profile/AddPreferences';
 
 let UserProfile = () => (
   <>
