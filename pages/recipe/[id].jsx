@@ -2,9 +2,10 @@ import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import IngredientList from "../components/recipe/ingredientList.jsx";
-import HealthLabels from "../components/recipe/healthLabels.jsx";
+import IngredientList from "../../src/components/recipe/ingredientList.jsx";
+import HealthLabels from "../../src/components/recipe/healthLabels.jsx";
 import Header from "../components/header/Header.jsx";
+
 const axios = require("axios");
 
 const RecipePage = () => {
@@ -145,9 +146,8 @@ const RecipePage = () => {
       });
   };
 
-  let index = 0;
   let stepList = instructions.slice(1).map((step) => {
-    index++;
+    let index = instructions.indexOf(step);
     return <p key={index}>{step}</p>;
   });
 
