@@ -59,12 +59,12 @@ export default function Home() {
   return (
     <main
       style={{ gridTemplate: "10% 75% 15% / 12.5% 0% 50% 12.5% 25%" }}
-      className="grid w-full h-full overflow-x-scroll bg-transparent z-[-1] fixed min-w-[650px]"
+      className="grid w-full h-full z-[-1] fixed min-w-[650px] text-primary bg-base-100"
     >
-      <img
+      {/*       <img
         className="fixed top-0 bottom-0 left-0 right-0 w-full h-full z-[-10]"
         src="https://x.yummlystatic.com/web/banner-marble-bkg.jpg"
-      />
+      /> */}
       <Header className="col-span-5 col-start-1 " />
       <div className="relative flex flex-col items-center col-start-3 row-start-2">
         <Carousel handleClick={goToNext} addCb={addCb} />
@@ -76,7 +76,7 @@ export default function Home() {
         {isLoading ? (
           <Button
             sx={{ fontSize: "24pt" }}
-            classname="normal-case rounded-md border-[1px] border-solid border-black hover:bg-slate-100"
+            className="normal-case text-secondary rounded-md border-[1px] border-solid bg-base-100 hover:bg-base-200 border-primary "
           >
             Loading...
           </Button>
@@ -84,7 +84,7 @@ export default function Home() {
           <Link className="mainLink" href={!user ? "/api/auth/login" : "/main"}>
             <Button
               sx={{ fontSize: "24pt" }}
-              className="normal-case rounded-md border-[1px] border-solid border-black hover:bg-slate-100"
+              className="normal-case text-secondary rounded-md border-[1px] border-solid border-primary  bg-base-100 hover:bg-base-200"
             >
               {!user ? "Connect with Kroger" : "Let's Get Cookin'"}
             </Button>

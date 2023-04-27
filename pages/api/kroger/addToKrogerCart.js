@@ -1,14 +1,13 @@
-import NextCors from 'nextjs-cors';
+import NextCors from "nextjs-cors";
 
 export default async function handler(req, res) {
-
-  if (req.method === 'POST' ) {
-    await NextCors (req, res, {
-      methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-        origin: '*',
-        optionsSuccessStatus: 200,
+  if (req.method === "POST") {
+    await NextCors(req, res, {
+      methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+      origin: "*",
+      optionsSuccessStatus: 200,
     });
-    var token = req.body['mise/token'];
+    var token = req.body["mise/token"];
     var cart = req.body;
     console.log(cart);
     var addToCart = [];
@@ -28,7 +27,7 @@ export default async function handler(req, res) {
         Authorization: `bearer ${process.env.KROGER_CART_TOKEN}`,
         "Content-Type": "application/json; charset=utf-8",
       },
-      body: JSON.stringify({"items": addToCart})
+      body: JSON.stringify({ items: addToCart }),
     });
 
     // Return json object
