@@ -18,9 +18,9 @@ const Ingredient = ({ingredient, setCart, cart, krogerCart}) => {
 
   return (
     <div>
-      <div className='flex container border w-[1000px] h-[40px] rounded-lg border-black m-5 bg-gray-700 text-white'>
-        <div className='ml-5'>{ingredient.food}</div>
-        <div className='ml-5'>Quantity: {ingredient.quantity}</div>
+      <div className='flex container border w-[1000px] h-[50px] rounded-lg border-black m-5 bg-gray-800 text-white'>
+        <div className='ml-5 mt-3'>{ingredient.quantity} {ingredient.measure} {ingredient.food}</div>
+        {/* <div className='ml-5 mt-3'>Quantity: {ingredient.quantity}</div> */}
       </div>
     </div>
   );
