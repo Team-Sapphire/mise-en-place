@@ -835,7 +835,7 @@ let recipeExample = {
 };
 
 let Cart = () => {
-  var recipe = JSON.parse(localStorage.getItem("recipe"));
+  var recipe = JSON.parse(localStorage.getItem("recipe")) || recipeExample;
 
   const { user, error, isLoading } = useUser();
   const [cart, setCart] = useState([]);
