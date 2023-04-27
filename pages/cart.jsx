@@ -1,7 +1,7 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
 import Link from 'next/link'
-import Header from './components/header/Header.jsx'
+import Header from '../src/components/header/Header.jsx'
 import Ingredient from '../src/components/cart/ingredient.js'
 import AddToCart from '../src/components/cart/addToCart.js'
 import KrogerCart from '../src/components/cart/krogerCart.js'
