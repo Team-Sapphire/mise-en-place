@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import IngredientList from "../../src/components/recipe/ingredientList.jsx";
 import HealthLabels from "../../src/components/recipe/healthLabels.jsx";
-import Header from "../components/header/Header.jsx";
+import Header from "../../src/components/header/Header.jsx";
 
 const axios = require("axios");
 
