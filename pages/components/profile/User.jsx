@@ -8,13 +8,9 @@ const User = () => {
 
   if (isLoading) {
     return <div>Loading ...</div>;
-  }
+  };
 
-  // if (!isAuthenticated) {
-  //   return
-  // }
-
-  // if (isAuthenticated) {
+  if (user) {
     return (
       <div>
         <h3>{user.name}</h3>
@@ -22,8 +18,8 @@ const User = () => {
         <h3>{user.email}</h3>
         <h3>{user.sub}</h3>
     </div>
-    )
-  // }
+    );
+  };
 };
 
 export default User;

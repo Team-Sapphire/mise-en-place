@@ -33,8 +33,8 @@ const DietPreferencesForm = ({ params, random, handle13 }) => {
     <form onSubmit={handleAddAllClick}>
       <label htmlFor='diet-label'>Choose a diet preference:</label>
       {dietFormChildren.map(dropdown => dropdown)}
-      <button onClick={e => handleAddAnotherDietPreferenceClick(e)}>Add more</button>
-      <button type='submit'>Submit</button>
+      <button className='btn' onClick={e => handleAddAnotherDietPreferenceClick(e)}>Add more</button>
+      <button className='btn' type='submit'>Submit</button>
     </form>
   );
 };
