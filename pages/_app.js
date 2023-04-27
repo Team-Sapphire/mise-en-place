@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 // import Typography from "@mui/material/Typography";
 
 function App({ Component, pageProps }) {
-  const {store, props} = wrapper.useWrappedStore(pageProps);
+  const { store, props } = wrapper.useWrappedStore(pageProps);
   return (
     <div data-theme="cupcake">
       <Provider store={store}>
