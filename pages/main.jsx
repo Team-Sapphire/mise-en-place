@@ -28,15 +28,15 @@ let Main = () => {
       setTodaysRecipe(parseCached[0].recipe.uri.match(/recipe_([\w-]+)/)[1])
       setLoading(false);
     } else {
-      axios.get('http://localhost:3000/api/edamam/search')
+      axios.get('/api/edamam/search')
       .then(res => {
-        localStorage.setItem('cached', JSON.stringify(array))
+        localStorage.setItem('cached', JSON.stringify(res.data))
         setRecipes(res.data);
         setClickedRecipe(res.data[0])
         setTodaysRecipe(res.data[0].recipe.uri.match(/recipe_([\w-]+)/)[1])
         setLoading(false);
       })
-      .catch(err => console.log('error getting recipes'))
+      .catch(err => console.log(err))
     }
   }, [])
 
@@ -54,7 +54,7 @@ let Main = () => {
     </div>
 
     <div className="col-span-4 row-span-4 p-4 shadow-lg rounded-md">
-      <FutureRecipes setModal={setModal} setClickedRecipe={setClickedRecipe} recipes={recipes} setTodaysRecipe={setTodaysRecipe}/>
+      <FutureRecipes setModal={setModal} setClickedRecipe={setClickedRecipe} recipes={recipes} setTodaysRecipe={setTodaysRecipe} clickedRecipe={clickedRecipe}/>
     </div>
 
     <div className="col-span-2 row-span-4 p-4 shadow-lg rounded-md pt-12">
