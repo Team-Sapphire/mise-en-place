@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import Link from "next/link";
-import RecipePage from "./recipe.jsx";
+import RecipePage from "./recipe/[id].js";
 import MainPage from "./main.jsx";
 import { Button } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
