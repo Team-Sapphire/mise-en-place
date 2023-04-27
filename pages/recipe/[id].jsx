@@ -7,19 +7,16 @@ import HealthLabels from "../components/recipe/healthLabels.jsx";
 import Header from "../components/header/Header.jsx";
 const axios = require("axios");
 
-import { useDispatch } from "react-redux";
-import { setRecipe } from "../../src/reducers/recipeSlice.js";
-
 const RecipePage = () => {
-  const dispatch = useDispatch();
   // const router = useRouter();
+
   const [recipeId, setRecipeId] = React.useState(useRouter().query.id);
   const [thisRecipe, setThisRecipe] = React.useState({});
   const [ingredientsByYield, setIngredientsByYield] = React.useState([]);
 
   const [customize, setCustomize] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
-
+  const [editedInstructions, editInstructions] = React.useState("");
   //divided recipe amounts by yield and then multiplied by amount of servings the user wants
 
   // TODO save with the ingredients, originally saves the ai generated instructions but upon editing, update with the newly edited instructions
@@ -45,8 +42,6 @@ const RecipePage = () => {
     //   "7: Sprinkle with the chopped parsley and serve.",
     // ]);
   }, []);
-
-  // TODO currently using temp data but with database, we can start using calls and queries again
 
   let getRecipeInstructions = (recipe) => {
     if (recipe.label !== undefined) {
@@ -119,13 +114,13 @@ const RecipePage = () => {
   //   "1 cup frozen peas, thawed",
   // ],
   let getRecipe = () => {
-    // ! the id from Kyle Main page, using a placeholder here
-    console.log(recipeId);
+    //console.log(recipeId);
     axios
       .get("/api/recipePage/recipe", { params: { id: recipeId } })
       .then((res) => {
         console.log(res);
         let recipe = res.data.recipe.recipe;
+        localStorage.setItem("recipe", JSON.stringify(recipe));
         setThisRecipe(recipe);
         let ingredientsAfter = [];
         let servings = recipe.yield;
@@ -156,15 +151,21 @@ const RecipePage = () => {
     return <p key={index}>{step}</p>;
   });
 
-  const handleSetToCartClick = (e) => {
-    dispatch(setRecipe(thisRecipe));
-  };
+  // const handleSendToCartClick = (e) => {
+  //   dispatch(recipeSlice.actions.setRecipeState(thisRecipe));
+  // };
+
   const handleCustomizeClick = (e) => {
     setCustomize(true);
   };
 
   const handleSaveClick = (e) => {
+    console.log(editedInstructions);
     setCustomize(false);
+  };
+
+  const handleInstructionEdit = (e) => {
+    editInstructions(e.target.innerText);
   };
 
   if (!loading) {
@@ -216,10 +217,7 @@ const RecipePage = () => {
             </h2>
             <div className="grid grid-cols-2">
               {customize ? (
-                <div
-                  contenteditable="true"
-                  // onInput={(e) => editTask(item.id, e.currentTarget.textContent)}
-                >
+                <div contenteditable="true" onInput={handleInstructionEdit}>
                   {instructions && stepList}
                 </div>
               ) : (
@@ -261,6 +259,7 @@ const RecipePage = () => {
   } else {
     return (
       <div className="flex flex-col justify-center h-[100vh] w-[100vw]">
+        <Header />
         <img src="/assets/preparatio.gif"></img>
       </div>
     );
