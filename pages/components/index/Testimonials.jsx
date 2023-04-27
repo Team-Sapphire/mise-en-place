@@ -51,7 +51,7 @@ function Testimonials({ addCb, handleClick }) {
         <motion.img
           height={200}
           width={220}
-          className="absolute top-[-180px] h-[200px] w-3/4 object-cover rounded-lg shadow-xl shadow-black border-[1px] border-solid border-transparent"
+          className="absolute top-[-180px] h-[200px] w-3/4 object-cover rounded-lg shadow-xl shadow-secondary border-[1px] border-solid border-primary"
           src={testimonials[idx][1]}
           alt="A real user of Mise en Place."
           animate={{ opacity: 1, scale: 1 }}
@@ -61,7 +61,7 @@ function Testimonials({ addCb, handleClick }) {
           key={testimonials[idx][1]}
         />
       </AnimatePresence>
-      <div className="z-10 flex flex-col justify-between w-full p-2 text-white duration-300 bg-black rounded-lg justify-self-start animate-out fade-out-30">
+      <div className="z-10 flex flex-col justify-between w-full p-2 duration-300 border-[1px] border-solid rounded-lg bg-base-200 justify-self-start animate-out fade-out-30 border-primary shadow-md shadow-secondary">
         <p className="mb-2">{testimonials[idx][0]}</p>
         <p className="self-end text-sm">{testimonials[idx][2]}</p>
       </div>

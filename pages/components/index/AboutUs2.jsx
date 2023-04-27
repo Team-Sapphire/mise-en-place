@@ -24,13 +24,13 @@ function AboutUs2({ prev, next }) {
       <div className="flex justify-between w-full">
         <IconButton
           onClick={aboutUsContext.goToPrev}
-          className="bg-white rounded-full hover:scale-125"
+          className="rounded-full bg-secondary hover:bg-secondary-focus hover:scale-125"
         >
           <ArrowBackIosIcon className="relative left-1" />
         </IconButton>
         <IconButton
           onClick={aboutUsContext.goToNext}
-          className="bg-white rounded-full hover:scale-125"
+          className="rounded-full bg-secondary hover:bg-secondary-focus hover:scale-125"
         >
           <ArrowForwardIosIcon className="relative" />
         </IconButton>

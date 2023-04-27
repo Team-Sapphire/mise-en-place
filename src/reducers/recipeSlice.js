@@ -25,4 +25,4 @@ const recipeSlice = createSlice({
 
 export const { setRecipe } = recipeSlice.actions;
 
-export default recipeSlice.reducer;
+export default recipeSlice;

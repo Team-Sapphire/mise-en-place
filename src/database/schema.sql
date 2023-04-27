@@ -15,23 +15,41 @@ CREATE TABLE users (
 
 CREATE INDEX idx_kroger_id ON users(kroger_id);
 
-INSERT INTO users (
-  kroger_id,
-  username,
-  tenant,
-  email,
-  allergies,
-  preferences
-)
+-- INSERT INTO users (
+--   kroger_id,
+--   username,
+--   tenant,
+--   email,
+--   allergies,
+--   preferences
+-- )
 
-VALUES (
-  'abc123',
-  'buttercup',
-  'whatsatenant?',
-  'hello@asdf.com',
-  '{}',
-  '{}'
-);
+-- VALUES (
+--   'abc123',
+--   'buttercup',
+--   'whatsatenant??',
+--   'hello@asdf.com',
+--   '{}',
+--   '{}'
+-- )
+
+-- ON CONFLICT (kroger_id) DO UPDATE SET (
+--   kroger_id,
+--   username,
+--   tenant,
+--   email,
+--   allergies,
+--   preferences
+-- ) = (
+--   'abc123',
+--   'buttercup',
+--   'whatsatenant???',
+--   'hello@asdf.com',
+--   '{}',
+--   '{}'
+-- )
+
+-- WHERE users.kroger_id = 'abc123';
 
 
 DROP TABLE recipes CASCADE;
