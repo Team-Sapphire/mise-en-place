@@ -836,7 +836,7 @@ let recipeExample = {
 
 let Cart = () => {
   var recipe = JSON.parse(localStorage.getItem("recipe"));
-  console.log(recipe.ingredientLines);
+
   const { user, error, isLoading } = useUser();
   const [cart, setCart] = useState([]);
   var krogerCart = [];
