@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Header from "./components/header/Header.jsx";
-import TodaysRecipe from "./components/main/todaysrecipe.jsx";
-import FutureRecipes from "./components/main/futurerecipes.jsx";
-import RedirectButtons from "./components/main/redirectbuttons.jsx";
-import RecipeModal from "./components/main/recipemodal.jsx";
+import Header from "../src/components/header/Header.jsx";
+import TodaysRecipe from "../src/components/main/todaysrecipe.jsx";
+import FutureRecipes from "../src/components/main/futurerecipes.jsx";
+import RedirectButtons from "../src/components/main/redirectbuttons.jsx";
+import RecipeModal from "../src/components/main/recipemodal.jsx";
 import axios from "axios";
 let Main = () => {
   let [modalVisable, setModal] = useState(false);
