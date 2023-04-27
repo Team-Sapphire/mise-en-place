@@ -1,15 +1,14 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import Link from "next/link";
-import RecipePage from "./recipe/[id].js";
 import MainPage from "./main.jsx";
 import { Button } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import Carousel from "./components/index/Carousel";
-import Testimonials from "./components/index/Testimonials";
-import AboutUs from "./components/index/AboutUs";
-import Header from "./components/header/Header";
+import Carousel from "../src/components/index/Carousel";
+import Testimonials from "../src/components/index/Testimonials";
+import AboutUs from "../src/components/index/AboutUs";
+import Header from "../src/components/header/Header";
 import axios from "axios";
 import { useRouter } from "next/router";
 
