@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ExcludedInput from './ExcludedInput';
 
-const ExcludedForm = ({ random, handle13 }) => {
+const ExcludedForm = ({ random, handle13, format }) => {
   const [excluded, setExcluded] = useState([]);
   const [excludedFormChildren, setExcludedFormChildren] = useState([<ExcludedInput key={`e${random(0, 1000000000)}`} handle13={handle13} />]);
+
+  useEffect(() => {
+    format('excluded', excluded);
+  }, [excluded]);
 
   const handleAddAnotherExclusionClick = (e) => {
     e.preventDefault();

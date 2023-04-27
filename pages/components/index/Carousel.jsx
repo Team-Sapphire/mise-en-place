@@ -29,7 +29,8 @@ const imageUrls = [
 function Carousel({ addCb, handleClick }) {
   const [imageI, setImageI] = useState(0);
   const timeBetween = 5000;
-  const shared = " absolute shadow-xl shadow-black border-[1px] border-solid rounded-xl width-full";
+  const shared =
+    " absolute shadow-xl shadow-secondary border-[1px] border-solid rounded-xl width-full";
 
   function increaseImageI() {
     setImageI((cur) => (cur + 1) % imageUrls.length);
@@ -44,7 +45,7 @@ function Carousel({ addCb, handleClick }) {
       <AnimatePresence>
         <motion.img
           onClick={handleClick}
-          className={shared + " border-black max-h-full object-cover max-w-[calc(100%-30px]"}
+          className={shared + " border-primary max-h-full object-cover max-w-[calc(100%-30px]"}
           width={1280}
           key={imageUrls[imageI][1]}
           initial={{ y: -1000, opacity: 0, scale: 0, zIndex: 30, objectPosition: "100% 0%" }}

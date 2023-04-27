@@ -1,11 +1,13 @@
 import React from "react";
 
 const IngredientList = ({ customize, ingredientsByYield }) => {
+  let index = 0;
   if (customize) {
     return (
       <div contenteditable="true">
         {ingredientsByYield.map((ingredient) => {
-          return <p>{ingredient}</p>;
+          index++;
+          return <p key={index}>{ingredient}</p>;
         })}
       </div>
     );
@@ -13,7 +15,8 @@ const IngredientList = ({ customize, ingredientsByYield }) => {
     return (
       <div>
         {ingredientsByYield.map((ingredient) => {
-          return <p>{ingredient}</p>;
+          index++;
+          return <p key={index}>{ingredient}</p>;
         })}
       </div>
     );

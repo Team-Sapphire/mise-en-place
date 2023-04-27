@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 const getRecipe = (req, res) => {
-  //console.log(req.query.id);
+  console.log(req.query.id);
   axios
     .get(`https://api.edamam.com/api/recipes/v2/${req.query.id}`, {
       params: {

@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DietDropdownMenu from './DietDropdownMenu';
 
-const DietPreferencesForm = ({ params, random, handle13 }) => {
+const DietPreferencesForm = ({ params, random, handle13, format }) => {
   const [dietPreferences, setDietPreferences] = useState([]);
   const [dietFormChildren, setDietFormChildren] = useState([
     <DietDropdownMenu options={params} key={`d${random(0, 1000000000)}`} random={random} handle13={handle13} />
   ]);
+
+  useEffect(() => {
+    format('diet', dietPreferences);
+  }, [dietPreferences]);
 
   const handleAddAnotherDietPreferenceClick = (e) => {
     e.preventDefault();
