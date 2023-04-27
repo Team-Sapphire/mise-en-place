@@ -4,40 +4,41 @@ DROP TABLE users CASCADE;
 CREATE TABLE users (
   id BIGSERIAL NOT NULL PRIMARY KEY,
   -- product_id bigint NOT NULL,
-  username varchar(100) NOT NULL,
-  first_name varchar(100) NOT NULL,
-  last_name varchar(100) NOT NULL,
-  email varchar(100) NOT NULL,
+  kroger_id varchar(100),
+  username varchar(100),
+  tenant varchar(100),
+  email varchar(100),
   -- instant timestamp NOT NULL,
-  allergies json NOT NULL,
-  preferences json NOT NULL
+  allergies json DEFAULT '{}',
+  preferences json DEFAULT '{}'
 );
 
+CREATE INDEX idx_kroger_id ON users(kroger_id);
 
--- INSERT INTO users (
---   username,
---   first_name,
---   last_name,
---   email,
---   allergies,
---   preferences
--- )
+INSERT INTO users (
+  kroger_id,
+  username,
+  tenant,
+  email,
+  allergies,
+  preferences
+)
 
--- VALUES (
---   'buttercup',
---   'greg',
---   'thomas',
---   'hello@asdf.com',
---   '{}',
---   '{}'
--- );
+VALUES (
+  'abc123',
+  'buttercup',
+  'whatsatenant?',
+  'hello@asdf.com',
+  '{}',
+  '{}'
+);
 
 
 DROP TABLE recipes CASCADE;
 
 CREATE TABLE recipes (
   id BIGSERIAL NOT NULL PRIMARY KEY,
-  "name" bigint NOT NULL,
+  "name" varchar(100) NOT NULL,
   recipe_id bigint NOT NULL,
   ingredients jsonb[],
   instructions jsonb[],
@@ -46,7 +47,12 @@ CREATE TABLE recipes (
   calorie_count int
 );
 
-
+-- Userrecipes contains:
+--   - all recipes returned by edamam API while user is logged in
+--   - edits to base recipes
+--      edits behavior:
+--         1. add new recipe ID to recipes table
+--         2. update row in userrecipes table
 DROP TABLE userrecipes CASCADE;
 
 CREATE TABLE userrecipes (
