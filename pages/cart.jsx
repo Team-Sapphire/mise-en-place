@@ -2,9 +2,9 @@ import React from 'react'
 import {useState, useEffect} from 'react'
 import Link from 'next/link'
 import Header from './components/header/Header.jsx'
-import Ingredient from './components/cart/ingredient.js'
-import AddToCart from './components/cart/addToCart.js'
-import KrogerCart from './components/cart/krogerCart.js'
+import Ingredient from '../src/components/cart/ingredient.js'
+import AddToCart from '../src/components/cart/addToCart.js'
+import KrogerCart from '../src/components/cart/krogerCart.js'
 import { IoIosCheckmarkCircleOutline, IoIosArrowDropright } from "react-icons/io";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import {useSelector, useDispatch} from 'react-redux';
@@ -835,8 +835,6 @@ let recipeExample = {
 };
 
 let Cart = () => {
-  const recipe = useSelector((state) => state.recipeReducer.recipe);
-  console.log(recipe);
   const { user, error, isLoading } = useUser();
   const [cart, setCart] = useState([]);
   var krogerCart = [];
