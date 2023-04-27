@@ -65,8 +65,8 @@ export default function Home(req, res) {
           }
         })
         .finally(() => setLoading(false));
-    }
-  }, [user]);
+    } else if (!isLoading) setLoading(false);
+  }, [user, isLoading]);
 
   function addCb(cb) {
     setCbs((prevCbs) => {
