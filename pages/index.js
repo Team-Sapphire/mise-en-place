@@ -65,7 +65,7 @@ export default function Home(req, res) {
           }
         })
         .finally(() => setLoading(false));
-    }
+    } else if (!isLoading) setLoading(false);
   }, [user]);
 
   function addCb(cb) {
