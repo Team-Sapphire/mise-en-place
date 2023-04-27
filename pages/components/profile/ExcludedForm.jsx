@@ -26,7 +26,7 @@ const ExcludedForm = ({ random, handle13 }) => {
 
   return (
     <form onSubmit={handleAddAllClick}>
-      <label htmlFor='excluded-label'>If you couldn't find your allergy in the above menus or you want a particular food or ingredient to be excluded from your meals, please list it here!</label>
+      <label htmlFor='excluded-label'>If you couldn&apos;t find your allergy in the above menus or you want a particular food or ingredient to be excluded from your meals, please list it here!</label>
       {excludedFormChildren.map(input => input)}
       <button onClick={e => handleAddAnotherExclusionClick(e)}>Add more</button>
       <button type='submit'>Submit</button>
