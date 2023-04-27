@@ -13,13 +13,13 @@ const KrogerCart = ({cart}) => {
       {refresh ? <div>
         {newCart.map((ingredient, index) => {
           return (
-            <div className='flex container border h-[50px] rounded-lg border-black m-5' key={index + ingredient}>
+            <div className='flex container border h-[50px] rounded-lg border-black m-5 bg-blue-700 text-white' key={index + ingredient}>
               <div className='ml-5'>{ingredient.description}</div>
             </div>
           );
         })}
       </div> :
-      <img className='m-40' src='https://media.tenor.com/59vhTnVECsYAAAAC/cooking-pot.gif' alt='pot cooking' />}
+      <img src='https://media.tenor.com/59vhTnVECsYAAAAC/cooking-pot.gif' alt='pot cooking' />}
     </>
   );
 };
