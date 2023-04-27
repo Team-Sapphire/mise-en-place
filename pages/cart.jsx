@@ -1,6 +1,7 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
 import Link from 'next/link'
+import Header from './components/header/Header.jsx'
 import Ingredient from './components/cart/ingredient.js'
 import AddToCart from './components/cart/addToCart.js'
 import KrogerCart from './components/cart/krogerCart.js'
@@ -836,13 +837,12 @@ let Cart = () => {
   var krogerCart = [];
 
   return (
+    <>
+    <Header />
     <div className='m-20' >
+      Purchase Ingredients
       <div className='flex'>
-        <Link href='/main'>Logo</Link>
         <div>
-          <div className='mt-20'>
-          Purchase Ingredients
-          </div>
           {recipeExample.hits[0].recipe.ingredients.map((ingredient, index) => {
             return (
               <Ingredient key={index + ingredient.food} ingredient={ingredient} setCart={setCart} cart={cart} krogerCart={krogerCart}/>
@@ -850,14 +850,12 @@ let Cart = () => {
           })}
         </div>
         <div><AddToCart cart={cart} user={user} /></div>
-        <div className='flex flex-col justify-end'>
+        <div className='flex flex-col'>
           <KrogerCart cart={cart}/>
-        </div>
-        <div className='ml-20'>
-          <Link href='/userprofile'>User Profile</Link>
         </div>
       </div>
     </div>
+    </>
   );
 }
 
