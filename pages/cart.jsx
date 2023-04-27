@@ -835,6 +835,8 @@ let recipeExample = {
 };
 
 let Cart = () => {
+  var recipe = JSON.parse(localStorage.getItem("recipe"));
+
   const { user, error, isLoading } = useUser();
   const [cart, setCart] = useState([]);
   var krogerCart = [];
@@ -850,9 +852,9 @@ let Cart = () => {
       </div>
       <div className='flex'>
         <div>
-          {recipeExample.hits[0].recipe.ingredients.map((ingredient, index) => {
+          {recipe.ingredientLines.map((ingredient, index) => {
             return (
-              <Ingredient key={index + ingredient.food} ingredient={ingredient} setCart={setCart} cart={cart} krogerCart={krogerCart}/>
+              <Ingredient key={index + ingredient} ingredient={ingredient} setCart={setCart} cart={cart} krogerCart={krogerCart}/>
             );
           })}
         </div>
