@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import PreferencesForm from './PreferencesForm';
-import DropdownMenu from './DropdownMenu';
+import DietPreferencesForm from './DietPreferencesForm';
+import HealthPreferencesForm from './HealthPreferencesForm';
+import CuisinePreferencesForm from './CuisinePreferencesForm';
+import DietDropdownMenu from './DietDropdownMenu';
+import HealthDropdownMenu from './HealthDropdownMenu';
+import CuisineDropdownMenu from './CuisineDropdownMenu';
 
-const healthParams = [
+const dietParams = [
   'balanced',
   'high-fiber',
   'high-protein',
   'low-carb',
   'low-fat',
-  'low-sodium',
+  'low-sodium'
+];
+
+const healthParams = [
   'alcohol-cocktail',
   'alcohol-free',
   'celery-free',
@@ -44,75 +51,47 @@ const healthParams = [
   'vegan',
   'vegetarian',
   'wheat-free'
-]
+];
 
-  // const healthLabels = [
-  //   'Balanced',
-  //   'High-Fiber',
-  //   'High-Protein',
-  //   'Low-Carb',
-  //   'Low-Fat',
-  //   'Low-Sodium',
-  //   'Alcohol-Cocktail',
-  //   'Alcohol-Free',
-  //   'Celery-Free',
-  //   'Crustcean-Free',
-  //   'Dairy-Free',
-  //   'DASH',
-  //   'Egg-Free',
-  //   'Fish-Free',
-  //   'FODMAP-Free',
-  //   'Gluten-Free',
-  //   'Immuno-Supportive',
-  //   'Keto-Friendly',
-  //   'Kidney-Friendly',
-  //   'Kosher',
-  //   'Low Potassium',
-  //   'Low Sugar',
-  //   'Lupine-Free',
-  //   'Mediterranean',
-  //   'Mollusk-Free',
-  //   'Mustard-Free',
-  //   'No oil added',
-  //   'Paleo',
-  //   'Peanut-Free',
-  //   'Pescatarian',
-  //   'Pork-Free',
-  //   'Red-Meat-Free',
-  //   'Sesame-Free',
-  //   'Shellfish-Free',
-  //   'Soy-Free',
-  //   'Sugar-Conscious',
-  //   'Sulfite-Free',
-  //   'Tree-Nut-Free',
-  //   'Vegan',
-  //   'Vegetarian',
-  //   'Wheat-Free'
-  // ]
+const cuisineTypeParams = [
+  'american',
+  'asian',
+  'british',
+  'caribbean',
+  'central europe',
+  'chinese',
+  'eastern europe',
+  'french',
+  'greek',
+  'indian',
+  'italian',
+  'japanese',
+  'korean',
+  'kosher',
+  'mediterranean',
+  'mexican',
+  'middle eastern',
+  'nordic',
+  'south american',
+  'south east asian',
+  'world'
+];
 
-const AddPreferences = () => {
-  const [formChildren, setFormChildren] = useState([<DropdownMenu options={healthParams} />]);
-
-  const handleAddAnotherPreferenceClick = () => {
-    event.preventDefault();
-    setFormChildren(formChildren.concat(<DropdownMenu options={healthParams} />))
-  };
-
-  return (
-    <PreferencesForm formChildren={formChildren} addDropdown={handleAddAnotherPreferenceClick} />
-  )
+const getRandomInt = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min);
 };
 
+const AddPreferences = () => (
+  <>
+    <h2>Diet Preferences</h2>
+    <DietPreferencesForm params={dietParams} random={getRandomInt} />
+    <h2>Health Preferences/Restrictions</h2>
+    <HealthPreferencesForm params={healthParams} random={getRandomInt} />
+    <h2>Cuisine Type Preferences</h2>
+    <CuisinePreferencesForm params={cuisineTypeParams} random={getRandomInt} />
+  </>
+);
+
 export default AddPreferences;
-
-
-// import CustomPreference from './CustomPreference';
-// const [customFormChildren, setCustomFormChildren] = useState([<CustomPreference preferences={preferences} />]);
-
-// customFormChildren={customFormChildren}
-// addCustomInput={handleAddAnotherCustomPreferenceClick}
-
-// const handleAddAnotherCustomPreferenceClick = () => {
-//   event.preventDefault();
-//   setCustomFormChildren(customFormChildren.concat(<CustomPreference preferences={preferences} />))
-// }
