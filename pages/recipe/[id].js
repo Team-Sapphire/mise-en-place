@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import IngredientList from "../components/recipe/ingredientList.jsx";
@@ -6,7 +7,11 @@ import HealthLabels from "../components/recipe/healthLabels.jsx";
 import Header from "../components/header/Header.jsx";
 const axios = require("axios");
 
+import { useDispatch } from "react-redux";
+import { setRecipe } from "../../src/reducers/recipeSlice.js";
+
 const RecipePage = () => {
+  const dispatch = useDispatch();
   const router = useRouter();
   let recipeId = router.query.id;
   const [thisRecipe, setThisRecipe] = React.useState({});
@@ -39,7 +44,7 @@ const RecipePage = () => {
     //   "6: Add the peas, cover and cook for an additional 5 minutes.",
     //   "7: Sprinkle with the chopped parsley and serve.",
     // ]);
-  }, [recipeId]);
+  }, []);
 
   // TODO currently using temp data but with database, we can start using calls and queries again
 
@@ -77,7 +82,7 @@ const RecipePage = () => {
                     restrictions: JSON.stringify(recipe.healthLabels)
                       .replaceAll("[", "{")
                       .replaceAll("]", "}")
-                      .replaceAll("\\n\\n", ""),
+                      .replaceAll(".nn", "."),
                     photos: JSON.stringify({ 0: recipe.image }),
                     calorie_count: Math.floor(recipe.calories),
                     nutrition: JSON.stringify(recipe.totalNutrients),
@@ -119,11 +124,11 @@ const RecipePage = () => {
     axios
       .get("/api/recipePage/recipe", { params: { id: id } })
       .then((res) => {
-        // console.log(res.data.recipe);
+        console.log(res);
         let recipe = res.data.recipe.recipe;
-        setThisRecipe(res.data.recipe.recipe);
+        setThisRecipe(recipe);
         let ingredientsAfter = [];
-        let servings = res.data.recipe.recipe.yield;
+        let servings = recipe.yield;
         recipe.ingredientLines.forEach((ingredient) => {
           let temp = ingredient.split(" ");
           for (let i = 0; i < temp.length; i++) {
@@ -149,6 +154,9 @@ const RecipePage = () => {
     return <p>{step}</p>;
   });
 
+  const handleSetToCartClick = (e) => {
+    dispatch(setRecipe(thisRecipe));
+  };
   const handleCustomizeClick = (e) => {
     setCustomize(true);
   };
@@ -186,7 +194,9 @@ const RecipePage = () => {
             <div className="col-span-3">
               <h4 className="text-lg font-bold flex justify-between">
                 Ingredients:
-                <button className="btn btn-xs">Buy the ingredients</button>
+                <Link href={`/cart`}>
+                  <button className="btn btn-xs">Buy the ingredients</button>
+                </Link>
               </h4>
               <IngredientList
                 customize={customize}
