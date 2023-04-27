@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import DietDropdownMenu from './DietDropdownMenu';
 
-const DietPreferencesForm = ({ params, random }) => {
-  const [value, setValue] = useState();
+const DietPreferencesForm = ({ params, random, handle13 }) => {
   const [dietPreferences, setDietPreferences] = useState([]);
   const [dietFormChildren, setDietFormChildren] = useState([
-    <DietDropdownMenu options={params} key={`d${random(0, 1000000000)}`} random={random} onChange={e => handleVal(e)} />
+    <DietDropdownMenu options={params} key={`d${random(0, 1000000000)}`} random={random} handle13={handle13} />
   ]);
 
   const handleAddAnotherDietPreferenceClick = (e) => {
     e.preventDefault();
     setDietFormChildren((dietFormChildren) => [
       ...dietFormChildren,
-      <DietDropdownMenu options={params} key={`d${random(0, 1000000000)}`} random={random} onChange={e => handleVal(e)} />
+      <DietDropdownMenu options={params} key={`d${random(0, 1000000000)}`} random={random} handle13={handle13} />
     ]);
   };
 
@@ -26,19 +25,15 @@ const DietPreferencesForm = ({ params, random }) => {
     console.log('dprefs array', dietPreferences)
     setDietPreferences((dietPreferences) => [...new Set(dietPreferences)]);
     setDietFormChildren([
-      <DietDropdownMenu options={params} key={`d${random(0, 1000000000)}`} random={random} onChange={e => handleVal(e)} />
+      <DietDropdownMenu options={params} key={`d${random(0, 1000000000)}`} random={random} handle13={handle13} />
     ]);
-  };
-
-  function handleVal(e) {
-    setValue(e.target[0].value);
   };
 
   return (
     <form onSubmit={handleAddAllClick}>
       <label htmlFor='diet-label'>Choose a diet preference:</label>
       {dietFormChildren.map(dropdown => dropdown)}
-      <button onClick={(e) => handleAddAnotherDietPreferenceClick(e)}>Add more</button>
+      <button onClick={e => handleAddAnotherDietPreferenceClick(e)}>Add more</button>
       <button type='submit'>Submit</button>
     </form>
   );

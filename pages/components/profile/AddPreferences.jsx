@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import DietPreferencesForm from './DietPreferencesForm';
 import HealthPreferencesForm from './HealthPreferencesForm';
 import CuisinePreferencesForm from './CuisinePreferencesForm';
-import DietDropdownMenu from './DietDropdownMenu';
-import HealthDropdownMenu from './HealthDropdownMenu';
-import CuisineDropdownMenu from './CuisineDropdownMenu';
+import ExcludedForm from './ExcludedForm';
+import QuantitiesForm from './QuantitiesForm';
 
 const dietParams = [
   'balanced',
@@ -83,14 +82,22 @@ const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
 
+const handle13 = (e) => {
+  e.key === 'Enter' && e.preventDefault();
+};
+
 const AddPreferences = () => (
   <>
     <h2>Diet Preferences</h2>
-    <DietPreferencesForm params={dietParams} random={getRandomInt} />
-    <h2>Health Preferences/Restrictions</h2>
-    <HealthPreferencesForm params={healthParams} random={getRandomInt} />
-    <h2>Cuisine Type Preferences</h2>
-    <CuisinePreferencesForm params={cuisineTypeParams} random={getRandomInt} />
+    <DietPreferencesForm params={dietParams} random={getRandomInt} handle13={handle13} />
+    <h2>Health Preferences</h2>
+    <HealthPreferencesForm params={healthParams} random={getRandomInt} handle13={handle13} />
+    <h2>Cuisine Preferences</h2>
+    <CuisinePreferencesForm params={cuisineTypeParams} random={getRandomInt} handle13={handle13} />
+    <h2>Dislikes and Exclusions</h2>
+    <ExcludedForm random={getRandomInt} handle13={handle13} />
+    <h2>Personalize your meal plan quantities</h2>
+    <QuantitiesForm handle13={handle13} />
   </>
 );
 

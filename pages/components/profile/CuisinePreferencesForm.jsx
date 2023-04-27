@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import CuisineDropdownMenu from './CuisineDropdownMenu';
 
-const CuisinePreferencesForm = ({ params, random }) => {
-  const [value, setValue] = useState();
+const CuisinePreferencesForm = ({ params, random, handle13 }) => {
   const [cuisinePreferences, setCuisinePreferences] = useState([]);
   const [cuisineFormChildren, setCuisineFormChildren] = useState([
-    <CuisineDropdownMenu options={params} key={`d${random(0, 1000000000)}`} random={random} onChange={e => handleVal(e)} />
+    <CuisineDropdownMenu options={params} key={`d${random(0, 1000000000)}`} random={random} handle13={handle13} />
   ]);
 
   const handleAddAnotherCuisinePreferenceClick = (e) => {
     e.preventDefault();
     setCuisineFormChildren((cuisineFormChildren) => [
       ...cuisineFormChildren,
-      <CuisineDropdownMenu options={params} key={`d${random(0, 1000000000)}`} random={random} onChange={e => handleVal(e)} />
+      <CuisineDropdownMenu options={params} key={`d${random(0, 1000000000)}`} random={random} handle13={handle13} />
     ]);
   };
 
@@ -26,19 +25,15 @@ const CuisinePreferencesForm = ({ params, random }) => {
     console.log('dprefs array', cuisinePreferences)
     setCuisinePreferences((cuisinePreferences) => [...new Set(cuisinePreferences)]);
     setCuisineFormChildren([
-      <CuisineDropdownMenu options={params} key={`d${random(0, 1000000000)}`} random={random} onChange={e => handleVal(e)} />
+      <CuisineDropdownMenu options={params} key={`d${random(0, 1000000000)}`} random={random} handle13={handle13} />
     ]);
-  };
-
-  function handleVal(e) {
-    setValue(e.target[0].value);
   };
 
   return (
     <form onSubmit={handleAddAllClick}>
-      <label htmlFor='cuisine-label'>Choose a cuisine type preference:</label>
+      <label htmlFor='cuisine-label'>Choose a cuisine type:</label>
       {cuisineFormChildren.map(dropdown => dropdown)}
-      <button onClick={(e) => handleAddAnotherCuisinePreferenceClick(e)}>Add more</button>
+      <button onClick={e => handleAddAnotherCuisinePreferenceClick(e)}>Add more</button>
       <button type='submit'>Submit</button>
     </form>
   );
