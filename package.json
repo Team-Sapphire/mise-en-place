@@ -26,6 +26,7 @@
     "fs": "^0.0.1-security",
     "next": "13.3.0",
     "next-redux-wrapper": "^8.1.0",
+    "nextjs-cors": "^2.1.2",
     "openai": "^3.2.1",
     "pg": "^8.10.0",
     "postcss": "8.4.23",
@@ -34,7 +35,7 @@
     "react-dom": "18.2.0",
     "react-redux": "^8.0.5",
     "redux": "^4.2.1",
-    "tailwindcss": "3.3.1"
+    "tailwindcss": "^3.3.1"
   },
   "devDependencies": {
     "@types/node": "18.15.13",
