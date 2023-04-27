@@ -1,5 +1,5 @@
 const axios = require("axios");
-import { OpenAIApi, Configuration } from "openai";
+const { OpenAIApi, Configuration } = require("openai");
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
