@@ -1,54 +1,102 @@
 import React from "react";
 import Image from "next/image";
+import IngredientList from "./components/recipe/ingredientList.jsx";
+import HealthLabels from "./components/recipe/healthLabels.jsx";
+import Header from "./components/header/Header.jsx";
 const axios = require("axios");
 
 const RecipePage = () => {
-  const [thisRecipe, setThisRecipe] = React.useState(
-    recipeExample.hits[0].recipe
-  );
+  const [thisRecipe, setThisRecipe] = React.useState({});
   const [ingredientsByYield, setIngredientsByYield] = React.useState([]);
 
   const [customize, setCustomize] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
 
-  // TODO divide recipe amounts by yield and then multiple by amount of servings the user wants
+  //divided recipe amounts by yield and then multiplied by amount of servings the user wants
 
   // TODO save with the ingredients, originally saves the ai generated instructions but upon editing, update with the newly edited instructions
   const [instructions, setInstructions] = React.useState([]);
 
   React.useEffect(() => {
-    setInstructions([
-      "0",
-      "1: Heat 1/4 cup of the olive oil in a large skillet over medium heat.",
-      "2: Add the chicken and brown, about 7 minutes. Set aside.",
-      "3: In a separate large skillet, heat the remaining 1/4 cup olive oil over medium heat. Add the garlic and sauté for about 2 minutes.",
+    if (instructions.length !== 0) {
+      setLoading(false);
+    }
+  }, [instructions]);
 
-      "4: Add the potatoes and cook for about 8 minutes, until tender and golden.",
-
-      "5: Add the chicken, wine, chicken stock and oregano and season with salt and pepper to taste. Bring to a boil and reduce the heat to low. Cover and simmer for 15 minutes.",
-
-      "6: Add the peas, cover and cook for an additional 5 minutes.",
-
-      "7: Sprinkle with the chopped parsley and serve.",
-    ]);
-    // getRecipeInstructions();
+  React.useEffect(() => {
     getRecipe();
+    // setThisRecipe(recipeExample.hits[0].recipe);
+    // setInstructions([
+    //   "0",
+    //   "1: Heat 1/4 cup of the olive oil in a large skillet over medium heat.",
+    //   "2: Add the chicken and brown, about 7 minutes. Set aside.",
+    //   "3: In a separate large skillet, heat the remaining 1/4 cup olive oil over medium heat. Add the garlic and sauté for about 2 minutes.",
+    //   "4: Add the potatoes and cook for about 8 minutes, until tender and golden.",
+    //   "5: Add the chicken, wine, chicken stock and oregano and season with salt and pepper to taste. Bring to a boil and reduce the heat to low. Cover and simmer for 15 minutes.",
+    //   "6: Add the peas, cover and cook for an additional 5 minutes.",
+    //   "7: Sprinkle with the chopped parsley and serve.",
+    // ]);
   }, []);
 
   // TODO currently using temp data but with database, we can start using calls and queries again
 
-  let getRecipeInstructions = () => {
-    axios
-      .post("/api/recipePage/instructions", {
-        prompt: `Give me a recipe for ${thisRecipe.label} with these ingredients ${thisRecipe.ingredientLines} with only instructions written in steps with first step starting with Step 1 and so on`,
-      })
-      .then((res) => {
-        console.log(res.data.text);
-        let temp = res.data.text.split("Step");
-        setInstructions(temp);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  let getRecipeInstructions = (recipe) => {
+    if (recipe.label !== undefined) {
+      let id = "e4456795dfe1409f69629df1670a6494";
+      axios
+        .get("api/recipePage/dbInstructions", { params: { id: id } })
+        .then((res) => {
+          console.log(res);
+          if (res.data.data.length !== 0) {
+            setInstructions(res.data.data[0].instructions);
+          } else {
+            axios
+              .post("/api/recipePage/instructions", {
+                prompt: `Give me a recipe for ${recipe.label} with these ingredients ${recipe.ingredientLines} with only instructions written in steps with first step starting with Step 1 and so on`,
+              })
+              .then((res) => {
+                console.log(res.data.text);
+                let temp = res.data.text.split("Step");
+                setInstructions(temp);
+                return temp;
+              })
+              .then((instructions) => {
+                console.log(recipe);
+                axios
+                  .post("/api/recipePage/dbInstructions", {
+                    name: recipe.label,
+                    recipe_id: recipe.uri.split("_")[1],
+                    ingredients: JSON.stringify(recipe.ingredientLines)
+                      .replaceAll("[", "{")
+                      .replaceAll("]", "}"),
+                    instructions: JSON.stringify(instructions)
+                      .replaceAll("[", "{")
+                      .replaceAll("]", "}"),
+                    restrictions: JSON.stringify(recipe.healthLabels)
+                      .replaceAll("[", "{")
+                      .replaceAll("]", "}")
+                      .replaceAll("\\n\\n", ""),
+                    photos: JSON.stringify({ 0: recipe.image }),
+                    calorie_count: Math.floor(recipe.calories),
+                    nutrition: JSON.stringify(recipe.totalNutrients),
+                    cook_time: recipe.totalTime,
+                  })
+                  .then((res) => {
+                    console.log("successful post");
+                  })
+                  .catch((err) => {
+                    console.log("not successful post", err);
+                  });
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
 
   // ingredientLines: [
@@ -65,7 +113,7 @@ const RecipePage = () => {
   // ],
   let getRecipe = () => {
     // ! the id from Kyle Main page, using a placeholder here
-    let id = "d2fe0d280de91cd9cd5f3781fc5441a3";
+    let id = "e4456795dfe1409f69629df1670a6494";
     axios
       .get("/api/recipePage/recipe", { params: { id: id } })
       .then((res) => {
@@ -85,6 +133,10 @@ const RecipePage = () => {
           ingredientsAfter.push(temp.join(" "));
         });
         setIngredientsByYield(ingredientsAfter);
+        return res.data.recipe.recipe;
+      })
+      .then((recipe) => {
+        getRecipeInstructions(recipe);
       })
       .catch((err) => {
         console.log(err);
@@ -103,77 +155,102 @@ const RecipePage = () => {
     setCustomize(false);
   };
 
-  return (
-    <div>
-      <h1 className="bg-black h-[50px] text-white">header</h1>
-      <div className="ml-5">
-        <h1 className="text-5xl flex items-center gap-10">
-          {thisRecipe.label}{" "}
-          {customize ? (
-            <button
-              className="btn btn-sm bg-green-600 text-black"
-              onClick={handleSaveClick}
-            >
-              Save
-            </button>
-          ) : (
-            <button className="btn btn-sm" onClick={handleCustomizeClick}>
-              Customize
-            </button>
-          )}
-        </h1>
-        <div className="grid grid-cols-8 gap-5 mt-5 mb-5">
-          <img
-            className="col-span-3  h-[300px] w-[500px] object-contain"
-            src={thisRecipe.image}
-            alt="recipe picture"
-          />
-          <div className="col-span-3">
-            <h4 className="text-lg font-bold flex justify-between">
-              Ingredients:
-              <button className="btn btn-xs">Buy the ingredients</button>
-            </h4>
+  if (!loading) {
+    return (
+      <div>
+        <Header />
+        <div className="ml-5">
+          <h1 className="text-5xl flex items-center gap-10">
+            {thisRecipe.label}{" "}
             {customize ? (
-              <div contenteditable="true">
-                {ingredientsByYield.map((ingredient) => {
-                  return <p>{ingredient}</p>;
-                })}
-              </div>
+              <button
+                className="btn btn-sm bg-green-600 text-black"
+                onClick={handleSaveClick}
+              >
+                Save
+              </button>
             ) : (
-              <div>
-                {ingredientsByYield.map((ingredient) => {
-                  return <p>{ingredient}</p>;
-                })}
-              </div>
+              <button className="btn btn-sm" onClick={handleCustomizeClick}>
+                Customize
+              </button>
             )}
-          </div>
-          <div className="col-span-2">
-            <h4 className="text-m font-bold">Labels:</h4>
-            <p className="text-xs" key={thisRecipe.uri}>
-              {thisRecipe.healthLabels.map((label) => {
-                return <>{label}, </>;
-              })}
-            </p>
-          </div>
-        </div>
-        <div>
-          <h2>
-            <p className="font-bold text-lg">Instructions: </p>
-          </h2>
-          {customize ? (
-            <div
-              contenteditable="true"
-              // onInput={(e) => editTask(item.id, e.currentTarget.textContent)}
-            >
-              {instructions && stepList}
+          </h1>
+          <div className="grid grid-cols-8 gap-5 mt-5 mb-5">
+            <img
+              className="col-span-3  h-[300px] w-[500px] object-contain"
+              src={thisRecipe.image}
+              alt="recipe picture"
+            />
+            <div className="col-span-3">
+              <h4 className="text-lg font-bold flex justify-between">
+                Ingredients:
+                <button className="btn btn-xs">Buy the ingredients</button>
+              </h4>
+              <IngredientList
+                customize={customize}
+                ingredientsByYield={ingredientsByYield}
+              />
             </div>
-          ) : (
-            <div>{instructions && stepList}</div>
-          )}
+            <div className="col-span-2">
+              <h4 className="text-m font-bold">Labels:</h4>
+              <HealthLabels thisRecipe={thisRecipe} />
+            </div>
+          </div>
+          <div>
+            <h2>
+              <p className="font-bold text-lg">Instructions: </p>
+            </h2>
+            <div className="grid grid-cols-2">
+              {customize ? (
+                <div
+                  contenteditable="true"
+                  // onInput={(e) => editTask(item.id, e.currentTarget.textContent)}
+                >
+                  {instructions && stepList}
+                </div>
+              ) : (
+                <div>{instructions && stepList}</div>
+              )}
+              <div className="text-[10px] justify-self-center grid grid-cols-2">
+                <div>
+                  {Object.values(thisRecipe.totalNutrients)
+                    .slice(0, 18)
+                    .map((nutrient) => {
+                      return (
+                        <p key={nutrient.label}>
+                          {nutrient.label}:{" "}
+                          {Math.floor(nutrient.quantity) / thisRecipe.yield}{" "}
+                          {nutrient.unit}
+                        </p>
+                      );
+                    })}
+                </div>
+                <div>
+                  {Object.values(thisRecipe.totalNutrients)
+                    .slice(18)
+                    .map((nutrient) => {
+                      return (
+                        <p key={nutrient.label}>
+                          {nutrient.label}:{" "}
+                          {Math.floor(nutrient.quantity) / thisRecipe.yield}{" "}
+                          {nutrient.unit}
+                        </p>
+                      );
+                    })}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return (
+      <div className="flex flex-col justify-center h-[100vh] w-[100vw]">
+        <img src="/assets/preparatio.gif"></img>
+      </div>
+    );
+  }
 };
 
 export default RecipePage;
