@@ -1,11 +1,14 @@
 import React from 'react'
 import {useState, useEffect} from 'react'
 import Link from 'next/link'
-import Header from './components/header/Header.jsx'
-import Ingredient from './components/cart/ingredient.js'
-import AddToCart from './components/cart/addToCart.js'
-import KrogerCart from './components/cart/krogerCart.js'
+import Header from '../src/components/header/Header.jsx'
+import Ingredient from '../src/components/cart/ingredient.js'
+import AddToCart from '../src/components/cart/addToCart.js'
+import KrogerCart from '../src/components/cart/krogerCart.js'
+import { IoIosCheckmarkCircleOutline, IoIosArrowDropright } from "react-icons/io";
 import { useUser } from "@auth0/nextjs-auth0/client";
+import {useSelector, useDispatch} from 'react-redux';
+import recipeSlice from '../src/reducers/recipeSlice.js'
 
 let recipeExample = {
   from: 1,
@@ -840,7 +843,11 @@ let Cart = () => {
     <>
     <Header />
     <div className='m-20' >
-      Purchase Ingredients
+      <div className='flex justify-between text-2xl mb-10 border border-black bg-gray-800 text-white h-[50px] rounded-lg'>
+        <div className='flex ml-5 mt-1'>Connect with Kroger <IoIosCheckmarkCircleOutline className='mt-2 ml-2'/><IoIosArrowDropright className='mt-2 ml-20' /></div>
+        <div className='flex mt-1'>Review and Send <IoIosArrowDropright className='mt-2 ml-20' /></div>
+        <div className='flex mr-60 mt-1'>Purchase Ingredients<IoIosArrowDropright className='mt-2 ml-20' /></div>
+      </div>
       <div className='flex'>
         <div>
           {recipeExample.hits[0].recipe.ingredients.map((ingredient, index) => {

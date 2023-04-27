@@ -1,16 +1,18 @@
 import React from 'react'
 import {useEffect, useState} from 'react'
+import Loading from './Loading.js'
 import Image from 'next/image'
 
 const KrogerCart = ({cart}) => {
   const [refresh, setRefresh] = useState(false);
   var newCart = cart.slice(0,11);
   setTimeout(() => {
-    setRefresh(true);
+    setRefresh(false);
   }, 10000)
   return (
     <>
-      {refresh ? <div>
+      {refresh ?
+      <div>
         {newCart.map((ingredient, index) => {
           return (
             <div className='flex container border h-[50px] rounded-lg border-black m-5 bg-blue-700 text-white' key={index + ingredient}>
@@ -19,7 +21,10 @@ const KrogerCart = ({cart}) => {
           );
         })}
       </div> :
-      <img src='https://media.tenor.com/59vhTnVECsYAAAAC/cooking-pot.gif' alt='pot cooking' />}
+      <div>
+        <Loading/>
+      </div>
+      }
     </>
   );
 };
