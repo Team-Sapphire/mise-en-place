@@ -23,6 +23,7 @@ const shared =
 
 export default function Home(req, res) {
   const { user, error, isLoading } = useUser();
+  const [loading, setLoading] = useState(true);
   const timeBetween = 5000;
   const [cbs, setCbs] = useState([]);
   const timerRef = useRef(null);
@@ -53,15 +54,18 @@ export default function Home(req, res) {
 
   useEffect(() => {
     if (user) {
-      axios.get("/api/users/" + user.sub.slice(14)).then((res) => {
-        if (res.data.rows.length === 0) {
-          // redirect to preferences page
-          router.push("/userprofile");
-        } else {
-          // redirect to main page ?
-          router.push("/main");
-        }
-      });
+      axios
+        .get("/api/users/" + user.sub.slice(14))
+        .then((res) => {
+          if (res.data.rows.length === 0) {
+            // redirect to preferences page
+            router.push("/userprofile");
+          } else {
+            // redirect to main page ?
+            router.push("/main");
+          }
+        })
+        .finally(() => setLoading(false));
     }
   }, [user]);
 
@@ -78,10 +82,11 @@ export default function Home(req, res) {
       style={{ gridTemplate: "10% 75% 15% / 12.5% 0% 50% 12.5% 25%" }}
       className="grid w-full h-full z-[-1] fixed min-w-[650px] text-primary bg-base-100"
     >
-      {/*       <img
-        className="fixed top-0 bottom-0 left-0 right-0 w-full h-full z-[-10]"
-        src="https://x.yummlystatic.com/web/banner-marble-bkg.jpg"
-      /> */}
+      {loading && (
+        <div className="fixed z-[50] flex items-center justify-center w-full h-full bg-base-200">
+          <p>Loading...</p>
+        </div>
+      )}
       <Header className="col-span-5 col-start-1 " />
       <div className="relative flex flex-col items-center col-start-3 row-start-2">
         <Carousel handleClick={goToNext} addCb={addCb} />
