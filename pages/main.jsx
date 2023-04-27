@@ -31,13 +31,13 @@ let Main = () => {
       axios
         .get("/api/edamam/search")
         .then((res) => {
-          localStorage.setItem("cached", JSON.stringify(array));
+          localStorage.setItem("cached", JSON.stringify(res.data));
           setRecipes(res.data);
           setClickedRecipe(res.data[0]);
           setTodaysRecipe(res.data[0].recipe.uri.match(/recipe_([\w-]+)/)[1]);
           setLoading(false);
         })
-        .catch((err) => console.log("error getting recipes"));
+        .catch((err) => console.log(err));
     }
   }, []);
 

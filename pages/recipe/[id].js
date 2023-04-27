@@ -1,11 +1,14 @@
 import React from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
-import IngredientList from "./components/recipe/ingredientList.jsx";
-import HealthLabels from "./components/recipe/healthLabels.jsx";
-import Header from "./components/header/Header.jsx";
+import IngredientList from "../components/recipe/ingredientList.jsx";
+import HealthLabels from "../components/recipe/healthLabels.jsx";
+import Header from "../components/header/Header.jsx";
 const axios = require("axios");
 
 const RecipePage = () => {
+  const router = useRouter();
+  let recipeId = router.query.id;
   const [thisRecipe, setThisRecipe] = React.useState({});
   const [ingredientsByYield, setIngredientsByYield] = React.useState([]);
 
@@ -24,7 +27,7 @@ const RecipePage = () => {
   }, [instructions]);
 
   React.useEffect(() => {
-    getRecipe();
+    getRecipe(recipeId);
     // setThisRecipe(recipeExample.hits[0].recipe);
     // setInstructions([
     //   "0",
@@ -36,17 +39,16 @@ const RecipePage = () => {
     //   "6: Add the peas, cover and cook for an additional 5 minutes.",
     //   "7: Sprinkle with the chopped parsley and serve.",
     // ]);
-  }, []);
+  }, [recipeId]);
 
   // TODO currently using temp data but with database, we can start using calls and queries again
 
   let getRecipeInstructions = (recipe) => {
     if (recipe.label !== undefined) {
-      let id = "e4456795dfe1409f69629df1670a6494";
       axios
-        .get("api/recipePage/dbInstructions", { params: { id: id } })
+        .get("/api/recipePage/dbInstructions", { params: { id: recipeId } })
         .then((res) => {
-          console.log(res);
+          //console.log(res);
           if (res.data.data.length !== 0) {
             setInstructions(res.data.data[0].instructions);
           } else {
@@ -111,9 +113,9 @@ const RecipePage = () => {
   //   "Salt and pepper",
   //   "1 cup frozen peas, thawed",
   // ],
-  let getRecipe = () => {
+  let getRecipe = (id) => {
     // ! the id from Kyle Main page, using a placeholder here
-    let id = "e4456795dfe1409f69629df1670a6494";
+    console.log(id);
     axios
       .get("/api/recipePage/recipe", { params: { id: id } })
       .then((res) => {

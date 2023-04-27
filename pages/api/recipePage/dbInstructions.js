@@ -10,7 +10,7 @@ const dbInstructions = (req, res) => {
         console.log(err);
       });
   } else if (req.method === "GET") {
-    //console.log(req.query.id);
+    console.log(req.query.id);
     return getInstructions(req.query.id)
       .then((data) => {
         res.status(200).json({ data: data });
