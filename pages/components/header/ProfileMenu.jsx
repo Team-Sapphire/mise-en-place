@@ -3,7 +3,7 @@ import Link from 'next/link'
 // import profilePhoto from '/public/favicon_io/favicon-16x16.png'
 import profilePhoto from '/public/chef-profile.ico'
 
-function ProfileMenu ({quickLinks}) {
+function ProfileMenu ({quickLinks, user}) {
 
   return (
     <div className="mr-6 dropdown dropdown-end dropdown-hover">
@@ -22,6 +22,12 @@ function ProfileMenu ({quickLinks}) {
         <li key={1}>
           <Link href={quickLinks['Cart']}>Cart</Link>
         </li>
+        {user && <li key={1}>
+          <Link href={quickLinks['Log Out']}>Log Out</Link>
+        </li>}
+        {!user && <li key={1}>
+          <Link href={quickLinks['Log In']}>Log In</Link>
+        </li>}
 
       </ul>
 
