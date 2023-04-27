@@ -7,6 +7,16 @@ const DietPreferencesForm = ({ params, random, handle13 }) => {
     <DietDropdownMenu options={params} key={`d${random(0, 1000000000)}`} random={random} handle13={handle13} />
   ]);
 
+  const formatParams = (param, values) => {
+    let result = '';
+    if (!values.length) {
+      return '';
+    }
+    for (let i = 0; i < values.length; i++) {
+
+    }
+  };
+
   const handleAddAnotherDietPreferenceClick = (e) => {
     e.preventDefault();
     setDietFormChildren((dietFormChildren) => [
