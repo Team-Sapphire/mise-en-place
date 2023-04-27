@@ -39,9 +39,29 @@ module.exports = {
 
 
   post: function (req, res) {
+    let queryFindUserByKrogerID = `
+      SELECT * FROM users WHERE kroger_id === ${req.body.kroger_id} RETURNING id
+    `
+    client.query()
 
-    let queryStr = `INSERT INTO users (username, first_name, last_name, email, allergies, preferences)
-      VALUES ('${req.body.username}','${req.body.first_name}','${req.body.last_name}','${req.body.email}','${req.body.allergies}','${req.body.preferences}');
+
+    let queryStr = `
+    INSERT INTO users (
+      kroger_id,
+      username,
+      tenant,
+      email,
+      allergies,
+      preferences
+    )
+      VALUES (
+        '${req.body.kroger_id}',
+        '${req.body.username}',
+        '${req.body.tenant}',
+        '${req.body.email}',
+        '${req.body.allergies}',
+        '${req.body.preferences}'
+        );
     `
     client.query(queryStr)
       .then((data) => {
