@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import HealthDropdownMenu from './HealthDropdownMenu';
 
-const HealthPreferencesForm = ({ params, random, handle13 }) => {
+const HealthPreferencesForm = ({ params, random, handle13, format }) => {
   const [healthPreferences, setHealthPreferences] = useState([]);
   const [healthFormChildren, setHealthFormChildren] = useState([
     <HealthDropdownMenu options={params} key={`d${random(0, 1000000000)}`} random={random} handle13={handle13} />
   ]);
+
+  useEffect(() => {
+    format('health', healthPreferences);
+  }, [healthPreferences]);
 
   const handleAddAnotherHealthPreferenceClick = (e) => {
     e.preventDefault();
