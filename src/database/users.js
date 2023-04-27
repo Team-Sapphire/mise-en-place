@@ -3,14 +3,14 @@ const client = require('./connection.js').client
 
 module.exports = {
   get: (req, res) => {
-    let user_id = req.body.user_id
+    let kroger_id = req.body.kroger_id
 
     let queryString =
     `select * from users\
-     where id=${user_id}
+     where kroger_id='${kroger_id}'
     `
 
-    client.query(queryString)
+    return client.query(queryString)
       .then((data) => {
         res.send(data)
       })

@@ -10,6 +10,8 @@ import Carousel from "./components/index/Carousel";
 import Testimonials from "./components/index/Testimonials";
 import AboutUs from "./components/index/AboutUs";
 import Header from "./components/header/Header";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 const inter = Inter({ subsets: ["latin"] });
 const shared =
@@ -19,11 +21,12 @@ const shared =
 //const animations =
 //  "[&>*]:animate-out [&>*]:animate-in [&>*:nth-child(3)]:slide-in-from-right-40 [&>*:nth-child(1)]:slide-out-to-right-40 [&>*:nth-child(3)]:animate-in [&>*:nth-child(3)]:slide-in-from-bottom-10 [&>*:nth-child(3)]:slide-in-from-right-10 ";
 
-export default function Home() {
+export default function Home(req, res) {
   const { user, error, isLoading } = useUser();
   const timeBetween = 5000;
   const [cbs, setCbs] = useState([]);
   const timerRef = useRef(null);
+  const router = useRouter();
 
   function callAllCbs(allCbs) {
     for (var i = 0; i < allCbs.length; i++) {
@@ -47,6 +50,20 @@ export default function Home() {
       clearTimeout(timerRef.current);
     };
   }, [cbs]);
+
+  useEffect(() => {
+    if (user) {
+      axios.get("/api/users/" + user.sub.slice(14)).then((res) => {
+        if (res.data.rows.length === 0) {
+          // redirect to preferences page
+          router.push("/userprofile");
+        } else {
+          // redirect to main page ?
+          router.push("/main");
+        }
+      });
+    }
+  }, [user]);
 
   function addCb(cb) {
     setCbs((prevCbs) => {
