@@ -20,26 +20,11 @@ const DietPreferencesForm = ({ params, random, handle13, format, setAllPreferenc
     ]);
   };
 
-  // const handleAddAllClick = (e) => {
-  //   e.preventDefault();
-  //   for (let i = 0; i < e.target.length; i++) {
-  //     if (e.target[i].value.trim() !== '' && !dietPreferences.includes(e.target[i].value)) {
-  //       setDietPreferences((dietPreferences) => [...dietPreferences, e.target[i].value]);
-  //     }
-  //   }
-  //   console.log('dprefs array', dietPreferences)
-  //   setDietPreferences((dietPreferences) => [...new Set(dietPreferences)]);
-  //    setAllPreferences({...allPreferences, diet: dietPreferences})
-  //   setDietFormChildren([
-  //     <DietDropdownMenu options={params} key={`d${random(0, 1000000000)}`} random={random} handle13={handle13} />
-  //   ]);
-  // };
-
   return (
     <>
       <label htmlFor='diet-label'>Choose a diet preference:</label>
       {dietFormChildren.map(dropdown => dropdown)}
-      <button className='btn' onClick={e => handleAddAnotherDietPreferenceClick(e)}>Add more</button>
+      <button className='btn btn-sm btn-secondary my-2' onClick={e => handleAddAnotherDietPreferenceClick(e)}>Add more</button>
     </>
   );
 };

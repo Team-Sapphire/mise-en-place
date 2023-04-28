@@ -13,13 +13,13 @@ const HealthDropdownMenu = ({ options, random, handle13, trackChanges, healthPre
     showing && (
       <div>
         {/* <input type='text' list='health-label' onKeyPress={e => handle13(e)} /> */}
-        <select id='health-label' onChange={e => trackChanges(e, healthPreferences, setHealthPreferences)} onKeyPress={e => handle13(e)} >
+        <select className='w-52 mt-2' id='health-label' onChange={e => trackChanges(e, healthPreferences, setHealthPreferences)} onKeyPress={e => handle13(e)} >
           <option value =''></option>
           {options.map(option =>
             <option value={option} key={`dp${random(0, 1000000000)}`}>{option}</option>
           )}
         </select>
-        <CloseIcon onClick={handleRemoveClick} />
+        <CloseIcon fontSize='inherit' onClick={handleRemoveClick} />
       </div>
     )
   );

@@ -30,11 +30,11 @@ const ExcludedForm = ({ random, handle13, format, setAllPreferences, allPreferen
   };
 
   return (
-    <form onSubmit={handleAddAllClick}>
-      <label htmlFor='excluded-label'>If you couldn&apos;t find your allergy in the above menus or you want a particular food or ingredient to be excluded from your meals, please list it here!</label>
+    <form className='flex flex-col items-center mt-2' onSubmit={handleAddAllClick}>
+      <p className='w-[80%] flex-wrap text-center mt-2' htmlFor='excluded-label'>If you couldn&apos;t find your allergy in the other dropdown menus or you want a particular food or ingredient to be excluded from your meals, please list it here!</p>
       {excludedFormChildren.map(input => input)}
-      <button onClick={e => handleAddAnotherExclusionClick(e)}>Add more</button>
-      <button type='submit'>Click to Add</button>
+      <button className='btn btn-sm btn-secondary mt-2 mr-2' onClick={e => handleAddAnotherExclusionClick(e)}>Add more</button>
+      <button className='btn btn-sm btn-primary mt-2' type='submit'>Add Exclusions</button>
     </form>
   );
 };
