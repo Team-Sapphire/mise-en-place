@@ -22,18 +22,19 @@
 <details>
   <summary>Table of Contents</summary>
   <ol>
-    <li><a href='#overview'>Overview</li>
-    <li>
-      <ul>
-        <li><a href='#recipe-recommendation'>Recipe Recommendation</a></li>
-        <li><a href='#openai-integration'>OpenAI Integration</a></li>
-        <li><a href='#user-preferences'>User Preferences</a></li>
-        <li><a href='#landing-page'>Landing Page</a></li>
-        <li><a href='#cart-integration-via-kroger'>Cart Integration Via Kroger</a></li>
-        <li><a href='#database-via-neon'>Database via Neon</a></li>
-        <li><a href='#recipe-page'>Recipe Page</a></li>
-        <li><a href='#main-page'>Main Page</a></li>
-      </ul>
+    <li><a href='#overview'>Overview
+      <li>
+        <ul>
+          <li><a href='#recipe-recommendation'>Recipe Recommendation</a></li>
+          <li><a href='#openai-integration'>OpenAI Integration</a></li>
+          <li><a href='#user-preferences'>User Preferences</a></li>
+          <li><a href='#landing-page'>Landing Page</a></li>
+          <li><a href='#cart-integration-via-kroger'>Cart Integration Via Kroger</a></li>
+          <li><a href='#database-via-neon'>Database via Neon</a></li>
+          <li><a href='#recipe-page'>Recipe Page</a></li>
+          <li><a href='#main-page'>Main Page</a></li>
+        </ul>
+      </li>
     </li>
     <li><a href="#installation">Installation</a></li>
     <li><a href="#usage">Usage</a></li>
