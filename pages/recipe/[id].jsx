@@ -6,9 +6,12 @@ import IngredientList from "../../src/components/recipe/ingredientList.jsx";
 import HealthLabels from "../../src/components/recipe/healthLabels.jsx";
 import Header from "../../src/components/header/Header.jsx";
 
+import { useUser } from "@auth0/nextjs-auth0";
+
 const axios = require("axios");
 
 const RecipePage = () => {
+  // const { user, error } = useUser();
   // const router = useRouter();
 
   const [recipeId, setRecipeId] = React.useState(useRouter().query.id);
@@ -49,7 +52,7 @@ const RecipePage = () => {
       axios
         .get("/api/recipePage/dbInstructions", { params: { id: recipeId } })
         .then((res) => {
-          //console.log(res);
+          // console.log(res);
           if (res.data.data.length !== 0) {
             setInstructions(res.data.data[0].instructions);
           } else {
@@ -196,10 +199,11 @@ const RecipePage = () => {
             />
             <div className="col-span-3">
               <h4 className="text-lg font-bold flex justify-between">
-                Ingredients:
+                Ingredients: && (
                 <Link href={`/cart`}>
                   <button className="btn btn-xs">Buy the ingredients</button>
                 </Link>
+                )
               </h4>
               <IngredientList
                 customize={customize}
