@@ -32,7 +32,7 @@ export default async function handler(req, res) {
       method: "PUT",
       cache: "no-cache",
       headers: {
-        Authorization: `bearer ${process.env.KROGER_CART_TOKEN}`,
+        Authorization: `bearer ${token}`,
         "Content-Type": "application/json; charset=utf-8",
       },
       body: JSON.stringify({"items": addToCart})
