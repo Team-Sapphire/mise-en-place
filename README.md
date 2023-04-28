@@ -84,21 +84,29 @@ Our comprehensive platform offers a user-friendly solution for tracking meal ing
 
 ## Installation
 
+<ol>
+  <li>
+    <h1>Prerequisites</h1>
+    <p>
+      This repository uses:
+      <ul>
+        <li>Auth0</li>
+        <li>Edamam API</li>
+        <li>OpenAI</li>
+        <li>Postgres database</li>
+      </ul>
+        The rest of the installation will assume you have these registered and ready to go.
+        It will also assume you have a <a href='https://www.howtogeek.com/27350/beginner-geek-how-to-edit-your-hosts-file/'>hosts</a> file with the following line:
+        127.0.0.1 dev.local
+        This is needed to enable SSL.
+
+        It will also assume you have a keysAndCerts folder in your root with an SSL certificate named: "localhost.crt" and an SSL key named: "localhost.key" and these should be for the domain dev.local.
+        <a href="https://gist.github.com/cecilemuller/9492b848eb8fe46d462abeb26656c4f8">How To</a>
+    </p>
+
+  </li>
+</ol>
 0. Prerequisites:
-
-This repository uses:
-
-- Auth0
-- Edamam API
-- OpenAI
-- Postgres database
-  The rest of the installation will assume you have these registered and ready to go.
-  It will also assume you have a <a href='https://www.howtogeek.com/27350/beginner-geek-how-to-edit-your-hosts-file/'>hosts</a> file with the following line:
-  127.0.0.1 dev.local
-  This is needed to enable SSL.
-
-  It will also assume you have a keysAndCerts folder in your root with an SSL certificate named: "localhost.crt" and an SSL key named: "localhost.key" and these should be for the domain dev.local.
-  <a href="https://gist.github.com/cecilemuller/9492b848eb8fe46d462abeb26656c4f8">How To</a>
 
 1. Clone the repository.
 
