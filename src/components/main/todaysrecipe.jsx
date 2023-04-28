@@ -2,7 +2,7 @@ import Link from "next/link";
 let TodaysRecipe = ({todaysRecipe, clickedRecipe, fromDataBase}) => {
 
   return (
-    <div className="flex justify-between items-center border-2 border-primary rounded-lg h-[100px]">
+    <div className="flex justify-between items-center border-2 border-primary rounded-lg">
 
       <div className="flex rounded-lg pl-10 text-primary text-xl"><p className="">Todays Recipe: </p>
       </div>
