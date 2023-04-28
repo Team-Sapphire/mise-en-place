@@ -72,12 +72,12 @@ module.exports = {
   },
 
   saveUserRecipes: function (req, res) {
-    console.log('save user recipes', req.body.length)
+    // console.log('save user recipes', req.body.length)
 
     let user_id = req.query.id;
     let recipes = req.body
     let queryStr = ''
-    console.log('user id', user_id)
+    // console.log('user id', user_id)
 
     // Create a giant string
     for (let i = 0; i < recipes.length; i++) {
@@ -100,6 +100,7 @@ module.exports = {
       let calorie_count = Math.round(recipes[i].recipe.calories)
       let nutrition = JSON.stringify(recipes[i].recipe.totalNutrients)
       let cook_time = Math.round(+recipes[i].recipe.totalTime)
+      let recipe_yield = Math.round(+recipes[i].recipe.yield)
 
 
       console.log('recipe id', recipe_id)
@@ -112,7 +113,8 @@ module.exports = {
         photos,
         calorie_count,
         nutrition,
-        cook_time
+        cook_time,
+        yield
       `
       let values = `
         '${recipe_id}',
@@ -123,8 +125,8 @@ module.exports = {
         '${photos}',
         '${calorie_count}',
         '${nutrition}',
-        '${cook_time}'
-
+        '${cook_time}',
+        '${recipe_yield}'
       `
       let queryStrRecipes =
       ` INSERT INTO recipes (
@@ -143,7 +145,7 @@ module.exports = {
         RETURNING id;
       `
 
-      console.log('query string recipes', queryStrRecipes)
+      // console.log('query string recipes', queryStrRecipes)
 
 
 
@@ -155,7 +157,7 @@ module.exports = {
           `INSERT INTO userrecipes (user_id, recipe_id, favorite)
           VALUES ('${user_id}','${recipe_id}',false);
           `
-          console.log('query string userrecipes', queryStrUserRecipes)
+          // console.log('query string userrecipes', queryStrUserRecipes)
 
           client.query(queryStrUserRecipes)
             .catch((err) => {
