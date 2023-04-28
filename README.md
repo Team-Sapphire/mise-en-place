@@ -22,8 +22,8 @@
 <details>
   <summary>Table of Contents</summary>
   <ol>
+    <li><a href='#overview'>Overview</li>
     <li>
-      <li><a href='#overview'>Overview</li>
       <ul>
         <li><a href='#recipe-recommendation'>Recipe Recommendation</a></li>
         <li><a href='#openai-integration'>OpenAI Integration</a></li>
