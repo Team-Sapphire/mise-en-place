@@ -5,7 +5,8 @@ import HealthPreferencesForm from './HealthPreferencesForm';
 import CuisinePreferencesForm from './CuisinePreferencesForm';
 import ExcludedForm from './ExcludedForm';
 import QuantitiesForm from './QuantitiesForm';
-import { useUser } from '@auth0/nextjs-auth0/client';
+import { useUser } from "@auth0/nextjs-auth0/client";
+
 
 const dietParams = [
   'balanced',
@@ -98,7 +99,6 @@ const AddPreferences = () => {
     people: 1,
     meals: 1
   });
-
   const { user, error, isLoading } = useUser();
 
   useEffect(() => {
@@ -119,7 +119,6 @@ const AddPreferences = () => {
     let thingy = query;
     console.log(query, 'this is the query');
     console.log('query from inside getRecipes', query);
-
     axios.get('/api/edamam/edamam', {
       params: {
         query: query
@@ -139,39 +138,35 @@ const AddPreferences = () => {
           axios.post(`/api/recipes/${id}`, result.data)
             .then(res => console.log('written to database!'))
             .catch (err => console.log('error posting recipes to database', err))
-        })
+    })})
+  };
+
+  const formatQuery = () => {
+    let result = '';
+    let dietPart = '';
+    let healthPart = '';
+    let cuisinePart = '';
+    let excludedPart = '';
+    if (allPreferences.diet.length) {
+      dietPart = generatePart('diet', allPreferences.diet);
+    }
+    if (allPreferences.health.length) {
+      healthPart = generatePart('health', allPreferences.health);
+    }
+    if (allPreferences.cuisineType.length) {
+      cuisinePart = generatePart('cuisineType', allPreferences.cuisineType);
+    }
+    if (allPreferences.excluded.length) {
+      excludedPart = generatePart('excluded', allPreferences.excluded);
+    }
+    getRecipes(`${dietPart}${healthPart}${cuisinePart}${excludedPart}`);
+  };
+
+  // useEffect(() => {console.log('query in useEffect', query)}, [query]);
 
 
-
-      // result.data.forEach(recipe => {
-      //   axios
-      //   .post("/api/recipePage/dbInstructions", {
-      //     name: recipe.label,
-      //     recipe_id: recipe.uri.split("_")[1],
-      //     ingredients: JSON.stringify(recipe.ingredientLines)
-      //       .replaceAll("[", "{")
-      //       .replaceAll("]", "}"),
-      //     instructions: JSON.stringify(instructions)
-      //       .replaceAll("[", "{")
-      //       .replaceAll("]", "}"),
-      //     restrictions: JSON.stringify(recipe.healthLabels)
-      //       .replaceAll("[", "{")
-      //       .replaceAll("]", "}")
-      //       .replaceAll(".nn", "."),
-      //     photos: JSON.stringify({ 0: recipe.image }),
-      //     calorie_count: Math.floor(recipe.calories),
-      //     nutrition: JSON.stringify(recipe.totalNutrients),
-      //     cook_time: recipe.totalTime,
-      //   })
-      //   .then(res => {
-      //     console.log('posted')
-      //   })
-      //   .catch(err => {
-      //     console.log('error posting', err)
-      //   })
-      // })
-    })
-    // .catch(err => console.log(err))
+  const trackChanges = (event, array, set) => {
+    set((array) => [...array, event.target.value]);
   };
 
 
