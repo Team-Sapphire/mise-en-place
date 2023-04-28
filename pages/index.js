@@ -27,6 +27,8 @@ export default function Home(req, res) {
   const [cbs, setCbs] = useState([]);
   const timerRef = useRef(null);
   const router = useRouter();
+  console.log(user);
+  fetch("");
 
   function callAllCbs(allCbs) {
     for (var i = 0; i < allCbs.length; i++) {
@@ -97,7 +99,7 @@ export default function Home(req, res) {
         {isLoading ? (
           <Button
             sx={{ fontSize: "24pt" }}
-            className="normal-case text-secondary rounded-md border-[1px] border-solid bg-base-100 hover:bg-base-200 border-primary "
+            className="normal-case shadow-sm shadow-secondary text-secondary rounded-md border-[1px] border-solid bg-base-100 hover:bg-base-200 border-primary "
           >
             Loading...
           </Button>
@@ -105,7 +107,7 @@ export default function Home(req, res) {
           <Link className="mainLink" href={!user ? "/api/auth/login" : "/main"}>
             <Button
               sx={{ fontSize: "24pt" }}
-              className="normal-case text-primary rounded-md border-[1px] border-solid border-primary  bg-base-100 hover:bg-base-200"
+              className="normal-case shadow-sm shadow-secondary text-primary rounded-md border-[1px] border-solid border-primary  bg-base-100 hover:bg-base-200"
             >
               {!user ? "Connect with Kroger" : "Let's Get Cookin'"}
             </Button>

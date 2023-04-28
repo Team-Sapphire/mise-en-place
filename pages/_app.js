@@ -33,7 +33,7 @@ function App({ Component, pageProps }) {
   }, [theme]);
 
   return (
-    <div data-theme={theme || "remiTheme"}>
+    <div className="w-full h-full bg-base-100 z-[-50] fixed" data-theme={theme || "remiTheme"}>
       <themeContext.Provider value={{ theme, setTheme }}>
         <Provider store={store}>
           <UserProvider>
