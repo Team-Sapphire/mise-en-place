@@ -13,13 +13,13 @@ const CuisineDropdownMenu = ({ options, random, handle13, trackChanges, cuisineP
     showing && (
       <div>
         {/* <input type='text' list='cuisine-label' onKeyPress={e => handle13(e)} /> */}
-        <select id='cuisine-label' onChange={e => trackChanges(e, cuisinePreferences, setCuisinePreferences)} onKeyPress={e => handle13(e)}>
+        <select className='w-52 mt-2' id='cuisine-label' onChange={e => trackChanges(e, cuisinePreferences, setCuisinePreferences)} onKeyPress={e => handle13(e)}>
         <option value =''></option>
           {options.map(option =>
             <option value={option} key={`dp${random(0, 1000000000)}`}>{option}</option>
           )}
         </select>
-        <CloseIcon onClick={handleRemoveClick} />
+        <CloseIcon fontSize='inherit' onClick={handleRemoveClick} />
       </div>
     )
   );

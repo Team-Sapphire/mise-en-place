@@ -7,7 +7,6 @@ import ExcludedForm from './ExcludedForm';
 import QuantitiesForm from './QuantitiesForm';
 import { useUser } from "@auth0/nextjs-auth0/client";
 
-
 const dietParams = [
   'balanced',
   'high-fiber',
@@ -91,6 +90,7 @@ const handle13 = (e) => {
 
 const AddPreferences = () => {
   const [query, setQuery] = useState('');
+  const { user, error, isLoading } = useUser();
   const [allPreferences, setAllPreferences] = useState({
     diet: [],
     health: [],
@@ -99,11 +99,6 @@ const AddPreferences = () => {
     people: 1,
     meals: 1
   });
-  const { user, error, isLoading } = useUser();
-
-  useEffect(() => {
-    console.log('useEff for allPrefs', allPreferences);
-  }, [allPreferences]);
 
   const generatePart = (param, array) => {
     let result = '';
@@ -116,19 +111,13 @@ const AddPreferences = () => {
   };
 
   const getRecipes = (query) => {
-    let thingy = query;
-    console.log(query, 'this is the query');
-    console.log('query from inside getRecipes', query);
     axios.get('/api/edamam/edamam', {
       params: {
         query: query
       }
     })
     .then(result => {
-
-      console.log('look at this edamam data!',result.data)
-      console.log('user', user.sub.slice(14))
-      axios.post("/api/users/" + user.sub.slice(14), allPreferences)
+      axios.post('/api/users/' + user.sub.slice(14), allPreferences)
         .then(res => {
           let id = res.data.rows[0].id
           console.log(id)
@@ -140,6 +129,7 @@ const AddPreferences = () => {
             .then(res => console.log('written to database!'))
             .catch (err => console.log('error posting recipes to database', err))
     })})
+    .catch(err => console.log(err));
   };
 
   const formatQuery = () => {
@@ -163,46 +153,33 @@ const AddPreferences = () => {
     getRecipes(`${dietPart}${healthPart}${cuisinePart}${excludedPart}`);
   };
 
-  // useEffect(() => {console.log('query in useEffect', query)}, [query]);
-
-
   const trackChanges = (event, array, set) => {
     set((array) => [...array, event.target.value]);
   };
 
-
-  // const submitPreferences = () => {
-  //   console.log('clicked');
-  //   // getRecipes();
-  // };
-
   return (
-    <>
-
-      <h2>Diet Preferences</h2>
-      <DietPreferencesForm params={dietParams} random={getRandomInt} handle13={handle13} format={formatQuery} setAllPreferences={setAllPreferences} allPreferences={allPreferences} trackChanges={trackChanges} />
-
-      <h2>Health Preferences</h2>
-
-      <HealthPreferencesForm params={healthParams} random={getRandomInt} handle13={handle13} format={formatQuery} setAllPreferences={setAllPreferences} allPreferences={allPreferences} trackChanges={trackChanges} />
-
-      <h2>Cuisine Preferences</h2>
-
-      <CuisinePreferencesForm params={cuisineTypeParams} random={getRandomInt} handle13={handle13} format={formatQuery} setAllPreferences={setAllPreferences} allPreferences={allPreferences} trackChanges={trackChanges} />
-
-      <h2>Dislikes and Exclusions</h2>
-
-      <ExcludedForm random={getRandomInt} handle13={handle13} format={formatQuery} setAllPreferences={setAllPreferences} trackChanges={trackChanges} />
-
-      <h2>Personalize your meal plan quantities</h2>
-
-      <QuantitiesForm handle13={handle13} setAllPreferences={setAllPreferences} allPreferences={allPreferences} />
-
-      <button className='duration-300 ease-in-out btn btn-outline btn-warning hover:scale-105' onClick={formatQuery}>Submit Preferences</button>
-    </>
+    <div
+    style={{ gridTemplate: '75% 25% / 1fr 1fr 1fr' }}
+    className='grid h-screen overflow-scroll'>
+      <div className='flex-col flex items-center'>
+        <h2 className='text-xl font-bold mt-4'>Personalize your plan size:</h2>
+        <QuantitiesForm handle13={handle13} setAllPreferences={setAllPreferences} allPreferences={allPreferences} />
+      </div>
+      <div className='flex-col flex items-center'>
+        <h2 className='text-xl font-bold  mt-4' >Diet Preferences</h2>
+        <DietPreferencesForm className='overflow-scroll' params={dietParams} random={getRandomInt} handle13={handle13} format={formatQuery} setAllPreferences={setAllPreferences} allPreferences={allPreferences} trackChanges={trackChanges} />
+        <h2 className='text-xl font-bold  mt-4'>Health Preferences</h2>
+        <HealthPreferencesForm params={healthParams} random={getRandomInt} handle13={handle13} format={formatQuery} setAllPreferences={setAllPreferences} allPreferences={allPreferences} trackChanges={trackChanges} />
+        <h2 className='text-xl font-bold  mt-4'>Cuisine Preferences</h2>
+        <CuisinePreferencesForm params={cuisineTypeParams} random={getRandomInt} handle13={handle13} format={formatQuery} setAllPreferences={setAllPreferences} allPreferences={allPreferences} trackChanges={trackChanges} />
+      </div>
+      <div className='flex-col flex items-center'>
+        <h2 className='text-xl font-bold mt-4'>Dislikes and Exclusions</h2>
+        <ExcludedForm className='overflow-scroll' random={getRandomInt} handle13={handle13} format={formatQuery} setAllPreferences={setAllPreferences} trackChanges={trackChanges} />
+      </div>
+      <button className='btn btn-lg mt-6 btn-primary w-[259px] duration-300 ease-in-out hover:scale-105 col-start-2 m-auto' onClick={formatQuery}>Submit Preferences</button>
+    </div>
   );
 };
 
 export default AddPreferences;
-
-      // form onSubmit={submitPreferences}

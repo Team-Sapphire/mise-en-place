@@ -1,9 +1,7 @@
 import React from 'react';
 
 const ExcludedInput = ({ handle13, trackChanges, excluded, setExcluded }) => (
-  <input type='text'
-  //  onSubmit={e => trackChanges(e, excluded, setExcluded)}
-   onKeyPress={e => handle13(e)} />
+  <input className='w-52 mt-2 border-1 rounded-md block' type='text' onKeyPress={e => handle13(e)} />
 );
 
 export default ExcludedInput;
