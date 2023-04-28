@@ -835,7 +835,7 @@ let recipeExample = {
 };
 
 let Cart = () => {
-  const [recipe, setRecipe] = useState(null);
+  const [recipe, setRecipe] = useState(recipeExample);
   useEffect(() => {
     setRecipe(JSON.parse(localStorage.getItem("recipe")));
   }, []);
