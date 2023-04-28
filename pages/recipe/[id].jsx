@@ -14,7 +14,6 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 const axios = require("axios");
 
 const RecipePage = () => {
-  const { user, error } = useUser();
   // const router = useRouter();
 
   const [recipeId, setRecipeId] = React.useState(useRouter().query.id);
@@ -115,41 +114,23 @@ const RecipePage = () => {
         setThisRecipe(recipe);
         //console.log(user.sub.slice(14));
         // console.log(user);
-        axios
-          .get("/api/recipePage/getUserServings", {
-            params: { id: user.sub.slice(14) },
-          })
-          .then((res) => {
-            console.log(
-              res.data[0].preferences.meals,
-              res.data[0].preferences.people
-            );
-            let ingredientsAfter = [];
-            let servings = recipe.yield;
-            recipe.ingredientLines.forEach((ingredient) => {
-              let temp = ingredient.split(" ");
-              for (let i = 0; i < temp.length; i++) {
-                if (Number(temp[i])) {
-                  temp[i] =
-                    (Number(temp[i]) / servings) *
-                    (res.data[0].preferences.meals *
-                      res.data[0].preferences.people);
-                  // multiply by the number of servings they want from user profile
-                }
-              }
-              ingredientsAfter.push(temp.join(" "));
-              setServings(
-                res.data[0].preferences.meals * res.data[0].preferences.people
-              );
-            });
-            setIngredientsByYield(ingredientsAfter);
-          })
-          .then(() => {
-            getRecipeInstructions(recipe);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        let ingredientsAfter = [];
+        let servings = recipe.yield;
+        recipe.ingredientLines.forEach((ingredient) => {
+          let temp = ingredient.split(" ");
+          for (let i = 0; i < temp.length; i++) {
+            if (Number(temp[i])) {
+              temp[i] = (Number(temp[i]) / servings) * 4;
+              // multiply by the number of servings they want from user profile
+            }
+          }
+          ingredientsAfter.push(temp.join(" "));
+        });
+        setIngredientsByYield(ingredientsAfter);
+        return recipe;
+      })
+      .then((recipe) => {
+        getRecipeInstructions(recipe);
       })
       .catch((err) => {
         console.log(err);
@@ -185,7 +166,6 @@ const RecipePage = () => {
         nutrition: JSON.stringify(recipe.totalNutrients),
         cook_time: recipe.totalTime,
       },
-      user: { id: user.sub.slice(14) },
     });
   };
   const handleSaveClick = (e) => {
@@ -221,7 +201,6 @@ const RecipePage = () => {
                   Save
                 </button>
               ) : (
-                // user ? (
                 <button
                   className="btn btn-m btn-primary"
                   onClick={handleCustomizeClick}
@@ -249,21 +228,15 @@ const RecipePage = () => {
             />
             <div className="col-span-3">
               <h4 className="text-lg font-bold flex justify-between">
-                Ingredients{" "}
-                {servings && (
-                  <p className="font-normal text-s">
-                    {" "}
-                    {"  "}for {servings} servings
-                  </p>
-                )}
-                {user && (
-                  <Link href={`/cart`}>
-                    <button className="btn btn-s btn-primary">
-                      <ShoppingBasketIcon className="mr-2" /> Buy the
-                      ingredients
-                    </button>
-                  </Link>
-                )}
+                <p>
+                  Ingredients:{" "}
+                  <span className="text-s font-normal">for 4 servings</span>
+                </p>
+                <Link href={`/cart`}>
+                  <button className="btn btn-s btn-primary">
+                    <ShoppingBasketIcon className="mr-2" /> Buy the ingredients
+                  </button>
+                </Link>
               </h4>
               <IngredientList
                 customize={customize}
