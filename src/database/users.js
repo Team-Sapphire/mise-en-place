@@ -33,20 +33,27 @@ module.exports = {
   },
 
   post: function (req, res) {
-    let columns = `kroger_id,
-    username,
-    tenant,
-    email,
-    allergies,
-    preferences
+
+    let kroger_id = req.query.id;
+    let columns = `
+      kroger_id,
+      username,
+      tenant,
+      email,
+      allergies,
+      preferences
     `;
 
-    let values = `'${req.body.kroger_id}',
-    '${req.body.username}',
-    '${req.body.tenant}',
-    '${req.body.email}',
-    '${req.body.allergies}',
-    '${req.body.preferences}'`;
+    let values = `
+      '${kroger_id}',
+      '',
+      '',
+      '',
+      '{}',
+      '${JSON.stringify(req.body)}'
+    `;
+
+
 
     let queryStr = `
     INSERT INTO users (
@@ -58,18 +65,23 @@ module.exports = {
     )
 
     ON CONFLICT (kroger_id) DO UPDATE SET (
-      ${columns}
+      kroger_id,
+      preferences
     ) = (
-      ${values}
+      '${kroger_id}',
+      '${JSON.stringify(req.body)}'
     )
 
-    WHERE users.kroger_id = '${req.body.kroger_id}';
+    WHERE users.kroger_id = '${kroger_id}'
+    RETURNING id;
     `;
+
+
 
     client
       .query(queryStr)
       .then((data) => {
-        res.status(201).send("Status: 201 CREATED");
+        res.status(201).send(data);
       })
       .catch((err) => {
         console.log("Error", err);

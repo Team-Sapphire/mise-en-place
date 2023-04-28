@@ -848,14 +848,14 @@ let Cart = () => {
     <>
     <Header />
     <div className='m-20' >
-      <div className='flex justify-between text-2xl mb-10 border border-black bg-gray-800 text-white h-[50px] rounded-lg'>
+      <div className='flex justify-between text-2xl mb-10 border border-black bg-base-100 text-primary h-[50px] rounded-lg'>
         <div className='flex ml-5 mt-1'>Connect with Kroger <IoIosCheckmarkCircleOutline className='mt-2 ml-2'/><IoIosArrowDropright className='mt-2 ml-20' /></div>
         <div className='flex mt-1'>Review and Send <IoIosArrowDropright className='mt-2 ml-20' /></div>
         <div className='flex mr-60 mt-1'>Purchase Ingredients<IoIosArrowDropright className='mt-2 ml-20' /></div>
       </div>
       <div className='flex'>
         {recipe && <div>
-          {recipe.ingredientLines.map((ingredient, index) => {
+          {recipe.ingredients.map((ingredient, index) => {
             return (
               <Ingredient key={index + ingredient} ingredient={ingredient} setCart={setCart} cart={cart} krogerCart={krogerCart}/>
             );

@@ -5,6 +5,8 @@ import HealthPreferencesForm from './HealthPreferencesForm';
 import CuisinePreferencesForm from './CuisinePreferencesForm';
 import ExcludedForm from './ExcludedForm';
 import QuantitiesForm from './QuantitiesForm';
+import { useUser } from "@auth0/nextjs-auth0/client";
+
 
 const dietParams = [
   'balanced',
@@ -97,6 +99,7 @@ const AddPreferences = () => {
     people: 1,
     meals: 1
   });
+  const { user, error, isLoading } = useUser();
 
   useEffect(() => {
     console.log('useEff for allPrefs', allPreferences);
@@ -121,8 +124,22 @@ const AddPreferences = () => {
         query: query
       }
     })
-    .then(result => console.log(result))
-    .catch(err => console.log(err));
+    .then(result => {
+      result.data
+      console.log('look at this edamam data!',result.data)
+      console.log('user', user.sub.slice(14))
+      axios.post("/api/users/" + user.sub.slice(14), allPreferences)
+        .then(res => {
+          let id = res.data.rows[0].id
+          console.log(id)
+          return id
+        })
+        .then( (id) => {
+          console.log('got the id!', id)
+          axios.post(`/api/recipes/${id}`, result.data)
+            .then(res => console.log('written to database!'))
+            .catch (err => console.log('error posting recipes to database', err))
+    })})
   };
 
   const formatQuery = () => {
@@ -181,7 +198,7 @@ const AddPreferences = () => {
 
       <QuantitiesForm handle13={handle13} setAllPreferences={setAllPreferences} allPreferences={allPreferences} />
 
-      <button className='btn btn-outline btn-warning hover:scale-105 ease-in-out duration-300' onClick={formatQuery}>Submit Preferences</button>
+      <button className='duration-300 ease-in-out btn btn-outline btn-warning hover:scale-105' onClick={formatQuery}>Submit Preferences</button>
     </>
   );
 };

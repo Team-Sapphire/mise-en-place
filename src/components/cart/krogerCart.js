@@ -6,7 +6,7 @@ import Image from 'next/image'
 const KrogerCart = ({cart}) => {
   var shellRows = [1,2,3,4,5,6,7];
   const [refresh, setRefresh] = useState(false);
-  var newCart = cart.slice(0,11);
+  var newCart = cart.slice(0, (Math.ceil(cart.length / 2)));
   setTimeout(() => {
     setRefresh(true);
   }, 10000)
