@@ -1,7 +1,12 @@
 ## Mise En Place
 
 <div style='display: flex; justify-content:center; width:100%;'>
-  <img src='' alt="Mise En Place Logo. A chef hat atop two orange trapezoids." />
+  <div style="display:flex; justify-content: center; flex-basis:80%;">
+      <img src="./public/logo-chef-hat.svg" style='width:3em; height:3em;' alt='chef hat'/>
+  </div>
+  <div>
+      <img src="./public/logo-mise-en-place.svg" style='width:10em;' alt='logo'/>
+  </div>
 </div>
 
 ## Tech Stack
