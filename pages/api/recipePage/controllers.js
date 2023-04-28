@@ -3,7 +3,7 @@ import postgres from "postgres";
 const sql = postgres(process.env.DATABASE_URL);
 
 const getInstructions = (id) => {
-  return sql`select * from recipes where recipe_id = ${id}`;
+  return sql`select instructions from recipes where recipe_id = ${id}`;
 };
 
 const insertInstructions = (recipe) => {
