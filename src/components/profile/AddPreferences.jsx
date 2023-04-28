@@ -93,49 +93,99 @@ const AddPreferences = () => {
     diet: [],
     health: [],
     cuisineType: [],
-    excluded: []
+    excluded: [],
+    people: 1,
+    meals: 1
   });
 
-  const formatParams = (param, values) => {
+  useEffect(() => {
+    console.log('useEff for allPrefs', allPreferences);
+  }, [allPreferences]);
+
+  const generatePart = (param, array) => {
     let result = '';
-    if (!values.length) {
-      return '';
+    console.log(param);
+    for (let i = 0; i < array.length; i++) {
+      result += `&${param}=${array[i]}`
     }
-    for (let i = 0; i < values.length; i++) {
-      result += `&${param}=${values[i]}`
-    }
-    console.log('result from formatting', result);
-    setQuery(`${query}${result}`)
-    console.log('query after setQuery', query);
+    // setQuery(...query, result);
+    return result;
   };
 
-  useEffect(() => {console.log('query in useEffect', query)}, [query]);
-
-  const getRecipes = () => {
+  const getRecipes = (query) => {
+    let thingy = query;
+    console.log(query, 'this is the query');
+    console.log('query from inside getRecipes', query);
     axios.get('/api/edamam/edamam', {
       params: {
         query: query
       }
     })
     .then(result => console.log(result))
-    // .catch(err => console.log(err))
+    .catch(err => console.log(err));
   };
+
+  const formatQuery = () => {
+    let result = '';
+    let dietPart = '';
+    let healthPart = '';
+    let cuisinePart = '';
+    let excludedPart = '';
+    if (allPreferences.diet.length) {
+      dietPart = generatePart('diet', allPreferences.diet);
+    }
+    if (allPreferences.health.length) {
+      healthPart = generatePart('health', allPreferences.health);
+    }
+    if (allPreferences.cuisineType.length) {
+      cuisinePart = generatePart('cuisineType', allPreferences.cuisineType);
+    }
+    if (allPreferences.excluded.length) {
+      excludedPart = generatePart('excluded', allPreferences.excluded);
+    }
+    getRecipes(`${dietPart}${healthPart}${cuisinePart}${excludedPart}`);
+  };
+
+  // useEffect(() => {console.log('query in useEffect', query)}, [query]);
+
+
+  const trackChanges = (event, array, set) => {
+    set((array) => [...array, event.target.value]);
+  };
+
+
+  // const submitPreferences = () => {
+  //   console.log('clicked');
+  //   // getRecipes();
+  // };
 
   return (
     <>
+
       <h2>Diet Preferences</h2>
-      <DietPreferencesForm params={dietParams} random={getRandomInt} handle13={handle13} format={formatParams} />
+      <DietPreferencesForm params={dietParams} random={getRandomInt} handle13={handle13} format={formatQuery} setAllPreferences={setAllPreferences} allPreferences={allPreferences} trackChanges={trackChanges} />
+
       <h2>Health Preferences</h2>
-      <HealthPreferencesForm params={healthParams} random={getRandomInt} handle13={handle13} format={formatParams} />
+
+      <HealthPreferencesForm params={healthParams} random={getRandomInt} handle13={handle13} format={formatQuery} setAllPreferences={setAllPreferences} allPreferences={allPreferences} trackChanges={trackChanges} />
+
       <h2>Cuisine Preferences</h2>
-      <CuisinePreferencesForm params={cuisineTypeParams} random={getRandomInt} handle13={handle13} format={formatParams} />
+
+      <CuisinePreferencesForm params={cuisineTypeParams} random={getRandomInt} handle13={handle13} format={formatQuery} setAllPreferences={setAllPreferences} allPreferences={allPreferences} trackChanges={trackChanges} />
+
       <h2>Dislikes and Exclusions</h2>
-      <ExcludedForm random={getRandomInt} handle13={handle13} format={formatParams} />
+
+      <ExcludedForm random={getRandomInt} handle13={handle13} format={formatQuery} setAllPreferences={setAllPreferences} trackChanges={trackChanges} />
+
       <h2>Personalize your meal plan quantities</h2>
-      <QuantitiesForm handle13={handle13} />
-      <button className='btn btn-outline btn-warning hover:scale-105 ease-in-out duration-300' onClick={getRecipes}></button>
+
+      <QuantitiesForm handle13={handle13} setAllPreferences={setAllPreferences} allPreferences={allPreferences} />
+
+      <button className='btn btn-outline btn-warning hover:scale-105 ease-in-out duration-300' onClick={formatQuery}>Submit Preferences</button>
     </>
   );
 };
 
 export default AddPreferences;
+
+      // form onSubmit={submitPreferences}
