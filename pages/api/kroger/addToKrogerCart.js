@@ -8,9 +8,16 @@ export default async function handler(req, res) {
         origin: '*',
         optionsSuccessStatus: 200,
     });
-    var token = req.body['mise/token'];
-    var cart = req.body;
-    console.log(cart);
+
+    if (req.body.token === undefined) {
+      console.log('still?')
+      var token = process.env.KROGER_CART_TOKEN;
+    } else {
+      console.log('If you see this I think it works')
+      var token = req.body.token;
+    }
+
+    var cart = req.body.cart;
     var addToCart = [];
     for (var i = 0; i < cart.length; i++) {
       var item = {};
@@ -25,7 +32,7 @@ export default async function handler(req, res) {
       method: "PUT",
       cache: "no-cache",
       headers: {
-        Authorization: `bearer ${process.env.KROGER_CART_TOKEN}`,
+        Authorization: `bearer ${token}`,
         "Content-Type": "application/json; charset=utf-8",
       },
       body: JSON.stringify({"items": addToCart})
