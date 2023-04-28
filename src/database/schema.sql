@@ -62,7 +62,8 @@ CREATE TABLE recipes (
   instructions jsonb[],
   restrictions json,
   photos json,
-  calorie_count int
+  calorie_count int,
+  yield int
 );
 
 -- Userrecipes contains:

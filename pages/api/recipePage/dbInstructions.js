@@ -1,4 +1,4 @@
-import { getInstructions, insertInstructions } from "./controllers.js";
+import { getRecipe, insertInstructions } from "./controllers.js";
 
 const dbInstructions = (req, res) => {
   if (req.method === "POST") {
@@ -11,7 +11,7 @@ const dbInstructions = (req, res) => {
       });
   } else if (req.method === "GET") {
     console.log(req.query.id);
-    return getInstructions(req.query.id)
+    return getRecipe(req.query.id)
       .then((data) => {
         res.status(200).json({ data: data });
       })

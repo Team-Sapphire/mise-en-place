@@ -44,8 +44,8 @@ const RecipePage = () => {
       axios
         .get("/api/recipePage/dbInstructions", { params: { id: recipeId } })
         .then((res) => {
-          // console.log(res);
-          if (res.data.data.length !== 0) {
+          console.log(res.data.data[0].instructions);
+          if (res.data.data[0].instructions.length !== 0) {
             setInstructions(res.data.data[0].instructions);
           } else {
             axios
@@ -62,22 +62,10 @@ const RecipePage = () => {
                 console.log(recipe);
                 axios
                   .post("/api/recipePage/dbInstructions", {
-                    name: recipe.label,
                     recipe_id: recipe.uri.split("_")[1],
-                    ingredients: JSON.stringify(recipe.ingredientLines)
-                      .replaceAll("[", "{")
-                      .replaceAll("]", "}"),
                     instructions: JSON.stringify(instructions)
                       .replaceAll("[", "{")
                       .replaceAll("]", "}"),
-                    restrictions: JSON.stringify(recipe.healthLabels)
-                      .replaceAll("[", "{")
-                      .replaceAll("]", "}")
-                      .replaceAll(".nn", "."),
-                    photos: JSON.stringify({ 0: recipe.image }),
-                    calorie_count: Math.floor(recipe.calories),
-                    nutrition: JSON.stringify(recipe.totalNutrients),
-                    cook_time: recipe.totalTime,
                   })
                   .then((res) => {
                     console.log("successful post");

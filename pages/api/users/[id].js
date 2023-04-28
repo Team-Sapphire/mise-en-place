@@ -8,9 +8,7 @@ export default async function handler(req, res) {
     await get(req, res);
   }
   if (req.method === "POST") {
-    console.log(req.query);
-    req.body = {};
-    req.body.kroger_id = req.query.id;
+    console.log('USER POST!');
     await post(req, res);
   }
 }

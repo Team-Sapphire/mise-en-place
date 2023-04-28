@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextHttps = require("next-https");
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = process.env.NODE_ENV === "development" ? "0" : "1";
+process.env.NODE_TLS_REJECT_UNAUTHORIZED =
+  process.env.NODE_ENV === "development" ? "0" : "1";
 
 const withHttps = nextHttps({
   enabled: process.env.NODE_ENV === "development",
@@ -19,8 +20,8 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "edamam-product-images.s3.amazonaws.com"
-      }
+        hostname: "edamam-product-images.s3.amazonaws.com",
+      },
     ],
   },
 };

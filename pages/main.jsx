@@ -46,6 +46,7 @@ let Main = () => {
   }
 
   return (
+
     <div>
       <Header />
       <div className="grid lg:grid-cols-6 grid-rows-6 gap-5 h-[100%] w-[100%]">
@@ -59,7 +60,8 @@ let Main = () => {
             setClickedRecipe={setClickedRecipe}
             recipes={recipes}
             setTodaysRecipe={setTodaysRecipe}
-          />
+            clickedRecipe={clickedRecipe}
+            />
         </div>
 
         <div className="col-span-2 row-span-4 p-4 shadow-lg rounded-md pt-12">
@@ -70,7 +72,7 @@ let Main = () => {
         modalVisable={modalVisable}
         setModal={setModal}
         clickedRecipe={clickedRecipe}
-      />
+        />
     </div>
   );
 };
