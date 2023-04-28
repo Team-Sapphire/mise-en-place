@@ -20,7 +20,7 @@
 <details>
   <summary>Table of Contents</summary>
   <ol>
-    <li><a href='#overview'>Overview
+    <li><a href='#a-comprehensive-culinary-solution-for-modern-living'>Overview
       <ul>
         <li><a href='#recipe-recommendation'>Recipe Recommendation</a></li>
         <li><a href='#openai-integration'>OpenAI Integration</a></li>
@@ -37,8 +37,6 @@
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
-
-#### Overview
 
 ## A Comprehensive Culinary Solution for Modern Living
 
