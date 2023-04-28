@@ -836,11 +836,9 @@ let recipeExample = {
 
 let Cart = () => {
   var recipe;
-  if (typeof window === undefined) {
-    recipe = recipeExample.hits[0].recipe;
-  } else {
+  useEffect(() => {
     recipe = JSON.parse(localStorage.getItem("recipe"));
-  }
+  }, []);
 
   const { user, error, isLoading } = useUser();
   const [cart, setCart] = useState([]);
