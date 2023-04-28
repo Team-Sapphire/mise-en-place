@@ -1,5 +1,3 @@
-## Mise En Place
-
 <div style="display: flex; justify-content:center; width:100%;">
   <div style="display:flex; justify-content: center; flex-basis:80%;">
       <img src="./public/logo-chef-hat.svg" style="width:3em; height:3em;" alt="chef hat"/>
@@ -110,7 +108,7 @@ Our comprehensive platform offers a user-friendly solution for tracking meal ing
     <h3>Duplicate the env.local.copy and rename it to env.local.</h3>
   </li>
   <li>
-    Add values to the env.local:
+    <h3>Add values to the env.local:</h3>
 
     AUTH0_SECRET=use [openssl rand -hex 32] to generate a 32 bytes value
     AUTH0_BASE_URL=This is your Auth0 Callback URL (starting with https://)
