@@ -835,9 +835,9 @@ let recipeExample = {
 };
 
 let Cart = () => {
-  var recipe;
+  const [recipe, setRecipe] = useState(recipeExample.hits[0].recipe);
   useEffect(() => {
-    recipe = JSON.parse(localStorage.getItem("recipe"));
+    setRecipe(JSON.parse(localStorage.getItem("recipe")));
   }, []);
 
   const { user, error, isLoading } = useUser();
@@ -854,13 +854,13 @@ let Cart = () => {
         <div className='flex mr-60 mt-1'>Purchase Ingredients<IoIosArrowDropright className='mt-2 ml-20' /></div>
       </div>
       <div className='flex'>
-        <div>
+        {recipe && <div>
           {recipe.ingredientLines.map((ingredient, index) => {
             return (
               <Ingredient key={index + ingredient} ingredient={ingredient} setCart={setCart} cart={cart} krogerCart={krogerCart}/>
             );
           })}
-        </div>
+        </div>}
         <div><AddToCart cart={cart} user={user} /></div>
         <div className='flex flex-col'>
           <KrogerCart cart={cart}/>
