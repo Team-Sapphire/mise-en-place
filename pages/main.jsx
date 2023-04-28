@@ -13,6 +13,9 @@ let Main = () => {
   let [todaysRecipe, setTodaysRecipe] = useState();
   let [clickedRecipe, setClickedRecipe] = useState();
   let [letLoading, setLoading] = useState(true);
+  let [fromDatabase, setFromDatabase] = useState(false);
+
+
   const { user, error, isLoading } = useUser();
   // useEffect(() =>{
   //   axios.get('http://localhost:3000/api/edamam/edamam')
@@ -20,15 +23,24 @@ let Main = () => {
   //   .catch(err => console.log('error getting recipes'))
   // }, [])
 
+  // ${user.sub.slice(14)}
+  // c1b55fe4-0a44-444e-96da-4027be248c77
   useEffect(() => {
     let cached = localStorage.getItem("cached");
     if (user) {
       axios.get(`/api/recipes/${user.sub.slice(14)}`)
         .then((data) => {
-          console.log('data!', data)
+          console.log('data!', data.data.rows)
+          setRecipes(data.data.rows);
+          setClickedRecipe(data.data.rows[0]);
+          setTodaysRecipe(data.data.recipe_id);
+          setLoading(false);
+          setFromDatabase(true);
         })
         .catch(err => console.log(err))
-    } else if (cached) {
+    }
+
+    else if (cached) {
       let parseCached = JSON.parse(cached);
       setRecipes(parseCached);
       setClickedRecipe(parseCached[0]);
@@ -56,13 +68,15 @@ let Main = () => {
 
     <div>
       <Header />
-      <div className="grid lg:grid-cols-6 grid-rows-6 gap-5 h-[100%] w-[100%]">
+      <div className="grid lg:grid-cols-6 grid-rows-6 gap-5 h-[1300px] w-[100%]">
         <div className="col-span-6 row-span-2 p-4 shadow-lg rounded-md pt-[10%]">
-          <TodaysRecipe todaysRecipe={todaysRecipe} />
+          <TodaysRecipe todaysRecipe={todaysRecipe}
+          fromDataBase={fromDatabase} clickedRecipe={clickedRecipe} />
         </div>
 
-        <div className="col-span-4 row-span-4 p-4 rounded-md shadow-lg">
+        <div className="col-span-4 row-span-4 p-4 overflow-hidden overflow-scroll rounded-md shadow-lg">
           <FutureRecipes
+          fromDataBase={fromDatabase}
             setModal={setModal}
             setClickedRecipe={setClickedRecipe}
             recipes={recipes}
@@ -76,6 +90,7 @@ let Main = () => {
         </div>
       </div>
       <RecipeModal
+      fromDataBase={fromDatabase}
         modalVisable={modalVisable}
         setModal={setModal}
         clickedRecipe={clickedRecipe}
