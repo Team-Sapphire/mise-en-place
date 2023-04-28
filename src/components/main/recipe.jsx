@@ -3,14 +3,23 @@ let Recipe = ({recipe, setClickedRecipe, setModal, setTodaysRecipe, clickedRecip
     setClickedRecipe(recipe);
     setModal(true);
   };
-  let regex = recipe.uri ? recipe.uri.match(/recipe_([\w-]+)/)[1] : "";
+
+  let handleRegex = () => {
+    console.log('clicked', recipe)
+    let uri = recipe.recipe.uri;
+    console.log(uri);
+    let regex = recipe.recipe.uri.match(/recipe_([\w-]+)/)[1];
+    console.log('regex', regex);
+    setTodaysRecipe(regex);
+  }
+
   let isOrange = recipe === clickedRecipe ? true : false;
   return (
-    <div className={isOrange ? "flex flex-row justify-between border-2 border-black rounded-lg mt-2 h-[100px] hover:scale-105 ease-in-out duration-300 bg-orange-500" : "flex flex-row justify-between border-2 border-black rounded-lg mt-2 h-[100px] hover:scale-105 ease-in-out duration-300 bg-gray-800 bg-gray-800"} onClick={(e) =>  {
+    <div className={isOrange ? "flex flex-row justify-between border-2 border-black rounded-lg mt-2 h-[100px] hover:scale-105 ease-in-out duration-300 bg-primary" : "flex flex-row justify-between border-2 border-black rounded-lg mt-2 h-[100px] hover:scale-105 ease-in-out duration-300 bg-gray-800 bg-secondary"} onClick={(e) =>  {
       setClickedRecipe(recipe)
-      setTodaysRecipe(regex)}}>
+      handleRegex()}}>
 
-      <p className={isOrange ? "pt-10 pl-4" : "pt-10 pl-4 text-white"}>{recipe.recipe.label}</p>
+      <p className={isOrange ? "pt-10 pl-4 text-secondary" : "pt-10 pl-4 text-primary"}>{recipe.recipe.label}</p>
 
       <div className="flex pt-6 pr-4 gap-4">
 

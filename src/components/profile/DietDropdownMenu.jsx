@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 
-const DietDropdownMenu = ({ options, random, handle13 }) => {
+const DietDropdownMenu = ({ options, random, handle13, trackChanges, dietPreferences, setDietPreferences }) => {
   const [showing, setShowing] = useState(true);
 
   const handleRemoveClick = () => {
@@ -12,15 +12,14 @@ const DietDropdownMenu = ({ options, random, handle13 }) => {
   return (
     showing && (
       <div>
-        <input type='text' list='diet-label' onKeyPress={e => handle13(e)} />
-        <datalist id='diet-label'>
+        {/* <input type='text' list='diet-label' /> */}
+        <select id='diet-label' onChange={e => trackChanges(e, dietPreferences, setDietPreferences)} onKeyPress={e => handle13(e)} >
+          <option value =''></option>
           {options.map(option =>
             <option value={option} key={`dp${random(0, 1000000000)}`}>{option}</option>
           )}
-        </datalist>
-        <button onClick={handleRemoveClick}>
-          <CloseIcon />
-        </button>
+        </select>
+        <CloseIcon onClick={handleRemoveClick} />
       </div>
     )
   );
