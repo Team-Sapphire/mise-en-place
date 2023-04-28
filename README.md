@@ -1,11 +1,11 @@
 ## Mise En Place
 
-<div style='display: flex; justify-content:center; width:100%;'>
+<div style="display: flex; justify-content:center; width:100%;">
   <div style="display:flex; justify-content: center; flex-basis:80%;">
-      <img src="./public/logo-chef-hat.svg" style='width:3em; height:3em;' alt='chef hat'/>
+      <img src="./public/logo-chef-hat.svg" style="width:3em; height:3em;" alt="chef hat"/>
   </div>
   <div>
-      <img src="./public/logo-mise-en-place.svg" style='width:10em;' alt='logo'/>
+      <img src="./public/logo-mise-en-place.svg" style="width:10em;" alt="logo"/>
   </div>
 </div>
 
