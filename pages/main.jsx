@@ -59,6 +59,7 @@ let Main = () => {
             setClickedRecipe={setClickedRecipe}
             recipes={recipes}
             setTodaysRecipe={setTodaysRecipe}
+            clickedRecipe={clickedRecipe}
           />
         </div>
 
