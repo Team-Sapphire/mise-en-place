@@ -14,7 +14,6 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 const axios = require("axios");
 
 const RecipePage = () => {
-  const { user, error } = useUser();
   // const router = useRouter();
 
   const [recipeId, setRecipeId] = React.useState(useRouter().query.id);
@@ -24,6 +23,7 @@ const RecipePage = () => {
   const [customize, setCustomize] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
   const [editedInstructions, editInstructions] = React.useState("");
+  const [servings, setServings] = React.useState(0);
   //divided recipe amounts by yield and then multiplied by amount of servings the user wants
 
   // TODO save with the ingredients, originally saves the ai generated instructions but upon editing, update with the newly edited instructions
@@ -46,7 +46,13 @@ const RecipePage = () => {
         .then((res) => {
           console.log(res.data.data[0].instructions);
           if (res.data.data[0].instructions.length !== 0) {
-            setInstructions(res.data.data[0].instructions);
+            let noNNInstructions = [];
+            res.data.data[0].instructions.forEach((step) => {
+              noNNInstructions.push(
+                step.replaceAll(".nn", ".").replaceAll(". nn", ".")
+              );
+            });
+            setInstructions(noNNInstructions);
           } else {
             axios
               .post("/api/recipePage/instructions", {
@@ -106,20 +112,22 @@ const RecipePage = () => {
         let recipe = res.data.recipe.recipe;
         localStorage.setItem("recipe", JSON.stringify(recipe));
         setThisRecipe(recipe);
+        //console.log(user.sub.slice(14));
+        // console.log(user);
         let ingredientsAfter = [];
         let servings = recipe.yield;
         recipe.ingredientLines.forEach((ingredient) => {
           let temp = ingredient.split(" ");
           for (let i = 0; i < temp.length; i++) {
             if (Number(temp[i])) {
-              temp[i] = Number(temp[i]) / servings;
+              temp[i] = (Number(temp[i]) / servings) * 4;
               // multiply by the number of servings they want from user profile
             }
           }
           ingredientsAfter.push(temp.join(" "));
         });
         setIngredientsByYield(ingredientsAfter);
-        return res.data.recipe.recipe;
+        return recipe;
       })
       .then((recipe) => {
         getRecipeInstructions(recipe);
@@ -138,8 +146,37 @@ const RecipePage = () => {
     setCustomize(true);
   };
 
+  let newRecipeInstructions = () => {
+    axios.post("/api/recipePage/instructionEdit", {
+      recipe: {
+        name: recipe.label,
+        recipe_id: recipe.uri.split("_")[1],
+        ingredients: JSON.stringify(recipe.ingredientLines)
+          .replaceAll("[", "{")
+          .replaceAll("]", "}"),
+        instructions: JSON.stringify(instructions)
+          .replaceAll("[", "{")
+          .replaceAll("]", "}"),
+        restrictions: JSON.stringify(recipe.healthLabels)
+          .replaceAll("[", "{")
+          .replaceAll("]", "}")
+          .replaceAll("\\n\\n", ""),
+        photos: JSON.stringify({ 0: recipe.image }),
+        calorie_count: Math.floor(recipe.calories),
+        nutrition: JSON.stringify(recipe.totalNutrients),
+        cook_time: recipe.totalTime,
+      },
+    });
+  };
   const handleSaveClick = (e) => {
-    console.log(editedInstructions);
+    // let newInstructionArray = editedInstructions.split("\n");
+    // newInstructionArray.unshift("nn");
+    // for (let i = 0; i < newInstructionArray.length; i++) {
+    //   if (newInstructionArray[i] === "") {
+    //     newInstructionArray.splice(i, 1);
+    //   }
+    // }
+    // console.log(newInstructionArray);
     setCustomize(false);
   };
 
@@ -154,30 +191,34 @@ const RecipePage = () => {
         <div className="ml-5 mt-5">
           <h1 className="text-5xl flex items-center gap-10">
             {thisRecipe.label}{" "}
-            {customize ? (
-              <button
-                className="btn btn-m bg-green-600 text-black"
-                onClick={handleSaveClick}
-              >
-                <EditIcon />
-                Save
-              </button>
-            ) : user ? (
-              <button
-                className="btn btn-m btn-primary"
-                onClick={handleCustomizeClick}
-              >
-                <EditIcon />
-                Customize
-              </button>
-            ) : (
-              <Link href="/api/auth/login">
-                <button className="btn btn-m btn-primary">
+            {
+              customize ? (
+                <button
+                  className="btn btn-m bg-green-600 text-black"
+                  onClick={handleSaveClick}
+                >
                   <EditIcon />
-                  Login to Edit
+                  Save
                 </button>
-              </Link>
-            )}
+              ) : (
+                <button
+                  className="btn btn-m btn-primary"
+                  onClick={handleCustomizeClick}
+                >
+                  <EditIcon />
+                  Customize
+                </button>
+              )
+              // )
+              // : (
+              //   <Link href="/api/auth/login">
+              //     <button className="btn btn-m btn-primary">
+              //       <EditIcon />
+              //       Login to Edit
+              //     </button>
+              //   </Link>
+              // )
+            }
           </h1>
           <div className="grid grid-cols-8 gap-5 mt-5 mb-5">
             <img
@@ -187,15 +228,15 @@ const RecipePage = () => {
             />
             <div className="col-span-3">
               <h4 className="text-lg font-bold flex justify-between">
-                Ingredients:
-                {user && (
-                  <Link href={`/cart`}>
-                    <button className="btn btn-s btn-primary">
-                      <ShoppingBasketIcon className="mr-2" /> Buy the
-                      ingredients
-                    </button>
-                  </Link>
-                )}
+                <p>
+                  Ingredients:{" "}
+                  <span className="text-s font-normal">for 4 servings</span>
+                </p>
+                <Link href={`/cart`}>
+                  <button className="btn btn-s btn-primary">
+                    <ShoppingBasketIcon className="mr-2" /> Buy the ingredients
+                  </button>
+                </Link>
               </h4>
               <IngredientList
                 customize={customize}

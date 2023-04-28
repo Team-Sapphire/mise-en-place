@@ -9,6 +9,7 @@ import { IoIosCheckmarkCircleOutline, IoIosArrowDropright } from "react-icons/io
 import { useUser } from "@auth0/nextjs-auth0/client";
 import {useSelector, useDispatch} from 'react-redux';
 import recipeSlice from '../src/reducers/recipeSlice.js'
+import axios from 'axios'
 
 let recipeExample = {
   from: 1,
@@ -836,8 +837,15 @@ let recipeExample = {
 
 let Cart = () => {
   const [recipe, setRecipe] = useState(recipeExample.hits[0].recipe);
+  const [productToken, setProductToken] = useState();
   useEffect(() => {
     setRecipe(JSON.parse(localStorage.getItem("recipe")));
+    var getProductToken = async () => {
+      await axios.get('/api/kroger/productToken').then(response => {
+        setProductToken(response.data.access_token);
+      });
+    };
+    getProductToken()
   }, []);
 
   const { user, error, isLoading } = useUser();
@@ -857,7 +865,7 @@ let Cart = () => {
         {recipe && <div>
           {recipe.ingredients.map((ingredient, index) => {
             return (
-              <Ingredient key={index + ingredient} ingredient={ingredient} setCart={setCart} cart={cart} krogerCart={krogerCart}/>
+              <Ingredient key={index + ingredient} ingredient={ingredient} setCart={setCart} cart={cart} krogerCart={krogerCart} productToken={productToken} setProductToken={setProductToken}/>
             );
           })}
         </div>}
