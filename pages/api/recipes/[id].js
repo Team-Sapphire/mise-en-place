@@ -1,11 +1,11 @@
-import { get, saveUserRecipes } from "../../../src/database/recipes";
+import { getAllByUser, saveUserRecipes } from "../../../src/database/recipes";
 
 export default async function handler(req, res) {
   if (req.method === "GET") {
-    console.log(req.query);
-    req.body = {};
-    req.body.kroger_id = req.query.id;
-    await get(req, res);
+    // console.log(req.query);
+    // req.body = {};
+    // req.body.kroger_id = req.query.id;
+    await getAllByUser(req, res);
   }
 
   // console.log('hit the request!!!!!!!!!!!', req)

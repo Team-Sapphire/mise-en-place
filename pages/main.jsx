@@ -6,13 +6,14 @@ import FutureRecipes from "../src/components/main/futurerecipes.jsx";
 import RedirectButtons from "../src/components/main/redirectbuttons.jsx";
 import RecipeModal from "../src/components/main/recipemodal.jsx";
 import axios from "axios";
+import { useUser } from "@auth0/nextjs-auth0/client";
 let Main = () => {
   let [modalVisable, setModal] = useState(false);
   let [recipes, setRecipes] = useState([]);
   let [todaysRecipe, setTodaysRecipe] = useState();
   let [clickedRecipe, setClickedRecipe] = useState();
-  let [isLoading, setLoading] = useState(true);
-
+  let [letLoading, setLoading] = useState(true);
+  const { user, error, isLoading } = useUser();
   // useEffect(() =>{
   //   axios.get('http://localhost:3000/api/edamam/edamam')
   //   .then(res => console.log(res.data))
@@ -21,7 +22,13 @@ let Main = () => {
 
   useEffect(() => {
     let cached = localStorage.getItem("cached");
-    if (cached) {
+    if (user) {
+      axios.get(`/api/recipes/${user.sub.slice(14)}`)
+        .then((data) => {
+          console.log('data!', data)
+        })
+        .catch(err => console.log(err))
+    } else if (cached) {
       let parseCached = JSON.parse(cached);
       setRecipes(parseCached);
       setClickedRecipe(parseCached[0]);
@@ -39,9 +46,9 @@ let Main = () => {
         })
         .catch((err) => console.log(err));
     }
-  }, []);
+  }, [user]);
 
-  if (isLoading) {
+  if (letLoading) {
     return null;
   }
 
@@ -54,7 +61,7 @@ let Main = () => {
           <TodaysRecipe todaysRecipe={todaysRecipe} />
         </div>
 
-        <div className="col-span-4 row-span-4 p-4 shadow-lg rounded-md">
+        <div className="col-span-4 row-span-4 p-4 rounded-md shadow-lg">
           <FutureRecipes
             setModal={setModal}
             setClickedRecipe={setClickedRecipe}
@@ -64,7 +71,7 @@ let Main = () => {
             />
         </div>
 
-        <div className="col-span-2 row-span-4 p-4 shadow-lg rounded-md pt-12">
+        <div className="col-span-2 row-span-4 p-4 pt-12 rounded-md shadow-lg">
           <RedirectButtons />
         </div>
       </div>
