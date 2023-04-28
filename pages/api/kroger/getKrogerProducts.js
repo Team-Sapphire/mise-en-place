@@ -10,7 +10,7 @@ export default async function handler(req, res) {
       method: "GET",
       cache: "no-cache",
       headers: {
-        Authorization: `bearer ${token}`,
+        Authorization: `bearer ${process.env.KROGER_PRODUCT_TOKEN}`,
         "Content-Type": "application/json; charset=utf-8"
       }
     });
