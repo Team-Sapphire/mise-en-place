@@ -24,6 +24,7 @@ const RecipePage = () => {
   const [customize, setCustomize] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
   const [editedInstructions, editInstructions] = React.useState("");
+  const [servings, setServings] = React.useState(0);
   //divided recipe amounts by yield and then multiplied by amount of servings the user wants
 
   // TODO save with the ingredients, originally saves the ai generated instructions but upon editing, update with the newly edited instructions
@@ -48,7 +49,9 @@ const RecipePage = () => {
           if (res.data.data[0].instructions.length !== 0) {
             let noNNInstructions = [];
             res.data.data[0].instructions.forEach((step) => {
-              noNNInstructions.push(step.replaceAll(".nn", "."));
+              noNNInstructions.push(
+                step.replaceAll(".nn", ".").replaceAll(". nn", ".")
+              );
             });
             setInstructions(noNNInstructions);
           } else {
@@ -110,23 +113,43 @@ const RecipePage = () => {
         let recipe = res.data.recipe.recipe;
         localStorage.setItem("recipe", JSON.stringify(recipe));
         setThisRecipe(recipe);
-        let ingredientsAfter = [];
-        let servings = recipe.yield;
-        recipe.ingredientLines.forEach((ingredient) => {
-          let temp = ingredient.split(" ");
-          for (let i = 0; i < temp.length; i++) {
-            if (Number(temp[i])) {
-              temp[i] = Number(temp[i]) / servings;
-              // multiply by the number of servings they want from user profile
-            }
-          }
-          ingredientsAfter.push(temp.join(" "));
-        });
-        setIngredientsByYield(ingredientsAfter);
-        return res.data.recipe.recipe;
-      })
-      .then((recipe) => {
-        getRecipeInstructions(recipe);
+        //console.log(user.sub.slice(14));
+        // console.log(user);
+        axios
+          .get("/api/recipePage/getUserServings", {
+            params: { id: user.sub.slice(14) },
+          })
+          .then((res) => {
+            console.log(
+              res.data[0].preferences.meals,
+              res.data[0].preferences.people
+            );
+            let ingredientsAfter = [];
+            let servings = recipe.yield;
+            recipe.ingredientLines.forEach((ingredient) => {
+              let temp = ingredient.split(" ");
+              for (let i = 0; i < temp.length; i++) {
+                if (Number(temp[i])) {
+                  temp[i] =
+                    (Number(temp[i]) / servings) *
+                    (res.data[0].preferences.meals *
+                      res.data[0].preferences.people);
+                  // multiply by the number of servings they want from user profile
+                }
+              }
+              ingredientsAfter.push(temp.join(" "));
+              setServings(
+                res.data[0].preferences.meals * res.data[0].preferences.people
+              );
+            });
+            setIngredientsByYield(ingredientsAfter);
+          })
+          .then(() => {
+            getRecipeInstructions(recipe);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((err) => {
         console.log(err);
@@ -142,8 +165,38 @@ const RecipePage = () => {
     setCustomize(true);
   };
 
+  let newRecipeInstructions = () => {
+    axios.post("/api/recipePage/instructionEdit", {
+      recipe: {
+        name: recipe.label,
+        recipe_id: recipe.uri.split("_")[1],
+        ingredients: JSON.stringify(recipe.ingredientLines)
+          .replaceAll("[", "{")
+          .replaceAll("]", "}"),
+        instructions: JSON.stringify(instructions)
+          .replaceAll("[", "{")
+          .replaceAll("]", "}"),
+        restrictions: JSON.stringify(recipe.healthLabels)
+          .replaceAll("[", "{")
+          .replaceAll("]", "}")
+          .replaceAll("\\n\\n", ""),
+        photos: JSON.stringify({ 0: recipe.image }),
+        calorie_count: Math.floor(recipe.calories),
+        nutrition: JSON.stringify(recipe.totalNutrients),
+        cook_time: recipe.totalTime,
+      },
+      user: { id: user.sub.slice(14) },
+    });
+  };
   const handleSaveClick = (e) => {
-    console.log(editedInstructions);
+    // let newInstructionArray = editedInstructions.split("\n");
+    // newInstructionArray.unshift("nn");
+    // for (let i = 0; i < newInstructionArray.length; i++) {
+    //   if (newInstructionArray[i] === "") {
+    //     newInstructionArray.splice(i, 1);
+    //   }
+    // }
+    // console.log(newInstructionArray);
     setCustomize(false);
   };
 
@@ -158,30 +211,35 @@ const RecipePage = () => {
         <div className="ml-5 mt-5">
           <h1 className="text-5xl flex items-center gap-10">
             {thisRecipe.label}{" "}
-            {customize ? (
-              <button
-                className="btn btn-m bg-green-600 text-black"
-                onClick={handleSaveClick}
-              >
-                <EditIcon />
-                Save
-              </button>
-            ) : user ? (
-              <button
-                className="btn btn-m btn-primary"
-                onClick={handleCustomizeClick}
-              >
-                <EditIcon />
-                Customize
-              </button>
-            ) : (
-              <Link href="/api/auth/login">
-                <button className="btn btn-m btn-primary">
+            {
+              customize ? (
+                <button
+                  className="btn btn-m bg-green-600 text-black"
+                  onClick={handleSaveClick}
+                >
                   <EditIcon />
-                  Login to Edit
+                  Save
                 </button>
-              </Link>
-            )}
+              ) : (
+                // user ? (
+                <button
+                  className="btn btn-m btn-primary"
+                  onClick={handleCustomizeClick}
+                >
+                  <EditIcon />
+                  Customize
+                </button>
+              )
+              // )
+              // : (
+              //   <Link href="/api/auth/login">
+              //     <button className="btn btn-m btn-primary">
+              //       <EditIcon />
+              //       Login to Edit
+              //     </button>
+              //   </Link>
+              // )
+            }
           </h1>
           <div className="grid grid-cols-8 gap-5 mt-5 mb-5">
             <img
@@ -191,7 +249,13 @@ const RecipePage = () => {
             />
             <div className="col-span-3">
               <h4 className="text-lg font-bold flex justify-between">
-                Ingredients:
+                Ingredients{" "}
+                {servings && (
+                  <p className="font-normal text-s">
+                    {" "}
+                    {"  "}for {servings} servings
+                  </p>
+                )}
                 {user && (
                   <Link href={`/cart`}>
                     <button className="btn btn-s btn-primary">
