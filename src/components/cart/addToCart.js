@@ -26,8 +26,8 @@ const AddToCart = ({cart, user}) => {
     <>
       <div className='flex flex-col h-full justify-center'>
         <div className=''>
-          {disableButton ? <button className='flex items-center justify-center border h-12 w-40 border-black rounded-lg bg-orange-500 opacity-50 cursor-not-allowed'>Send to Kroger</button> :
-          <button className='flex items-center justify-center border h-12 w-40 border-black rounded-lg hover:scale-125 ease-in-out duration-300 bg-orange-500' onClick={handleAddToCart}>Send to Kroger <IoIosArrowForward className='mt-1' /></button>}
+          {disableButton ? <button className='flex items-center justify-center border h-12 w-40 border-black rounded-lg bg-base-100 opacity-50 cursor-not-allowed'>Send to Kroger</button> :
+          <button className='flex items-center justify-center border h-12 w-40 border-black rounded-lg hover:scale-125 ease-in-out duration-300 bg-primary-100 text-primary' onClick={handleAddToCart}>Send to Kroger <IoIosArrowForward className='mt-1' /></button>}
         </div>
         <div>
       </div>
