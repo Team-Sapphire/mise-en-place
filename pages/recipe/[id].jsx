@@ -172,7 +172,7 @@ const RecipePage = () => {
 
   if (!loading) {
     return (
-      <div>
+      <div className="h-[100vh] overflow-scroll">
         <Header />
         <div className="ml-5 mt-5">
           <h1 className="text-5xl flex items-center gap-10">
