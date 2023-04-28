@@ -10,7 +10,6 @@ export default async function handler(req, res) {
     });
 
     if (req.body.token === undefined) {
-      console.log('still?')
       var token = process.env.KROGER_CART_TOKEN;
     } else {
       console.log('If you see this I think it works')

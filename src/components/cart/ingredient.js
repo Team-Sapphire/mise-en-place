@@ -2,18 +2,21 @@ import React from 'react'
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 
-const Ingredient = ({ingredient, setCart, cart, krogerCart}) => {
+const Ingredient = ({ingredient, setCart, cart, krogerCart, productToken, setProductToken}) => {
+
   useEffect(() => {
     var handleKroger = async () => {
-      await axios.post('/api/kroger/getKrogerProducts', {ingredient: ingredient.food}).then(response => {
+      await axios.post('/api/kroger/getKrogerProducts', {ingredient: ingredient.food, pToken: productToken}).then(response => {
         let products = response.data.data;
         krogerCart.push(products[0]);
         console.log(krogerCart);
         setCart(krogerCart);
       })
     };
-    handleKroger();
-  }, []);
+    if (productToken) {
+      handleKroger()
+    };
+  }, [productToken]);
 
   return (
     <div>
