@@ -29,6 +29,11 @@ const testimonials = [
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
     "Jeff",
   ],
+  [
+    "My love for chicken has only grown fonder than my love for rice thanks to Mise.",
+    "https://ca.slack-edge.com/T01J1BRG8E4-U04MT2NFYDV-60bc89d6fdbc-512",
+    "Kyle B - Chicken Connoisseur",
+  ],
 ];
 
 function Testimonials({ addCb, handleClick }) {

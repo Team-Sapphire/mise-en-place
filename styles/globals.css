@@ -26,6 +26,21 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+@keyframes moveJeff {
+  0% {
+    background-position: 0%;
+  } 50% {
+    background-position: 200%;
+  } 100% {
+    background-position: 0%;
+  }
+}
+
+.jeffBack {
+  background-size: 25px;
+  animation: moveJeff 100s linear infinite;
+}
+
 html,
 body,
 div#__next {
