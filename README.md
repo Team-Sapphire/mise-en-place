@@ -138,6 +138,61 @@ The primary goal of this repository was to provide an educational platform for o
 
 ## Contact
 
+[Sarah Folk](https://www.linkedin.com/in/sarahfolk11/)
+
+<p>
+ <a href="https://www.linkedin.com/in/sarahfolk11/">
+ <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white">
+ </a>
+ <a href="https://github.com/Sarah-Folk">
+ <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white">
+ </a>
+</p>
+
+[Stephen Perkins](https://www.linkedin.com/in/stephen-perkins-45310a4b/)
+
+<p>
+ <a href="https://www.linkedin.com/in/stephen-perkins-45310a4b/">
+ <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white">
+ </a>
+ <a href="https://github.com/s-perk">
+ <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white">
+ </a>
+</p>
+
+[Xiao Wen Wu](https://www.linkedin.com/in/xiaowen-wu/)
+
+<p>
+ <a href="https://www.linkedin.com/in/xiaowen-wu/">
+ <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white">
+ </a>
+ <a href="https://github.com/Immatrainz">
+ <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white">
+ </a>
+</p>
+
+[Kyle Bradford](https://www.linkedin.com/in/kyle-h-bradford/)
+
+<p>
+ <a href="https://www.linkedin.com/in/kyle-h-bradford/">
+ <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white">
+ </a>
+ <a href="https://github.com/Mrkonflake">
+ <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white">
+ </a>
+</p>
+
+[Ermin Sljivo](https://www.linkedin.com/in/ermin-s/)
+
+<p>
+ <a href="https://www.linkedin.com/in/ermin-s/">
+ <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white">
+ </a>
+ <a href="https://github.com/Ermin17">
+ <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white">
+ </a>
+</p>
+
 [Natale Toscano](https://www.linkedin.com/in/nataletoscano/)
 
 <p>
