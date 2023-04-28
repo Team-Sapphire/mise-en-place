@@ -6,7 +6,10 @@ import IngredientList from "../../src/components/recipe/ingredientList.jsx";
 import HealthLabels from "../../src/components/recipe/healthLabels.jsx";
 import Header from "../../src/components/header/Header.jsx";
 
-import { useUser } from "@auth0/nextjs-auth0";
+import EditIcon from "@mui/icons-material/Edit";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+
+// import { useUser } from "@auth0/nextjs-auth0";
 
 const axios = require("axios");
 
@@ -154,10 +157,6 @@ const RecipePage = () => {
     return <p key={index}>{step}</p>;
   });
 
-  // const handleSendToCartClick = (e) => {
-  //   dispatch(recipeSlice.actions.setRecipeState(thisRecipe));
-  // };
-
   const handleCustomizeClick = (e) => {
     setCustomize(true);
   };
@@ -175,18 +174,23 @@ const RecipePage = () => {
     return (
       <div>
         <Header />
-        <div className="ml-5">
+        <div className="ml-5 mt-5">
           <h1 className="text-5xl flex items-center gap-10">
             {thisRecipe.label}{" "}
             {customize ? (
               <button
-                className="btn btn-sm bg-green-600 text-black"
+                className="btn btn-m bg-green-600 text-black"
                 onClick={handleSaveClick}
               >
+                <EditIcon />
                 Save
               </button>
             ) : (
-              <button className="btn btn-sm" onClick={handleCustomizeClick}>
+              <button
+                className="btn btn-m btn-primary"
+                onClick={handleCustomizeClick}
+              >
+                <EditIcon />
                 Customize
               </button>
             )}
@@ -199,11 +203,12 @@ const RecipePage = () => {
             />
             <div className="col-span-3">
               <h4 className="text-lg font-bold flex justify-between">
-                Ingredients: && (
+                Ingredients:
                 <Link href={`/cart`}>
-                  <button className="btn btn-xs">Buy the ingredients</button>
+                  <button className="btn btn-s btn-primary">
+                    <ShoppingBasketIcon className="mr-2" /> Buy the ingredients
+                  </button>
                 </Link>
-                )
               </h4>
               <IngredientList
                 customize={customize}
@@ -211,7 +216,7 @@ const RecipePage = () => {
               />
             </div>
             <div className="col-span-2">
-              <h4 className="text-m font-bold">Labels:</h4>
+              <h4 className="text-m font-bold">Health Labels:</h4>
               <HealthLabels thisRecipe={thisRecipe} />
             </div>
           </div>
@@ -227,32 +232,37 @@ const RecipePage = () => {
               ) : (
                 <div>{instructions && stepList}</div>
               )}
-              <div className="text-[10px] justify-self-center grid grid-cols-2">
-                <div>
-                  {Object.values(thisRecipe.totalNutrients)
-                    .slice(0, 18)
-                    .map((nutrient) => {
-                      return (
-                        <p key={nutrient.label}>
-                          {nutrient.label}:{" "}
-                          {Math.floor(nutrient.quantity) / thisRecipe.yield}{" "}
-                          {nutrient.unit}
-                        </p>
-                      );
-                    })}
+              <div className="flex flex-col">
+                <div className="place-self-center font-bold">
+                  Nutrition Information (per serving)
                 </div>
-                <div>
-                  {Object.values(thisRecipe.totalNutrients)
-                    .slice(18)
-                    .map((nutrient) => {
-                      return (
-                        <p key={nutrient.label}>
-                          {nutrient.label}:{" "}
-                          {Math.floor(nutrient.quantity) / thisRecipe.yield}{" "}
-                          {nutrient.unit}
-                        </p>
-                      );
-                    })}
+                <div className="text-xs grid grid-cols-2">
+                  <div className="justify-self-end">
+                    {Object.values(thisRecipe.totalNutrients)
+                      .slice(0, 18)
+                      .map((nutrient) => {
+                        return (
+                          <p key={nutrient.label}>
+                            {nutrient.label}:{" "}
+                            {Math.floor(nutrient.quantity) / thisRecipe.yield}{" "}
+                            {nutrient.unit}
+                          </p>
+                        );
+                      })}
+                  </div>
+                  <div className="justify-self-center">
+                    {Object.values(thisRecipe.totalNutrients)
+                      .slice(18)
+                      .map((nutrient) => {
+                        return (
+                          <p key={nutrient.label}>
+                            {nutrient.label}:{" "}
+                            {Math.floor(nutrient.quantity) / thisRecipe.yield}{" "}
+                            {nutrient.unit}
+                          </p>
+                        );
+                      })}
+                  </div>
                 </div>
               </div>
             </div>
