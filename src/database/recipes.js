@@ -3,11 +3,28 @@ const client = require('./connection.js').client
 
 module.exports = {
   getAllByUser: (req, res) => {
-    let user_id = req.body.user_id
+    let kroger_id = req.query.id
 
     let queryString =
-    `select * from userrecipes\
-     where id=${user_id}
+    `SELECT
+      users.id as "user_id",
+      recipes.recipe_id,
+      recipes."name" as "label",
+      recipes.ingredients as "ingredientLines",
+      recipes.instructions,
+      recipes.restrictions as "healthLabels",
+      recipes.photos as "image",
+      recipes.calorie_count,
+      recipes.nutrition,
+      recipes.cook_time,
+      recipes.yield
+
+    FROM userrecipes
+      JOIN users on users.id = userrecipes.user_id
+      JOIN recipes on recipes.id = userrecipes.recipe_id
+      WHERE users.kroger_id='${kroger_id}'
+
+    LIMIT 1000
     `
 
     client.query(queryString)

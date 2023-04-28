@@ -14,7 +14,7 @@ export default async function handler(req, res) {
       var token = process.env.KROGER_CART_TOKEN;
     } else {
       console.log('If you see this I think it works')
-      var token = req.body['mise/token'];
+      var token = req.body.token;
     }
 
     var cart = req.body.cart;
@@ -32,7 +32,7 @@ export default async function handler(req, res) {
       method: "PUT",
       cache: "no-cache",
       headers: {
-        Authorization: `bearer ${process.env.KROGER_CART_TOKEN}`,
+        Authorization: `bearer ${token}`,
         "Content-Type": "application/json; charset=utf-8",
       },
       body: JSON.stringify({"items": addToCart})
