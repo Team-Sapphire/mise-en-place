@@ -86,7 +86,7 @@ Our comprehensive platform offers a user-friendly solution for tracking meal ing
 
 <ol>
   <li>
-    <h1>Prerequisites</h1>
+    <h3>Prerequisites</h3>
     <p>
       This repository uses:
       <ul>
@@ -99,40 +99,38 @@ Our comprehensive platform offers a user-friendly solution for tracking meal ing
         It will also assume you have a <a href='https://www.howtogeek.com/27350/beginner-geek-how-to-edit-your-hosts-file/'>hosts</a> file with the following line:
         127.0.0.1 dev.local
         This is needed to enable SSL.
-
         It will also assume you have a keysAndCerts folder in your root with an SSL certificate named: "localhost.crt" and an SSL key named: "localhost.key" and these should be for the domain dev.local.
         <a href="https://gist.github.com/cecilemuller/9492b848eb8fe46d462abeb26656c4f8">How To</a>
     </p>
-
   </li>
+  <li>
+    <h3>Clone the repository.</h3>
+  </li>
+  <li>
+    <h3>Duplicate the env.local.copy and rename it to env.local.</h3>
+  </li>
+  <li>
+    Add values to the env.local:
+    ```bash
+    AUTH0_SECRET=use [openssl rand -hex 32] to generate a 32 bytes value
+    AUTH0_BASE_URL=This is your Auth0 Callback URL (starting with https://)
+    AUTH0_ISSUER_BASE_URL=Your Auth0 Domain (starting with https://)
+    AUTH0_CLIENT_ID=Your Auth0 ClientID
+    AUTH0_CLIENT_SECRET= Your Auth0 Client Secret
+    DATABASE_URL=URL of Postgres database
+    EDAMAM_APP_ID=Edamam API ID
+    EDAMAM_API_KEY=Edamam API Key
+    OPENAI_API_KEY=OpenAI API Key
+    ```
+  </li>
+  <li>
+    <h3>Start the server with:</h3>
+    ```bash
+    npm run dev
+    ```
+  </li>
+  <li><h3>Optionally, deploy to <a href="https://vercel.com">Vercel</a>, easily!</h3></li>
 </ol>
-0. Prerequisites:
-
-1. Clone the repository.
-
-2. Duplicate the env.local.copy and rename it to env.local.
-
-3. Add values to the env.local:
-
-```bash
-AUTH0_SECRET=use [openssl rand -hex 32] to generate a 32 bytes value
-AUTH0_BASE_URL=This is your Auth0 Callback URL (starting with https://)
-AUTH0_ISSUER_BASE_URL=Your Auth0 Domain (starting with https://)
-AUTH0_CLIENT_ID=Your Auth0 ClientID
-AUTH0_CLIENT_SECRET= Your Auth0 Client Secret
-DATABASE_URL=URL of Postgres database
-EDAMAM_APP_ID=Edamam API ID
-EDAMAM_API_KEY=Edamam API Key
-OPENAI_API_KEY=OpenAI API Key
-```
-
-4. Start the server with:
-
-```bash
-npm run dev
-```
-
-5. Optionally, deploy to <a href="https://vercel.com">Vercel</a>, easily!
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
