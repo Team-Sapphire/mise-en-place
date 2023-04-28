@@ -8,7 +8,6 @@ const AddToCart = ({cart, user}) => {
   var usersCart = {};
   var token;
   if (user === undefined) {
-    console.log('hello')
     var userToken = undefined;
     usersCart.token = userToken;
   } else {
