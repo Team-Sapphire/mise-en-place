@@ -37,7 +37,7 @@ module.exports = {
 
   },
 
-  // User saves new recipe to profile
+  // User saves new recipe
   saveUserRecipe: function (req, res) {
 
     let queryStrRecipes =
@@ -68,6 +68,110 @@ module.exports = {
     .catch((err) => {
       console.log('Error saving to recipes database', err.message)
     })
+
+  },
+
+  saveUserRecipes: function (req, res) {
+    console.log('save user recipes', req.body.length)
+
+    let user_id = req.query.id;
+    let recipes = req.body
+    let queryStr = ''
+    console.log('user id', user_id)
+
+    // Create a giant string
+    for (let i = 0; i < recipes.length; i++) {
+
+
+      let recipe_id = recipes[i].recipe.uri.split('recipe_')[1]
+      let name = recipes[i].recipe.label
+      let ingredientLines = JSON.stringify(recipes[i].recipe.ingredientLines)
+        .replaceAll("[", "{")
+        .replaceAll("]", "}")
+      let instructions = '{}'
+
+      let restrictions = JSON.stringify(recipes[i].recipe.healthLabels)
+        .replaceAll("[", "{")
+        .replaceAll("]", "}")
+        .replaceAll(".nn", ".")
+      // let photos = JSON.stringify(recipes[i].recipe.images)
+      // let photos = '{}'
+      let photos = JSON.stringify({ 0: recipes[i].recipe.image })
+      let calorie_count = Math.round(recipes[i].recipe.calories)
+      let nutrition = JSON.stringify(recipes[i].recipe.totalNutrients)
+      let cook_time = Math.round(+recipes[i].recipe.totalTime)
+
+
+      console.log('recipe id', recipe_id)
+      let columns = `
+        recipe_id,
+        name,
+        ingredients,
+        instructions,
+        restrictions,
+        photos,
+        calorie_count,
+        nutrition,
+        cook_time
+      `
+      let values = `
+        '${recipe_id}',
+        '${name}',
+        '${ingredientLines}',
+        '${instructions}',
+        '${restrictions}',
+        '${photos}',
+        '${calorie_count}',
+        '${nutrition}',
+        '${cook_time}'
+
+      `
+      let queryStrRecipes =
+      ` INSERT INTO recipes (
+          ${columns}
+        ) VALUES (
+          ${values}
+        )
+
+        ON CONFLICT (recipe_id) DO UPDATE SET (
+          ${columns}
+        ) = (
+          ${values}
+        )
+
+        WHERE recipes.recipe_id = '${recipe_id}'
+        RETURNING id;
+      `
+
+      console.log('query string recipes', queryStrRecipes)
+
+
+
+      client.query(queryStrRecipes)
+        .then((data) => {
+          let recipe_id = data.rows[0].id
+
+          let queryStrUserRecipes =
+          `INSERT INTO userrecipes (user_id, recipe_id, favorite)
+          VALUES ('${user_id}','${recipe_id}',false);
+          `
+          console.log('query string userrecipes', queryStrUserRecipes)
+
+          client.query(queryStrUserRecipes)
+            .catch((err) => {
+              console.log('Error saving to userrecipes database', err.message)
+            })
+
+        }
+      )
+      .then((data) => {
+        res.status(201).send('Status: 201 CREATED')
+      })
+      .catch((err) => {
+        console.log('Error saving to recipes database', err.message)
+      })
+    }
+
 
   },
 
