@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 
-const QuantitiesForm = () => {
+const QuantitiesForm = ({ allPreferences, setAllPreferences }) => {
   const [numberOfPeople, setNumberOfPeople] = useState(1);
   const [numberOfMeals, setNumberOfMeals] = useState(1);
 
   return (
-    <form>
+    <>
       <label htmlFor='people'>Number of people (up to 6):</label>
-      <input type='number' id='people' name='people' placeholder='1' min='1' max='6' onChange={e => setNumberOfPeople(e.target.value)} />
+      <input type='number' id='people' name='people' placeholder='1' min='1' max='6' onChange={e => {
+        let num = Number(e.target.value)
+        setNumberOfPeople(num)
+        setAllPreferences({...allPreferences, people: num})}} />
       <label htmlFor='meals'>Number of meals per week (up to 21):</label>
-      <input type='number' id='meals' name='meals' placeholder='1' min='1' max='21' onChange={e => setNumberOfMeals(e.target.value)} />
+      <input type='number' id='meals' name='meals' placeholder='1' min='1' max='21' onChange={e => {
+        let num = Number(e.target.value)
+        setNumberOfMeals(num)
+        setAllPreferences({...allPreferences, meals: num})}} />
       <p>
         You will receive{numberOfMeals == 1 ?
         <span> {numberOfMeals} meal </span> :
@@ -21,7 +27,7 @@ const QuantitiesForm = () => {
         <span> {numberOfMeals * numberOfPeople} serving in total. </span> :
         <span> {numberOfMeals * numberOfPeople} servings in total. </span>}
       </p>
-    </form>
+    </>
   )
 };
 
