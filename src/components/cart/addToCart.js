@@ -5,9 +5,16 @@ import { IoIosArrowForward } from 'react-icons/io'
 
 const AddToCart = ({cart, user}) => {
 
-  // var usersCart = {};
-  // usersCart.user = user['mise/token'];
-  // usersCart.cart = cart;
+  var usersCart = {};
+  var token;
+  if (user === undefined) {
+    console.log('hello')
+    var userToken = undefined;
+    usersCart.token = userToken;
+  } else {
+    var userToken = user['mise/token'];
+    usersCart.token = userToken;
+  }
 
   const [disableButton, setDisableButton] = useState(true);
   setTimeout(() => {
@@ -16,8 +23,9 @@ const AddToCart = ({cart, user}) => {
 
   var handleAddToCart = () => {
     console.log('Adding to cart');
-    console.log(cart);
-    axios.post('/api/kroger/addToKrogerCart', cart).then(response => {
+    usersCart.cart = cart;
+    console.log(usersCart)
+    axios.post('/api/kroger/addToKrogerCart', usersCart).then(response => {
       console.log(response);
     });
   };

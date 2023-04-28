@@ -3,7 +3,6 @@ import {useState, useEffect} from 'react'
 import axios from 'axios'
 
 const Ingredient = ({ingredient, setCart, cart, krogerCart}) => {
-  console.log(ingredient)
   useEffect(() => {
     var handleKroger = async () => {
       await axios.post('/api/kroger/getKrogerProducts', {ingredient: ingredient.food}).then(response => {
