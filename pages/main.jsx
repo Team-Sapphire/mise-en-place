@@ -68,13 +68,13 @@ let Main = () => {
 
     <div>
       <Header />
-      <div className="grid lg:grid-cols-6 grid-rows-6 gap-5 h-[1300px] w-[100%]">
-        <div className="col-span-6 row-span-2 p-4 shadow-lg rounded-md pt-[10%]">
+      <div className="grid lg:grid-cols-6 grid-rows-6 gap-5 h-[1200px] w-[100%]">
+        <div className="col-span-6 row-span-2 p-4 shadow-lg rounded-md pt-[5%] h-[300px]">
           <TodaysRecipe todaysRecipe={todaysRecipe}
           fromDataBase={fromDatabase} clickedRecipe={clickedRecipe} />
         </div>
 
-        <div className="col-span-4 row-span-4 p-4 overflow-hidden overflow-scroll rounded-md shadow-lg">
+        <div className="col-span-4 row-span-4 overflow-hidden overflow-scroll rounded-md shadow-lg">
           <FutureRecipes
           fromDataBase={fromDatabase}
             setModal={setModal}
@@ -85,7 +85,7 @@ let Main = () => {
             />
         </div>
 
-        <div className="col-span-2 row-span-4 p-4 pt-12 rounded-md shadow-lg">
+        <div className="col-span-2 row-span-4 p-4 pt-8 rounded-md shadow-lg">
           <RedirectButtons />
         </div>
       </div>
