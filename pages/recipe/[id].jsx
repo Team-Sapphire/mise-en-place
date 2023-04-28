@@ -46,7 +46,11 @@ const RecipePage = () => {
         .then((res) => {
           console.log(res.data.data[0].instructions);
           if (res.data.data[0].instructions.length !== 0) {
-            setInstructions(res.data.data[0].instructions);
+            let noNNInstructions = [];
+            res.data.data[0].instructions.forEach((step) => {
+              noNNInstructions.push(step.replaceAll(".nn", "."));
+            });
+            setInstructions(noNNInstructions);
           } else {
             axios
               .post("/api/recipePage/instructions", {
