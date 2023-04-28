@@ -77,11 +77,11 @@ module.exports = {
     `;
 
 
-    console.log('Post user! query string! look!', queryStr)
+
     client
       .query(queryStr)
       .then((data) => {
-        res.status(201).send("Status: 201 CREATED");
+        res.status(201).send(data);
       })
       .catch((err) => {
         console.log("Error", err);

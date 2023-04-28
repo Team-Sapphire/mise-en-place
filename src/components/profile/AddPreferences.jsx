@@ -131,6 +131,7 @@ const AddPreferences = () => {
       axios.post("/api/users/" + user.sub.slice(14), allPreferences)
         .then(res => {
           let id = res.data.rows[0].id
+          console.log(id)
           return id
         })
         .then( (id) => {
