@@ -125,7 +125,7 @@ const AddPreferences = () => {
       }
     })
     .then(result => {
-      result.data
+
       console.log('look at this edamam data!',result.data)
       console.log('user', user.sub.slice(14))
       axios.post("/api/users/" + user.sub.slice(14), allPreferences)
