@@ -111,7 +111,7 @@ Our comprehensive platform offers a user-friendly solution for tracking meal ing
   </li>
   <li>
     Add values to the env.local:
-    ```bash
+
     AUTH0_SECRET=use [openssl rand -hex 32] to generate a 32 bytes value
     AUTH0_BASE_URL=This is your Auth0 Callback URL (starting with https://)
     AUTH0_ISSUER_BASE_URL=Your Auth0 Domain (starting with https://)
@@ -121,13 +121,13 @@ Our comprehensive platform offers a user-friendly solution for tracking meal ing
     EDAMAM_APP_ID=Edamam API ID
     EDAMAM_API_KEY=Edamam API Key
     OPENAI_API_KEY=OpenAI API Key
-    ```
+
   </li>
   <li>
     <h3>Start the server with:</h3>
-    ```bash
+
     npm run dev
-    ```
+
   </li>
   <li><h3>Optionally, deploy to <a href="https://vercel.com">Vercel</a>, easily!</h3></li>
 </ol>
