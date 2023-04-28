@@ -128,7 +128,7 @@ const AddPreferences = () => {
       result.data
       console.log('look at this edamam data!',result.data)
       console.log('user', user.sub.slice(14))
-      axios.get("/api/users/" + user.sub.slice(14))
+      axios.post("/api/users/" + user.sub.slice(14), allPreferences)
         .then(res => {
           let id = res.data.rows[0].id
           return id
