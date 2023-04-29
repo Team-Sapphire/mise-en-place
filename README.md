@@ -61,7 +61,7 @@ On the cart page, users can send their currently selected recipe's ingredients t
 - Utilizes Kroger's API to get the Kroger equivalent products using their UPC.
 - Upon clicking the Send to Kroger button, the products listed are added to the user's Kroger cart.
 
-<img src='https://imgur.com/a/bWn4eXi'>
+<img src='https://i.imgur.com/Lg9Es1V.gif'>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -75,7 +75,7 @@ ns.
 ## Database via Neon
 
 Recipe and user data is stored on Neon's serverless PostgreSQL platform, and queries are handled with the <pre>node-postgres</pre> package. The schema is outlined below:
-<img src="https://imgur.com/a/mwm8Gn2">
+<img src="https://i.imgur.com/Wz8Pz7j.png">
 
 Writes to the database occur at several key points throughout the application, primarily when:
 
