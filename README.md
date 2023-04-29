@@ -16,6 +16,7 @@
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 ![Axios](https://img.shields.io/badge/-Axios-671ddf?logo=axios&logoColor=black&style=for-the-badge)
+![PostgreSQL](https://img.shields.io/badge/database-postgresql-f6c819?style=for-the-badge&logo=postgresql&logoColor=white&labelColor=21223e)
 
 <details>
   <summary>Table of Contents</summary>
@@ -46,37 +47,86 @@ As modern lifestyles demand efficiency and convenience, individuals with busy ca
 
 Our comprehensive platform offers a user-friendly solution for tracking meal ingredients, recipes, and meal planning, streamlining the culinary process and promoting a seamless cooking experience. Furthermore, Mise en Place fosters a sense of community by connecting individuals through their shared passion for food, making the culinary journey more engaging and enjoyable for all.
 
-## Recipe recommendation
+## OpenAI Integration for Recipe Creation
+
+In order to provide comprehensive and customized cooking instructions to users for a wide range of recipes, we leveraged OpenAI since the Edamam API did not include instructions for their recipes. By submitting a prompt consisting of the recipe name and ingredients, we were able to generate personalized recipe instructions using the power of the OpenAI platform.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-## OpenAI Integration with Recipe Creation
+## Cart Integration via Kroger
+
+On the cart page, users can send their currently selected recipe's ingredients to Kroger.
+
+- Users can log in with their Kroger account to gain access to the cart's functionality.
+- Utilizes Kroger's API to get the Kroger equivalent products using their UPC.
+- Upon clicking the Send to Kroger button, the products listed are added to the user's Kroger cart.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## User Preferences
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-## Landing Page
+Once users are logged in, they are able to add custom data to their account describing their dietary and health preferences, as well as the number of people and meals to determine how many meals and servings the app should provide. This data is then compiled and sent directly to the Edamam API, which then sends back recipes matching that user's preferences and specifications. The preferences are specifins.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-## Cart integration via Kroger
+## Recipe Recommendation via Edamam
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Database via Neon
 
+Recipe and user data is stored on Neon's serverless PostgreSQL platform.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+## Landing Page
+
+<img src="https://i.imgur.com/R0HPxW9.png">
+
+The landing page invites the user into explore and investigate Mise En Place.
+
+Key elements:
+
+- Main Image Carousel: The main image carousel showcases a variety of enticing food images to engage users and highlight the app's features.
+- User Testimonial: A section with a real user's testimonial accompanied by their picture is displayed, showcasing the app's positive impact on users' lives.
+- About The App - This section briefly explains the purpose of Mise En Place, with a brief description, image, and navigation buttons to explore more about the app.
+- Connect with Kroger - A button which encourages users to connect with their Kroger account for a seamless, automatic shopping experience.
+
+Interactivity:
+
+- The main image carousel as well as the user testimonial section can be clicked on to cycle through each others' images/cards.
+- The About The App Section is an interactive section that prioritizes teaching the user what the app can do and how.
+- The Connect With Kroger/Log In buttons can be clicked on to go through the Auth0 portal to authenticate through Kroger so ingredients can be saved to the user's Kroger cart.
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Recipe Page
+
+When a recipe is clicked on the main page, the recipe page is displayed that provides in-depth information on the selected recipe.
+
+- This information is obtained from the Edamam API and includes details such
+
+  - Ingredients, these quantities are adjusted to match the number of servings selected by the user.
+  - Nutritional values per serving
+  - Health Labels that pertain to the recipe such as the cuisine type and dietary limitations
+
+- To generate the recipe instructions, we utilized OpenAI, which provides personalized cooking instructions based on the ingredients and recipe name.
+- The generated instructions can be edited based on user preference through the Customize button.
+
+- A "Buy the Ingredients" button takes the user to the Kroger cart implementation page.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Main Page
 
 <p align="right">(<a href="#top">back to top</a>)</p>
+
+The Main Page is the first the the user sees after logging in to select recipes
+
+- Future Recipes: Displays current recipes based off what the user inserted into the preferences. If preferences are not selected, displays a set 20 recipes
+- Todays Recipe: Dynamically renders the selected recipe at the top of the page. after clicking the "Lets Make It" button, sends the selected recipe to the recipe page.
+- Recipe Modal: When clicking the question mark button on a recipe, a pop up modal comes up with an image and ingredients ordered list. A quick detail page of a recipe
+-
 
 ## Installation
 
