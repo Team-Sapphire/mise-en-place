@@ -72,10 +72,6 @@ ns.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-## Recipe Recommendation via Edamam
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
 ## Database via Neon
 
 Recipe and user data is stored on Neon's serverless PostgreSQL platform, and queries are handled with the <pre>node-postgres</pre> package. The schema is outlined below:
