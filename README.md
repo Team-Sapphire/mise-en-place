@@ -93,13 +93,13 @@ Writes to the database occur at several key points throughout the application, p
 
 <img src="https://i.imgur.com/R0HPxW9.png">
 
-The landing page invites the user into explore and investigate Mise En Place.
+The landing page invites the user to explore and investigate Mise En Place.
 
 Key elements:
 
 - Main Image Carousel: The main image carousel showcases a variety of enticing food images to engage users and highlight the app's features.
 - User Testimonial: A section with a real user's testimonial accompanied by their picture is displayed, showcasing the app's positive impact on users' lives.
-- About The App - This section briefly explains the purpose of Mise En Place, with a brief description, image, and navigation buttons to explore more about the app.
+- About The App - This section briefly explains the purpose of Mise en Place, with a brief description, image, and navigation buttons to explore the app further.
 - Connect with Kroger - A button which encourages users to connect with their Kroger account for a seamless, automatic shopping experience.
 
 Interactivity:
