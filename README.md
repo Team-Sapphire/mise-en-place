@@ -1,11 +1,13 @@
-<p align="center" style="margin-bottom: 0px;">
-  <img src="./public/logo-chef-hat.svg#gh-dark-mode-only" width="15%">
-  <img src="./public/logo-chef-hat-black.svg#gh-light-mode-only" width="15%">
-</p>
-<p align="center">
-  <img src="./public/logo-mise-en-place.svg#gh-dark-mode-only" width="40%">
-  <img src="./public/logo-mise-en-place-black.svg#gh-light-mode-only" width="40%">
-</p>
+<div>
+  <div align="center" style="margin-bottom: 0px;">
+    <img src="./public/logo-chef-hat.svg#gh-dark-mode-only" width="15%">
+    <img src="./public/logo-chef-hat-black.svg#gh-light-mode-only" width="15%">
+  </div>
+  <div align="center">
+    <img src="./public/logo-mise-en-place.svg#gh-dark-mode-only" width="40%">
+    <img src="./public/logo-mise-en-place-black.svg#gh-light-mode-only" width="40%">
+  </div>
+</div>
 
 ## Tech Stack
 
