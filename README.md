@@ -1,11 +1,9 @@
-<div style="display: flex; justify-content:center; width:100%;">
-  <div style="display:flex; justify-content: center; flex-basis:80%;">
-      <img src="./public/logo-chef-hat.svg" style="width:3em; height:3em;" alt="chef hat"/>
-  </div>
-  <div>
-      <img src="./public/logo-mise-en-place.svg" style="width:10em;" alt="logo"/>
-  </div>
-</div>
+<p align="center">
+  <img src="./public/logo-chef-hat.svg#gh-dark-mode-only" width="30%">
+  <img src="./public/logo-chef-hat-black.svg#gh-light-mode-only" width="30%">
+  <img src="./public/logo-mise-en-place.svg#gh-dark-mode-only" width="80%">
+  <img src="./public/logo-mise-en-place-black.svg#gh-light-mode-only" width="80%">
+</p>
 
 ## Tech Stack
 
