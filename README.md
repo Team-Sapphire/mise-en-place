@@ -1,4 +1,4 @@
-<p align="center">
+<p align="center" style="margin-bottom: 0px;">
   <img src="./public/logo-chef-hat.svg#gh-dark-mode-only" width="15%">
   <img src="./public/logo-chef-hat-black.svg#gh-light-mode-only" width="15%">
 </p>
