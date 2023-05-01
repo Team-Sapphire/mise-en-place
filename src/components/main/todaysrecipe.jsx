@@ -4,7 +4,7 @@ let TodaysRecipe = ({todaysRecipe, clickedRecipe, fromDataBase}) => {
   return (
     <div className="flex justify-between items-center border-2 border-primary rounded-lg">
 
-      <div className="flex rounded-lg pl-10 text-primary text-xl"><p className="">Todays Recipe: </p>
+      <div className="flex rounded-lg pl-10 text-primary text-xl"><p>Todays Recipe: </p>
       </div>
       <div className="flex rounded-lg pl-10 text-primary text-xl">
       <h1> {fromDataBase ? clickedRecipe.label : clickedRecipe.recipe.label}</h1>

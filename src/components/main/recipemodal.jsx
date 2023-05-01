@@ -2,9 +2,8 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 const RecipeModal = ({ setModal, modalVisable, clickedRecipe, fromDataBase }) => {
   console.log(fromDataBase, clickedRecipe, 'from clicked recipe')
-  let [ingredients, setIngredients] = useState(
-    fromDataBase ? clickedRecipe.ingredientLines : clickedRecipe.recipe.ingredientLines
-  );
+  let ingredients = fromDataBase ? clickedRecipe.ingredientLines : clickedRecipe.recipe.ingredientLines;
+
   let [isLoading, setLoading] = useState(true);
 
   let handleClose = () => {
