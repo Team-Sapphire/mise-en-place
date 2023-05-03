@@ -9,7 +9,7 @@ import Image from 'next/image'
 function Logo () {
 
   return (
-    <div className='flex-col pl-3'>
+    <div className='flex-col absolute left-[49%] pb-4 -translate-x-[50%]'>
       <div className='flex justify-center basis-4/5'>
         <a target="_blank" >
           <Image src={chefHat} className="w-12 h-12 logo" alt='chef hat'/>
