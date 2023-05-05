@@ -69,6 +69,8 @@ On the cart page, users can send their currently selected recipe's ingredients t
 
 ## User Preferences
 
+<img src="https://i.imgur.com/bHyt0BK.png">
+
 Once users are logged in, they are able to add custom data to their account describing their dietary and health preferences, as well as the number of people and meals to determine how many meals and servings the app should provide. This data, unique to each user, is then compiled and sent directly to the Edamam API, which then sends back recipes matching that user's preferences and specifications. Any subsequent changes by the user to the preferences, exclusions, or quantities will be updated in the database, and recipe recommendations for that user will change accordingly.
 ns.
 
